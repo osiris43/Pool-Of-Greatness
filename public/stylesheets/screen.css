@@ -1,0 +1,85 @@
+/* GENERAL HTML Tags */
+
+/* Subsection 1: CSS Reset */
+body, 
+h1, h2, h3, 
+p, ul, li, form, input,
+table, tr, td,
+header, nav, article, section, dialog, figure, aside, footer {
+border:0;
+margin:0;
+padding:0;
+font-size:100%;
+...
+}
+
+/* END CSS Reset */
+
+/* Subsection 2: Refine Standard HTML Tags */
+body {
+  font:normal 16px/24px "Helvetica Neue", "Helvetica", "Arial", sans-serif; 
+}
+
+
+/* END Refine Standard HTML Tags */
+
+/* END GENERAL HTML Tags */
+
+/* Structural Tags */
+header{
+	z-index:500;
+	font-weight:500;
+	background:#0B0974;
+	font-size:18px;
+	text-transform:uppercase;
+	position:fixed;
+	width:100%;
+}
+
+header h1 {
+  color: #ffffff;
+}
+
+header a{
+	color:#fff !important;
+	text-decoration:none;
+}
+
+header .container_12{
+	position:relative;
+	/* background:url("img/logo_bg.png") no-repeat left bottom; */
+	padding:10px 0;
+}
+
+
+/* END Structural Tags */
+
+/* Custom classes and ids */
+#nav ul{
+	position:absolute;
+	right:0;
+	top:10px;
+}
+
+#nav li{
+  list-style: none;
+  display: inline;
+	float:left;
+	padding-left:10px;
+}
+
+#nav a{
+	padding:5px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	-webkit-transition: background .2s ease-out;
+}
+
+#nav a:hover{
+	background:#3C39BA;
+}
+
+#main {
+  padding: 100px 0 15px 0;
+}

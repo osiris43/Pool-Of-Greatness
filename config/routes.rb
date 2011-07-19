@@ -1,4 +1,9 @@
 Poolofgreatness::Application.routes.draw do
+  match '/pricing', :to => 'pages#pricing'
+  match '/features', :to => 'pages#features'
+
+  root :to => 'pages#home'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Poolofgreatness</title>
-  <%= stylesheet_link_tag :all %>
+  <title><%= title %></title>
+  <%= render 'layouts/stylesheets' %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-
-<%= yield %>
-
+  <%= render 'layouts/header' %>
+  <div id="main">
+    <%= yield %>
+  </div>
 </body>
 </html>
