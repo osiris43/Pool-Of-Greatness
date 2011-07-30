@@ -1,4 +1,29 @@
 Poolofgreatness::Application.routes.draw do
+  get "pickem_pools/configure"
+
+  post "pickem_pools/update"
+
+  get "pickem_pools/home"
+
+  match 'user/edit' => 'users#edit', :as => :edit_current_user
+
+  match 'signup' => 'users#new', :as => :signup
+
+  match 'logout' => 'sessions#destroy', :as => :logout
+
+  match 'login' => 'sessions#new', :as => :login
+  match 'pickem_configure' => 'pickem_pools#configure', :as => :pickem_configure
+  match 'pickem_home' => 'pickem_pools#home', :as => :pickem_home
+  match 'pickem_weeklygames' => 'pickem_pools#view_games', :as => :pickem_weeklygames
+  match 'pickem_administer' => 'pickem_pools#administer', :as => :pickem_administer
+  match 'pools/join' => 'pools#join', :as => :joinpool
+  match 'pools/find' => 'pools#find', :as => :findpools
+  match 'pools/search' => 'pools#search', :as => :poolsearch
+
+  resources :sessions
+  resources :pools
+  resources :users
+
   match '/pricing', :to => 'pages#pricing'
   match '/features', :to => 'pages#features'
 

@@ -1,0 +1,12 @@
+<%= form_for @pool do |p| %>
+  <%= p.error_messages %>
+  <p>
+    <%= p.label :name %><br />
+    <%= p.text_field :name %>
+  </p>
+  <p>
+    <%= p.label :pool_template_id %>
+    <%= p.select(:pool_template_id, [["Pick em", 1],['Suicide Pool', 2]]) %> 
+  </p>
+  <p><%= p.submit (@pool.new_record? ? "Create" : "Update") %></p>
+<% end %>

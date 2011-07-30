@@ -10,7 +10,7 @@ gem 'pg'
 group :development do
   gem 'annotate-models', '1.0.4'
   gem 'rspec-rails', '2.6.1'
-  #gem 'nifty-generators'
+  gem 'nifty-generators'
 end
 
 group :test do
@@ -42,3 +42,4 @@ end
 # group :development, :test do
 #   gem 'webrat'
 # end
+gem "bcrypt-ruby", :require => "bcrypt"

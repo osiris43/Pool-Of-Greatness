@@ -83,3 +83,61 @@ header .container_12{
 #main {
   padding: 100px 0 15px 0;
 }
+
+input[type="text"], input[type="password"] {
+  border: solid 1px #85b1de; 
+}
+
+input[type="submit"] {
+  background-color: #04034B;
+  padding: 5px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+  color: #ffffff;
+
+}
+
+#dashboard_details {
+  background-color: #D2b65F;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+#dashboard_details h2 {
+  color: #04034B;
+  font-size: 18px;
+  padding: 5px;  
+}
+
+#pickem_navigation ul {
+  background-color: #d2b65f;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+  padding: 10px 0;
+
+}
+
+#pickem_navigation li {
+  list-style: none;
+  display: inline;
+  padding:5px;
+}
+
+#pickem_navigation a {
+  text-decoration: none;
+  color: #04034b;
+  padding: 5px;
+	-webkit-transition: background .2s ease-out;
+
+}
+
+#pickem_navigation a:hover {
+  background-color: #e9d7a2;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+
+}

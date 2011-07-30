@@ -1,0 +1,10 @@
+  <nav id="pickem_navigation">
+    <ul>
+      <li><%= link_to "Pool Home", pickem_home_path(:pool => @pool) %></li>
+      <li><%= link_to "Weekly Games", pickem_weeklygames_path %></li>
+      <% if current_user.admin? %>
+        <li><%= link_to "Pool Admin", pickem_administer_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+

@@ -1,0 +1,7 @@
+<h2>Find a pool</h2>
+
+<%= form_tag(poolsearch_path, :method => "get") do %>
+  <%= label_tag(:pool_search, "Search for pools:") %>
+  <%= text_field_tag(:pool_search) %>
+  <%= submit_tag("Search") %>
+<% end %>

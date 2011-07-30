@@ -30,6 +30,7 @@ GEM
     activesupport (3.0.5)
     annotate-models (1.0.4)
     arel (2.0.10)
+    bcrypt-ruby (2.1.4)
     builder (2.1.2)
     diff-lcs (1.1.2)
     erubis (2.6.6)
@@ -47,6 +48,7 @@ GEM
     mime-types (1.16)
     mocha (0.9.8)
       rake
+    nifty-generators (0.4.6)
     nokogiri (1.5.0)
     pg (0.11.0)
     polyglot (0.3.1)
@@ -96,8 +98,10 @@ PLATFORMS
 
 DEPENDENCIES
   annotate-models (= 1.0.4)
+  bcrypt-ruby
   factory_girl_rails (= 1.0)
   mocha (= 0.9.8)
+  nifty-generators
   pg
   rails (= 3.0.5)
   rspec-rails (= 2.6.1)

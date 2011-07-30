@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def title
+  def page_title
     base_title = "Pools of Greatness"
     if @title.nil?
       base_title
