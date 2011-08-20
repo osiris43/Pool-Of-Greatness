@@ -45,15 +45,18 @@ class Game < ActiveRecord::Base
   end
   def self.find_by_season_week(season, week, includePro, includeCollege)
     @games = []
-    if includePro == "1"
-      @games = Game.where("season = ? AND week = ? AND type = ?",
-                         season, week, 'Nflgame') 
+
+    # college starts a week before pro.
+    if includeCollege == "1"
+      @games = Game.where("season = ? AND week = ? and type = ?",
+                               season, week.to_i + 1, 'Ncaagame').order("gamedate ASC")
     end
 
-    if includeCollege == "1"
-      @games.concat(Game.where("season = ? AND week = ? and type = ?",
-                               season, week, 'Ncaagame'))
+    if includePro == "1"
+      @games.concat(Game.where("season = ? AND week = ? AND type = ?",
+                         season, week, 'Nflgame').order("gamedate ASC"))
     end
+
      
 
     @games

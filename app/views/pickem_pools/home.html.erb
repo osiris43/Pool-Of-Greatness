@@ -8,4 +8,26 @@
     </div>
   <% end %>
 
+  <div class="main_content">
+    <h2>Welcome to <%= @pool.name %></h2> 
+  </div>
+  <div class="recent_activity">
+    <% if current_user.account.nil? || current_user.account.transactions.count == 0 %>
+      <h2>No recent activity</h2>
+    <% else %>
+      <h2>Recent Activity</h2>
+      <table class="activity_table">
+        <tr class="header">
+          <th class="activity_desc">Description</th>
+          <th class="activity_amount">Amount</th>
+        </tr>
+        <% @transactions.each do |t| %>
+          <tr>
+            <td><%= t.description %></td>
+            <td><%= number_to_currency(t.amount) %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
 </div>

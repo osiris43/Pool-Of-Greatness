@@ -52,7 +52,7 @@ describe Game do
 
       @progame = Factory(:nflgame, :week => 2, :season => '2011-2012',
                     :away_team => away, :home_team => home)
-      @collegegame = Factory(:ncaagame, :week => 2, :season => '2011-2012',
+      @collegegame = Factory(:ncaagame, :week => 3, :season => '2011-2012',
                     :away_team => away, :home_team => home)
 
     end

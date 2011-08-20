@@ -17,11 +17,17 @@ class PickemPoolsController < ApplicationController
     @pool = PickemPool.find(params[:pool])
     session[:pool_id] = @pool.id
     @title = @pool.name
+
+    if current_user.account.nil?
+      current_user.create_account
+    end
+    @transactions = current_user.account.transactions.find(:all, :limit => 10, :order => "created_at DESC")
+    
   end
 
   def view_games
     @current_week = get_current_week
-
+    @games = @current_week.pickem_games.joins(:game).order("games.gamedate")
     if DateTime.now > @current_week.deadline
       @pool = PickemPool.find(session[:pool_id])
 
@@ -67,7 +73,7 @@ class PickemPoolsController < ApplicationController
     end
 
     current_user.account.transactions.create!(:pooltype => 'Pickem', :poolname => @pool.name, 
-                                              :amount => 12, 
+                                              :amount => -12, 
                                               :description => "Fee for week #{@current_week.week}, season #{@current_week.season}")
 
 

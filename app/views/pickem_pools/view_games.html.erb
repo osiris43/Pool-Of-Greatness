@@ -17,7 +17,7 @@
     <th>Favorite</th>
     <th>Line</th>
     <th>Underdog</th> 
-<% @current_week.pickem_games.each do |weeklygame| %>
+<% @games.each do |weeklygame| %>
   <tr class="gamerow" id="<%= "gameid_#{weeklygame.game.id}" %>">
     <td>
       <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.favorite.id) %>

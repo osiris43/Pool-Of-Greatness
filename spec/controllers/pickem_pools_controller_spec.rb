@@ -139,6 +139,32 @@ describe PickemPoolsController do
         response.should have_selector("a", :href => pickem_view_allgames_path,
                                            :content => "View All Games")
       end
+
+      describe "recent activity" do
+        before(:each) do
+          @user.create_account
+        end
+
+        it "displays a recent activity section" do
+          get "home", :pool => @pool
+          response.should have_selector("div", :class => "recent_activity")
+        end
+
+        it "displays a no activity message if none exists" do
+          get "home", :pool => @pool
+          response.should have_selector("h2", :content => "No recent activity")
+        end
+
+        it "displays a record for recent activity" do
+          @user.account.transactions.create!(:pooltype => 'Pickem', :poolname => @pool.name, 
+                                             :amount => 12, 
+                                             :description => "Fee for week 1")
+          get "home", :pool => @pool
+          response.should have_selector("td", :content => "Fee for week 1")
+
+        end
+      end
+
     end
   end
 
