@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name
 
   #has_many :adminpools, :foreign_key => "admin_id", :class_name => "Pool"
+  has_one :account
   has_many :poolusers
   has_many :pickem_pools, :through => :poolusers  
   has_many :pickem_week_entries

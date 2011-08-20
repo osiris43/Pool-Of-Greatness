@@ -61,6 +61,16 @@ class PickemPoolsController < ApplicationController
    # save the picks 
     @current_week.save_picks(selectedGames, current_user, params[:mnftotal].to_f) 
 
+    # add accounting record
+    if current_user.account.nil?
+      current_user.create_account
+    end
+
+    current_user.account.transactions.create!(:pooltype => 'Pickem', :poolname => @pool.name, 
+                                              :amount => 12, 
+                                              :description => "Fee for week #{@current_week.week}, season #{@current_week.season}")
+
+
     redirect_to(pickem_home_path(:pool => @pool))
   end
 
