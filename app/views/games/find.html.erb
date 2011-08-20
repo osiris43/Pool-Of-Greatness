@@ -1,0 +1,31 @@
+<div class="container_12">
+  <h1>All Games</h1>
+    <%= form_tag( update_individual_games_path, :method => "put") do %>
+
+  <table>
+    <tr>
+      <th>Away Team</th>
+      <th>Home Team</th>
+      <th>Line</th>
+      <th>Over Under</th>
+      <th>Away Score</th>
+      <th>Home Score</th>
+    </tr>
+      <% for game in @games %>
+        <%= fields_for "games[]", game do |f| %>
+          <tr>
+            <td><%= game.away_team.display_name %></td>
+            <td><%= game.home_team.display_name %></td>
+            <td><%= f.text_field(:line, :size => 10) %></td>
+            <td><%= f.text_field(:overunder, :size => 10) %></td>
+            <td><%= f.text_field(:awayscore, :size => 10) %></td>
+            <td><%= f.text_field(:homescore, :size => 10) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+      <p><%= submit_tag "Save" %></p>
+
+    <% end %>
+
+</div>

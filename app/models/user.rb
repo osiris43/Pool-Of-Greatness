@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :username, :email, :password, :password_confirmation
+  attr_accessible :username, :email, :password, :password_confirmation, :name
 
   attr_accessor :password
   before_save :prepare_password
@@ -12,10 +12,12 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true
+  validates_presence_of :name
 
-  has_many :adminpools, :foreign_key => "admin_id", :class_name => "Pool"
+  #has_many :adminpools, :foreign_key => "admin_id", :class_name => "Pool"
   has_many :poolusers
-  has_many :pools, :through => :poolusers  
+  has_many :pickem_pools, :through => :poolusers  
+  has_many :pickem_week_entries
   
   # login can be either username or email address
   def self.authenticate(login, pass)
@@ -29,10 +31,11 @@ class User < ActiveRecord::Base
 
   private
 
-  def prepare_password
-    unless password.blank?
-      self.password_salt = BCrypt::Engine.generate_salt
-      self.password_hash = encrypt_password(password)
+    def prepare_password
+      unless password.blank?
+        self.password_salt = BCrypt::Engine.generate_salt
+        self.password_hash = encrypt_password(password)
+      end
     end
-  end
+
 end

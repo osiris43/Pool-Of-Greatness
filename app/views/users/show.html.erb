@@ -3,4 +3,8 @@
     <h2><%= current_user.username %></h2>
   </section>
   <%= render "pools" %>
+
+  <% if current_user.admin? %>
+    <a href="#">Site Admin</a>
+  <% end %>
 </div>

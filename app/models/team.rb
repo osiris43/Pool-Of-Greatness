@@ -1,7 +1,7 @@
 class Team < ActiveRecord::Base
-  attr_accessible :city, :mascot
+  attr_accessible :teamname
 
   def display_name
-    "#{city} #{mascot}"
+    teamname
   end
 end

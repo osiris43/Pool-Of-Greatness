@@ -1,4 +1,6 @@
-<h1>some crap</h1>
+<div class="container_12">
+  <%= render 'navigation' %>
+
 <h2><%= @gamesHeader %></h2>
 <% flash.each do |key, msg| %>
   <div id="<%= key %>">
@@ -7,4 +9,33 @@
     <div class="clear"></div>
   </div>
 <% end %>
+
+<%= form_tag(save_picks_path, :method => "post") do %>
+
+<table id="weeklygames">
+  <tr>
+    <th>Favorite</th>
+    <th>Line</th>
+    <th>Underdog</th> 
+<% @current_week.pickem_games.each do |weeklygame| %>
+  <tr class="gamerow" id="<%= "gameid_#{weeklygame.game.id}" %>">
+    <td>
+      <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.favorite.id) %>
+      <%= label_tag(:favorite, weeklygame.game.favorite_display_name) %> 
+    </td>
+    <td><%= weeklygame.game.line %></td>
+    <td>
+      <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.underdog.id) %>
+      <%= label_tag(:underdog, weeklygame.game.underdog_display_name) %> 
+    </td>
+  </tr>
+<% end %>
+</table>
+<br />
+<%= label_tag(:mnftotal, "Monday Night Total") %>
+<%= text_field_tag(:mnftotal) %><br /><br />
+<%= submit_tag("Save Picks", :id => "save_weekly_picks") %>
+
+<% end %>
+</div>
 

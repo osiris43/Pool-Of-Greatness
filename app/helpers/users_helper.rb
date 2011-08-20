@@ -1,7 +1,6 @@
 module UsersHelper
   def poolpath_for(pool)
-    case pool.pool_template.name
-    when "Pick em"
+    if pool.is_a?(PickemPool)
       return link_to "Home", pickem_home_path(:pool => pool)
     else
       throw Error "pool template unrecognized"

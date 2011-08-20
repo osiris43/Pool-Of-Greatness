@@ -1,0 +1,2 @@
+1. Create schedule insert function.
+2. import teams and games

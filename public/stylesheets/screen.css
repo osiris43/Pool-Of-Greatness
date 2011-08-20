@@ -141,3 +141,105 @@ input[type="submit"] {
 	-webkit-border-radius:5px;
 
 }
+
+#weeklygames tr {
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+#weeklygames th {
+  background-color: #5D5BBA;
+  color: #D2B65F;
+  padding: 5px;
+
+}
+
+#weeklygames td {
+  padding: 0 5px;
+
+}
+
+.adminactions {
+  background-color:#e9f1f4;
+  margin: 10px;
+}
+
+.adminactions h1 {
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+  background-color:#405a6a;
+  padding: 8px 18px;
+  position: relative;
+}
+
+.adminactions .adminactions-body {
+  padding:10px 0 10px 10px;
+  background-color:#e9f1f4;
+  overflow:hidden;
+  border-style:solid;
+  border-width:1px 1px 2px;
+  border-color:#e9f1f4 #d8dee2 #d8dee2;
+  border-radius:0 0 5px 5px;
+  -moz-border-radius:0 0 5px 5px;
+  -webkit-border-radius:0 0 5px 5px;
+}
+
+.adminactions ul {
+  list-style-type: none;
+  position: relative; 
+}
+
+.adminactions ul li {
+  color:#666;
+  font-size:13px;
+  font-weight:normal;
+  background-color:#fffff5;
+  background:-moz-linear-gradient(center top,'#fffff5','#f5f3b4');
+  filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fffff5',endColorstr='#f5f3b4');
+  background:-webkit-gradient(linear,left top,left bottom,from(#fffff5),to(#f5f3b4));
+  background:-moz-linear-gradient(top,#fffff5,#f5f3b4);
+  border:1px solid #dfddb5;
+  border-radius:5px 5px 5px 5px;
+  -moz-border-radius:5px 5px 5px 5px;
+  -webkit-border-radius:5px 5px 5px 5px;
+  display:block;
+  width:215px;
+  height:215px;
+  float:left;
+  position:relative;
+  margin:0 10px 0 0;
+  -moz-box-shadow:0 1px 0 #fff;
+  -webkit-box-shadow:0 1px 0 #fff;
+  box-shadow:0 1px 0 #fff;
+}
+
+.adminactions a {
+  text-decoration: none;
+
+}
+
+.adminactions h2 {
+  padding: 5px 10px;
+  color: #000;
+}
+
+.adminactions p {
+  color: #2e3030;
+  padding: 5px 5px 0 10px;
+}
+
+/* Table styling */
+table {
+}
+
+tr.header {
+  border-top: 1px solid #FB7A31;
+	border-bottom: 1px solid #FB7A31;
+	background: #FFC;
+}
+
+td.input {
+  width: 10px;
+}

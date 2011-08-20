@@ -1,0 +1,22 @@
+# pickem_pools_controller tests        
+it "lists available games" do
+          pickem_week = Factory(:pickem_week, :pickem_pool => @pool)
+          get 'administer'
+          
+          response.should have_selector("td", :content => 'Dallas Cowboys')
+          response.should have_selector("td", :content => 'New York Jets')
+        end
+
+# User controller tests
+        it "shows pools the user is playing in" do
+          get :show, :id => @user
+          response.should have_selector("td", :content => "My Pool")
+        end
+
+        it "has a link to the participating pool home page" do
+          get :show, :id => @user
+          response.should have_selector("a", :href => pickem_home_path(:pool => @pool),
+                                             :content => "Home")
+        end
+
+

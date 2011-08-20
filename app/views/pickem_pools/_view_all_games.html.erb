@@ -1,0 +1,23 @@
+  <%= form_tag(create_games_path, :method => "post") do %>
+  <table>
+  <tr>
+    <td>Favorite</td>
+    <td>Line</td>
+    <td>Underdog</td>
+    <td>Include?</td>
+  </tr>
+
+  <% @games.each do |game| %>
+    <%= fields_for "game[]", game do |f| %>
+      <tr>
+        <td><%= game.favorite_display_name %></td>
+        <td><%= game.line %></td>
+        <td><%= game.underdog_display_name %></td>
+        <td><%= check_box_tag("game_ids[]", game.id, checked = !@current_week.pickem_games.find_by_game_id(game.id).nil? ) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+<%= submit_tag("Save Games") %>
+<% end %>
+

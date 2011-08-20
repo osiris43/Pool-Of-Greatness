@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110728172546) do
+ActiveRecord::Schema.define(:version => 20110818202120) do
 
   create_table "games", :force => true do |t|
     t.integer  "away_team_id"
@@ -23,10 +23,52 @@ ActiveRecord::Schema.define(:version => 20110728172546) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "awayscore",    :default => 0
+    t.integer  "homescore",    :default => 0
+  end
+
+  create_table "pickem_games", :force => true do |t|
+    t.integer  "pickem_week_id"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pickem_picks", :force => true do |t|
+    t.integer  "game_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "pickem_week_entry_id"
+  end
+
+  create_table "pickem_pools", :force => true do |t|
+    t.string   "name"
+    t.integer  "admin_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pickem_pools", ["name"], :name => "index_pools_on_name", :unique => true
+
+  create_table "pickem_rules", :force => true do |t|
+    t.integer  "pickem_pool_id"
+    t.string   "config_key"
+    t.string   "config_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pickem_week_entries", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "pickem_week_id"
+    t.float    "mondaynighttotal"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "pickem_weeks", :force => true do |t|
-    t.integer  "pool_id"
+    t.integer  "pickem_pool_id"
     t.string   "season"
     t.integer  "week"
     t.datetime "deadline"
@@ -49,16 +91,6 @@ ActiveRecord::Schema.define(:version => 20110728172546) do
     t.datetime "updated_at"
   end
 
-  create_table "pools", :force => true do |t|
-    t.string   "name"
-    t.integer  "pool_template_id"
-    t.integer  "admin_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "pools", ["name"], :name => "index_pools_on_name", :unique => true
-
   create_table "poolusers", :force => true do |t|
     t.integer  "pool_id"
     t.integer  "user_id"
@@ -67,10 +99,9 @@ ActiveRecord::Schema.define(:version => 20110728172546) do
   end
 
   create_table "teams", :force => true do |t|
-    t.string   "city"
-    t.string   "mascot"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "teamname"
   end
 
   create_table "users", :force => true do |t|
@@ -81,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20110728172546) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin"
+    t.string   "name"
   end
 
 end

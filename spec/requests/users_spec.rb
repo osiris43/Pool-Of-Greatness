@@ -17,6 +17,7 @@ describe "Users" do
       it "creates a user" do
         lambda do
           visit signup_path
+          fill_in "user_name",                   :with => "user name"
           fill_in "user_username",               :with => "username"
           fill_in "user_email",                  :with => "test@test.com"
           fill_in "user_password",               :with => "abcdefgh"

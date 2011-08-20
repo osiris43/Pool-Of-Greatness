@@ -1,24 +1,10 @@
 <section id="pool_wrapper">
-<% if current_user.admin? %>
-  <div id="admin_pools_container">
-    <h2>Pools you administer (<%= link_to "Create New Pool", new_pool_path %>)</h2>
-    <table>
-      <tr>
-        <th>Name</th>
-      </tr>
-      <% current_user.adminpools.each do |pool| %>
-        <tr>
-          <td><%= pool.name %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-<% end %>
+
 
 <div id="pools_container">
   <h2>Pools you play in (<%= link_to "Join a pool", findpools_path %>)</h2>
   <table>
-    <% current_user.pools.each do |pool| %>
+    <% current_user.pickem_pools.each do |pool| %>
       <tr>
         <td><%= pool.name %></td>
         <td><%= poolpath_for(pool) %></td>

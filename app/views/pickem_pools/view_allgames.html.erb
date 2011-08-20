@@ -1,0 +1,23 @@
+<div class="container_12">
+  <%= render 'navigation' %>
+
+  <h1>All Games For This Week</h1>
+  <table>
+    <tr class="header">
+      <td>Player</td>
+      <% @current_week.pickem_games.each do |game| %>
+        <td>
+          <%= "#{game.game.away_team.teamname} at #{game.game.home_team.teamname} (#{game.game.line})" %>
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <% @current_week.pickem_week_entries.each do |entry| %>
+        <td><%= entry.user.name %></td>
+        <% entry.pickem_picks.each do |pick| %>
+          <td><%= pick.team.teamname %></td>
+        <% end %>
+      <% end %>
+    </tr>
+  </table>
+</div>

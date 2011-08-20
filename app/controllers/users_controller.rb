@@ -31,5 +31,6 @@ class UsersController < ApplicationController
 
   def show
     @title = "#{current_user.username}'s profile"
+
   end
 end

@@ -1,0 +1,9 @@
+<div class="container_12">
+  <%= form_tag(find_games_path, :method => "get") do %>
+    <%= label_tag(:begin_date, "Begin Date") %>
+    <%= text_field_tag(:begin_date) %><br />
+    <%= label_tag(:end_date, "End Date") %>
+    <%= text_field_tag(:end_date) %><br />
+    <%= submit_tag("Find Games") %> 
+  <% end %>
+</div>
