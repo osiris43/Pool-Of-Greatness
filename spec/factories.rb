@@ -75,3 +75,13 @@ Factory.define :pickem_game do |factory|
 
 end
 
+Factory.define :pickem_entry_result do |result|
+  result.pickem_week_entry_id   1
+  result.won                    10
+  result.lost                   7
+  result.tied                   0
+  result.tiebreak_distance      10
+end
+
+
+

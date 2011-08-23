@@ -4,5 +4,7 @@ class PickemWeekEntry < ActiveRecord::Base
   belongs_to :user
   belongs_to :pickem_week
   has_many :pickem_picks
+  has_one :pickem_entry_result
+
 
 end

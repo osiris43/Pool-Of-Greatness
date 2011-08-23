@@ -15,6 +15,19 @@ class GamesController < ApplicationController
   def update_individual
     @games = Game.update(params[:games].keys, params[:games].values).reject { |g| g.errors.empty?}
     flash[:notice] = "Games updated"
+
+    # TODO this needs to only happen for pickem pools. 
+    if params[:scoregames]
+      pools = PickemPool.all
+      pools.each do |pool|
+        week = PickemWeek.get_current_week(pool.id)
+        week.score
+        week.update_accounting
+      end
+      
+    end 
+
+    
     redirect_to user_path(current_user)
   end
   

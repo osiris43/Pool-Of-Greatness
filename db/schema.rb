@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110820200543) do
+ActiveRecord::Schema.define(:version => 20110822200810) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -33,11 +33,22 @@ ActiveRecord::Schema.define(:version => 20110820200543) do
     t.integer  "homescore",    :default => 0
   end
 
+  create_table "pickem_entry_results", :force => true do |t|
+    t.integer  "pickem_week_entry_id"
+    t.integer  "won"
+    t.integer  "lost"
+    t.integer  "tied"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "tiebreak_distance"
+  end
+
   create_table "pickem_games", :force => true do |t|
     t.integer  "pickem_week_id"
     t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "istiebreaker"
   end
 
   create_table "pickem_picks", :force => true do |t|

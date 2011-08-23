@@ -39,5 +39,23 @@ describe PickemWeek do
       @pickem_week.pickem_week_entries[0].pickem_picks.count.should == 1
     end
   end
+
+  describe "scoring week" do
+    before(:each) do
+      @user = Factory(:user)
+      @pool = Factory(:pickem_pool)
+      @pickem_week = Factory(:pickem_week, :pickem_pool => @pool)
+      @away = Factory(:nflawayteam)
+      @home = Factory(:nflhometeam)
+      @game = Factory(:nflgame, :away_team => @away, :home_team => @home, :line => -2, :awayscore => 20, :homescore => 23)
+    end
+   
+    it "add a result" do
+      @pickem_week.pickem_week_entries.create!(:user => @user, :mondaynighttotal => 45.5)
+      @pickem_week.pickem_week_entries[0].pickem_picks.create!( :game => @game, :team => @home)
+      @pickem_week.score
+      @user.pickem_week_entries[0].pickem_entry_result.should_not be_nil
+    end 
+  end
   
 end

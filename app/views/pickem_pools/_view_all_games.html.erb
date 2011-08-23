@@ -4,7 +4,9 @@
     <td>Favorite</td>
     <td>Line</td>
     <td>Underdog</td>
+    <td>Game Date</td>
     <td>Include?</td>
+    <td>Tiebreak Game</td>
   </tr>
 
   <% @games.each do |game| %>
@@ -13,11 +15,15 @@
         <td><%= game.favorite_display_name %></td>
         <td><%= game.line %></td>
         <td><%= game.underdog_display_name %></td>
+        <td><%= game.gamedate %></td>
         <td><%= check_box_tag("game_ids[]", game.id, checked = !@current_week.pickem_games.find_by_game_id(game.id).nil? ) %></td>
+        <td><%= check_box_tag(:tiebreaker, game.id, checked = game.id == @tiebreakGameId) %></td>
       </tr>
     <% end %>
   <% end %>
 </table>
+
+<br /><br />
 <%= submit_tag("Save Games") %>
 <% end %>
 

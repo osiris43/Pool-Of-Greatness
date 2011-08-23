@@ -68,4 +68,46 @@ describe Game do
 
     end
   end
+
+  describe "scoring" do
+    before(:each) do
+
+      @away = Factory(:team, :teamname => "Dallas Cowboys" ) 
+      @home = Factory(:team, :teamname => "New York Jets" ) 
+
+    end
+
+    it "returns the home team if they won" do
+      @progame = Factory(:nflgame, :week => 2, :season => '2011-2012',
+                         :away_team => @away, :home_team => @home,
+                         :line => -2, :awayscore => 20, :homescore => 23)
+      
+      @progame.winning_team_ats.should == @home
+    end
+
+    it "returns the away team if they won" do
+      @progame = Factory(:nflgame, :week => 2, :season => '2011-2012',
+                         :away_team => @away, :home_team => @home,
+                         :line => -2, :awayscore => 20, :homescore => 21)
+      @progame.winning_team_ats.should == @away
+
+    end
+
+    it "returns nil if they pushed" do
+      @progame = Factory(:nflgame, :week => 2, :season => '2011-2012',
+                         :away_team => @away, :home_team => @home,
+                         :line => -2, :awayscore => 20, :homescore => 22)
+      @progame.winning_team_ats.should be_nil 
+
+    end
+
+    it "returns home team if they were the underdog and covered" do
+      @progame = Factory(:nflgame, :week => 2, :season => '2011-2012',
+                         :away_team => @away, :home_team => @home,
+                         :line => 2, :awayscore => 21, :homescore => 20)
+
+      @progame.winning_team_ats.should == @home
+    end
+
+  end
 end

@@ -24,6 +24,11 @@
         <% end %>
       <% end %>
     </table>
+    <br />
+    <%= label_tag(:scoregames, "Score Games as well?") %>
+    <%= check_box_tag(:scoregames) %>
+    <br /><br />
+
       <p><%= submit_tag "Save" %></p>
 
     <% end %>

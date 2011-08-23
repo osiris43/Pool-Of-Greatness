@@ -23,7 +23,13 @@
       <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.favorite.id) %>
       <%= label_tag(:favorite, weeklygame.game.favorite_display_name) %> 
     </td>
-    <td><%= weeklygame.game.line %></td>
+    <td>
+      <% if weeklygame.game.line > 0 %>
+        <%= weeklygame.game.line * -1 %>
+      <% else %>
+        <%= weeklygame.game.line %>
+      <% end %>
+    </td>
     <td>
       <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.underdog.id) %>
       <%= label_tag(:underdog, weeklygame.game.underdog_display_name) %> 
@@ -32,6 +38,8 @@
 <% end %>
 </table>
 <br />
+<%= label_tag("Monday Night over/under: #{@games[-1].game.overunder}") %>
+<br /><br />
 <%= label_tag(:mnftotal, "Monday Night Total") %>
 <%= text_field_tag(:mnftotal) %><br /><br />
 <%= submit_tag("Save Picks", :id => "save_weekly_picks") %>

@@ -42,6 +42,14 @@ class PickemPoolsController < ApplicationController
     @pool = PickemPool.find(session[:pool_id])
     @games = get_weekly_games(@pool.id)
     @current_week = get_current_week
+    #@tiebreakGame = @current_week.pickem_games.find_by_istiebreaker(true)
+    #if @tiebreakGame.nil?
+    #  @tiebreakGame = PickemGame.new 
+    #end
+    @tiebreakGameId = -1
+    if !@current_week.pickem_games.find_by_istiebreaker(true).nil?
+      @tiebreakGameId = @current_week.pickem_games.find_by_istiebreaker(true).game_id
+    end
   end
 
   def create_games
@@ -52,7 +60,7 @@ class PickemPoolsController < ApplicationController
     @games.each do |game|
       if includedgames.include?(game.id) && !@current_week.pickem_games.find_by_game_id(game.id)
         logger.debug "creating the game"
-        @current_week.pickem_games.create!(:game_id => game.id)
+        @current_week.pickem_games.create!(:game_id => game.id, :istiebreaker => game.id == params[:tiebreaker].to_i)
       end
     end
 

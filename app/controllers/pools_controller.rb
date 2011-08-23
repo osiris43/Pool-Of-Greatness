@@ -20,7 +20,7 @@ class PoolsController < ApplicationController
   end
 
   def join 
-    @pool = Pool.find(params[:pool])
+    @pool = PickemPool.find(params[:pool])
     @pool.poolusers.create(:user_id => current_user.id)
 
     redirect_to current_user
@@ -37,7 +37,7 @@ class PoolsController < ApplicationController
       return
     end
     
-    @pools = Pool.where("name LIKE '" + params[:pool_search] + "%'").all
+    @pools = PickemPool.where("name LIKE '" + params[:pool_search] + "%'").all
     if @pools == nil || @pools.count < 1
       flash[:notice] = "No pools found"
     end

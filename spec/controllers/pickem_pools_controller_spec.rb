@@ -264,7 +264,9 @@ describe PickemPoolsController do
           @away = Factory(:team)
           @home = Factory(:team, :teamname => "New York Jets" ) 
           @game = Factory(:nflgame, :away_team => @away, :home_team => @home, :type => 'Nflgame')
-
+          pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
+          pickem_game = Factory(:pickem_game, :game => @game, :pickem_week => pickemWeek)
+          
         end
 
 

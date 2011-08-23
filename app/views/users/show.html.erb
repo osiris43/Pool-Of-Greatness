@@ -5,6 +5,6 @@
   <%= render "pools" %>
 
   <% if current_user.admin? %>
-    <a href="#">Site Admin</a>
+    <%= link_to "Site Admin", games_path %> 
   <% end %>
 </div>
