@@ -57,5 +57,29 @@ describe PickemWeek do
       @user.pickem_week_entries[0].pickem_entry_result.should_not be_nil
     end 
   end
+
+  describe "update accounting" do
+    before(:each) do
+      @user = Factory(:user)
+      @pool = Factory(:pickem_pool)
+      @pickem_week = Factory(:pickem_week, :pickem_pool => @pool)
+      @user.create_account
+      @pool.pickem_rules.create(:config_key => "current_week", :config_value => "1") 
+      @pickem_week.pickem_week_entries.create!(:user => @user, :mondaynighttotal => 45.5)
+      @away = Factory(:nflawayteam)
+      @home = Factory(:nflhometeam)
+      @game = Factory(:nflgame, :away_team => @away, :home_team => @home, :line => -2, :awayscore => 20, :homescore => 23)
+
+      @pickem_week.pickem_week_entries[0].pickem_picks.create!( :game => @game, :team => @home)
+
+    end
+
+    it "increments the week when done with accounting" do
+      @pickem_week.score
+      @pickem_week.update_accounting
+
+      @pool.pickem_rules[0].config_value.should == "2"
+    end
+  end
   
 end

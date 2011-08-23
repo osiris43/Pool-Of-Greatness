@@ -74,6 +74,14 @@ class PickemWeek < ActiveRecord::Base
                                                      :amount => results.count * 10,
                                                      :description => "Winning prize for week #{winningEntry.pickem_week.week}, season #{winningEntry.pickem_week.season}")
     end
+
+    @week = self.pickem_pool.pickem_rules.where("config_key = ?", "current_week").first
+    logger.debug "Found a week"
+    newWeek = @week.config_value.to_i + 1
+    logger.debug "setting the week to #{newWeek}"
+    @week.config_value = newWeek
+    @week.save
+
   end
 
   private

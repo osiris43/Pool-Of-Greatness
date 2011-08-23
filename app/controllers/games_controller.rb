@@ -23,6 +23,11 @@ class GamesController < ApplicationController
         week = PickemWeek.get_current_week(pool.id)
         week.score
         week.update_accounting
+        @season = pool.pickem_rules.where("config_key = ?", "current_season").first
+        @week = pool.pickem_rules.where("config_key = ?", "current_week").first
+        pool.pickem_weeks.create!(:season => @season.config_value,
+                                  :week => @week.config_value, 
+                                  :deadline => week.deadline + 7)
       end
       
     end 

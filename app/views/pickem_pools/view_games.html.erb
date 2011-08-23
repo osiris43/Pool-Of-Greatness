@@ -38,7 +38,9 @@
 <% end %>
 </table>
 <br />
-<%= label_tag("Monday Night over/under: #{@games[-1].game.overunder}") %>
+<% if @games.count > 0 %>
+  <%= label_tag("Monday Night over/under: #{@games[-1].game.overunder}") %>
+<% end %>
 <br /><br />
 <%= label_tag(:mnftotal, "Monday Night Total") %>
 <%= text_field_tag(:mnftotal) %><br /><br />
