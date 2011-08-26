@@ -114,6 +114,19 @@ class PickemPoolsController < ApplicationController
 
   end
 
+  def show_results
+    @title = "Weekly Results"
+    @current_week = get_current_week
+    if @current_week.pickem_entry_results.nil? || @current_week.pickem_entry_results.count < 1
+      @current_week = get_previous_week
+    end
+    @results_header = "Results for Week #{@current_week.week}, Season #{@current_week.season}"
+  end
+
+  def view_poolstats
+    @title = "Season Statistics"
+  end
+
   private
     def get_current_week
       @pool = PickemPool.find(session[:pool_id])
@@ -129,6 +142,17 @@ class PickemPoolsController < ApplicationController
                                         @week.config_value).first
 
       return @current_week
+    end
+    
+    def get_previous_week
+      @pool = PickemPool.find(session[:pool_id])
+      @season = @pool.pickem_rules.where("config_key = ?", "current_season").first
+      @week = @pool.pickem_rules.where("config_key = ?", "current_week").first
+      @current_week = PickemWeek.where("pickem_pool_id = ? AND season = ? AND week = ?", 
+                                        session[:pool_id],
+                                        @season.config_value,
+                                        @week.config_value.to_i - 1).first
+
     end
 
     def get_weekly_games(poolId)

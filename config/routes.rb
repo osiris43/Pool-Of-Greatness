@@ -26,6 +26,9 @@ Poolofgreatness::Application.routes.draw do
   match 'pickem_pools/create_games' => 'pickem_pools#create_games', :as => :create_games
   match 'pickem_pools/save_picks' => "pickem_pools#save_picks", :as => :save_picks 
   match 'pickem_pools/admin_pick_weekly_games' => "pickem_pools#admin_pick_weekly_games", :as => :admingames
+  match "pickem_pools/show_results" => "pickem_pools#show_results", :as => :pickem_results
+  match "pickem_pools/view_poolstats" => "pickem_pools#view_poolstats", :as => :pickem_statistics
+
   match 'games/find' => "games#find", :as => :find_games
   resources :sessions
   resources :pools

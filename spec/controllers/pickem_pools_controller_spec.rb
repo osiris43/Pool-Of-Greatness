@@ -3,6 +3,9 @@ require 'date'
 
 describe PickemPoolsController do
   render_views
+  before(:each) do
+    @user = Factory(:user)
+  end
 
   describe "GET 'configure'" do
     describe 'failure' do
@@ -12,7 +15,6 @@ describe PickemPoolsController do
       end
 
       it "requires a pool id in the session" do
-        @user = Factory(:user)
         @controller.stubs(:current_user).returns(@user)
         get 'configure'
         response.should redirect_to user_path(@user)
@@ -22,7 +24,6 @@ describe PickemPoolsController do
     
     describe 'success' do
       before(:each) do
-        @user = Factory(:user)
         @controller.stubs(:current_user).returns(@user)
         session[:pool_id] = "1"
       end
@@ -64,7 +65,6 @@ describe PickemPoolsController do
 
   describe "POST 'update'" do
     before(:each) do
-      @user = Factory(:user)
       @controller.stubs(:current_user).returns(@user)
       session[:pool_id] = Factory(:pickem_pool).id 
     end
@@ -97,7 +97,6 @@ describe PickemPoolsController do
   describe "GET 'home'" do
     describe 'success' do
       before(:each) do
-        @user = Factory(:user)
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
       end
@@ -178,7 +177,6 @@ describe PickemPoolsController do
     
     describe "success" do
       before(:each) do
-        @user = Factory(:user)
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
         @season_config = Factory(:pickem_rule,
@@ -237,7 +235,6 @@ describe PickemPoolsController do
     describe 'failure' do
 
       it "requires a valid pool id" do
-        @user = Factory(:user)
         @controller.stubs(:current_user).returns(@user)
 
         session[:pool_id] = nil
@@ -249,7 +246,6 @@ describe PickemPoolsController do
     end
     describe 'success' do
       before(:each)do
-        @user = Factory(:user)
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
         @pool.pickem_rules.create(:config_key => "current_season", :config_value => "2011-2012")
@@ -288,8 +284,7 @@ describe PickemPoolsController do
       end
 
       it "requires a pool " do
-        user = Factory(:user)
-        @controller.stubs(:current_user).returns(user)
+        @controller.stubs(:current_user).returns(@user)
         get 'view_allgames'
         response.should_not be_success
       end
@@ -297,7 +292,6 @@ describe PickemPoolsController do
 
     describe 'success' do
       before(:each) do
-        @user = Factory(:user)
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
         session[:pool_id] = @pool.id
@@ -349,5 +343,101 @@ describe PickemPoolsController do
         response.should have_selector("td", :content => "New York Jets")
       end
     end
+  end
+
+  describe "GET 'show_results'" do
+    describe 'failure' do
+      it "requires a logged in user" do
+        get 'show_results'
+        response.should_not be_success
+      end
+
+      it "requires a pool " do
+        @controller.stubs(:current_user).returns(@user)
+        get 'show_results'
+        response.should_not be_success
+      end
+    end
+
+    describe 'success' do
+      before(:each) do
+        setup_pool_entries
+      end
+
+      it "has the right title" do
+        get 'show_results'
+        response.should have_selector("title", :content => "Weekly Results")
+      end
+
+      it "has first place listed" do
+        get "show_results"
+        response.should have_selector("span", :content => "Brett Bim")
+      end
+
+      #it "has second place listed" do
+      #  get "show_results"
+      #  response.should have_selector("span", :content => "Damon Polk")
+      #end
+
+      #it "has third place listed" do
+      #  get "show_results"
+      #  response.should have_selector("span", :content => "Alex T")
+      #end
+
+      it "has DAL listed" do
+        get "show_results"
+        response.should have_selector("span", :content => "Tom G")
+      end
+    end
+  end
+
+  describe "GET 'view_poolstats'" do
+    describe 'failure' do
+      it "requires a logged in user" do
+        get 'view_poolstats'
+        response.should_not be_success
+      end
+
+      it "requires a pool " do
+        @controller.stubs(:current_user).returns(@user)
+        get 'view_poolstats'
+        response.should_not be_success
+      end
+    end
+
+    describe 'success' do
+      before(:each) do
+        setup_pool_entries
+      end
+
+      it "has the right title" do
+        get 'view_poolstats'
+        response.should have_selector("title", :content => "Season Statistics")
+      end
+    end
+    
+  end
+
+  def setup_pool_entries()
+    user1 = Factory(:user, :email => 'test1@test.com', :name => "Damon Polk", :username => "damon")
+    user2 = Factory(:user, :email => 'test2@test.com', :name => "Alex T", :username => "alex")
+    user3 = Factory(:user, :email => 'test3@test.com', :name => "Tom G", :username => "tom")
+
+    @controller.stubs(:current_user).returns(@user)
+    @pool = Factory(:pickem_pool)
+    session[:pool_id] = @pool.id
+    @pool.pickem_rules.create(:config_key => "current_season", :config_value => "2011-2012")
+    @pool.pickem_rules.create(:config_key => "current_week", :config_value => "1")
+    @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now - 1)
+    @entry = @pickemWeek.pickem_week_entries.create!(:user => @user, :mondaynighttotal => 43.5) 
+    @entry.create_pickem_entry_result(:won => 3, :lost => 0, :tied => 0, :pickem_week_id => @pickemWeek.id)
+    entry1 = @pickemWeek.pickem_week_entries.create!(:user => user1, :mondaynighttotal => 44)
+    entry1.create_pickem_entry_result(:won => 2, :lost => 1, :tied => 0, :pickem_week_id => @pickemWeek.id)
+    entry2 = @pickemWeek.pickem_week_entries.create!(:user => user2, :mondaynighttotal => 44)
+    entry2.create_pickem_entry_result(:won => 1, :lost => 2, :tied => 0, :pickem_week_id => @pickemWeek.id)
+    entry3 = @pickemWeek.pickem_week_entries.create!(:user => user3, :mondaynighttotal => 44)
+    entry3.create_pickem_entry_result(:won => 0, :lost => 3, :tied => 0, :pickem_week_id => @pickemWeek.id)
+
+
   end
 end

@@ -4,6 +4,7 @@ class PickemWeek < ActiveRecord::Base
   belongs_to :pickem_pool
   has_many :pickem_games
   has_many :pickem_week_entries
+  has_many :pickem_entry_results
 
   validates :season, :presence => true
   validates_numericality_of :week, :greater_than => 0

@@ -253,3 +253,17 @@ tr.header {
   float: right;
   width: 450px;
 }
+
+.place_label {
+}
+
+.result_label {
+  padding 0 5px;
+}
+
+#results_table {
+  width: 80%;
+  margin: 0 0 0 15px;
+}
+
+
