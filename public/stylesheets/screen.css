@@ -266,4 +266,16 @@ tr.header {
   margin: 0 0 0 15px;
 }
 
+#notice {
+  border: 5px solid #a67d00;
+  margin: 5px;
+  color: red;
+}
+
+#error {
+  border: 5px solid red;
+  margin: 5px;
+
+}
+
 
