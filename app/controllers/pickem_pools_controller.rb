@@ -125,6 +125,9 @@ class PickemPoolsController < ApplicationController
 
   def view_poolstats
     @title = "Season Statistics"
+    @pool = PickemPool.find(session[:pool_id])
+    @season = @pool.pickem_rules.where("config_key = ?", "current_season").first
+    @userstats = Userstat.find_by_season(@season.config_value) 
   end
 
   private

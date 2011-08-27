@@ -261,7 +261,7 @@ tr.header {
   padding 0 5px;
 }
 
-#results_table {
+.results_table {
   width: 80%;
   margin: 0 0 0 15px;
 }
