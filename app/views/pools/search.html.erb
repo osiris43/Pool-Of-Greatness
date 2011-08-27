@@ -1,9 +1,17 @@
-<h2>Available Pools</h2>
+<div class="container_12">
+  <h2>Available Pools</h2>
 <table>
   <% @pools.each do |pool| %>
     <tr>
       <td><%= pool.name %> </td>
-      <td><%= link_to "Join Pool", joinpool_path(:pool => pool) %></td>
+      <td>
+        <% if current_user.pickem_pools.include?(pool) %>
+          You are a member of this pool (<%= link_to "Return to dashboard", user_path(current_user) %>)
+        <% else %> 
+          <%= link_to "Join Pool", joinpool_path(:pool => pool) %>
+        <% end %>  
+      </td>
     </tr>
   <% end %>
 </table>
+</div>

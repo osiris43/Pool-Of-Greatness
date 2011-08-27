@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Account do
-  pending "add some examples to (or delete) #{__FILE__}"
+  def new_account()
+    Account.new
+  end
+
+  it "responds to last_transactions" do
+    new_account().should respond_to(:last_transactions)
+  end
 end

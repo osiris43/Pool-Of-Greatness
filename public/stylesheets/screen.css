@@ -278,4 +278,8 @@ tr.header {
 
 }
 
+#account_activity {
+  border: 2px solid #a67d00;
+  margin-top: 15px;
+}
 

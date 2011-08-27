@@ -1,0 +1,22 @@
+<div id="account_activity">
+  <h1>Your Account Activity</h1> 
+  <label>Current Balance: </label><span><%= number_to_currency(current_user.balance) %></span>
+  <br /><br />
+  <span>Last 10 transactions</span> 
+  <table class="results_table">
+    <tr class="header">
+      <th>Date</th>
+      <th>Pool Name</th>
+      <th>Amount</th>
+      <th>Description</th>
+    </tr>
+    <% current_user.account.last_transactions(10).each do |trans| %>
+      <tr>
+        <td><%= trans.created_at.strftime("%m-%d-%Y") %></td>
+        <td><%= trans.poolname %></td>
+        <td><%= number_to_currency(trans.amount) %></td>
+        <td><%= trans.description %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

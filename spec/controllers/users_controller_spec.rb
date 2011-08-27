@@ -63,6 +63,7 @@ describe UsersController do
     describe "logged in user" do
       before(:each) do
         @user = User.first
+        @user.create_account
         @controller.stubs(:current_user).returns(@user)
       end
 
@@ -94,6 +95,29 @@ describe UsersController do
           @pool.poolusers.create(:user_id => @user.id)
         end
 
+      end
+
+      describe "account activity" do
+        before(:each) do
+          @user.account.transactions.create!(:pooltype => "Pickem", 
+                                             :poolname => "Pool of Greatness",
+                                             :amount => -12,
+                                             :description => "Fee for week 1")
+        end
+        it "has account activity section" do
+          get :show, :id => @user
+          response.should have_selector("div", :id => "account_activity")
+        end
+
+        it "shows the current balance" do
+          get :show, :id => @user
+          response.should have_selector("span", :content => "-$12.00")
+        end
+
+        it "shows the last 10 transactions" do
+          get :show, :id => @user
+          response.should have_selector("td", :content => "Fee for week 1")
+        end
       end
     end
   end

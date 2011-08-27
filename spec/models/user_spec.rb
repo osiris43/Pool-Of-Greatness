@@ -100,4 +100,20 @@ describe User do
       new_user().should respond_to(:pickem_week_entries)
     end
   end
+
+  it "responds to balance" do
+    new_user().should respond_to(:balance)
+  end
+
+  it "has the correct balance" do
+    user = new_user()
+    user.create_account
+    user.account.transactions.create!(:pooltype => "Pickem",
+                                      :poolname => "Pool",
+                                      :amount => -12,
+                                      :description => "dis")
+
+    user.balance.should == -12
+
+  end
 end

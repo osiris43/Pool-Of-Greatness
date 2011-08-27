@@ -1,5 +1,15 @@
 require 'spec_helper'
 
 describe Transaction do
-  pending "add some examples to (or delete) #{__FILE__}"
+  def new_transaction(attributes = {})
+    attributes[:poolname] ||= 'Pool of Greatness'
+    attributes[:pooltype] ||= 'Pickem'
+    attributes[:amount] ||= -12 
+    attributes[:description] ||= 'Description'
+    Transaction.new(attributes)
+  end
+
+  it "responds to account" do
+    new_transaction().should respond_to(:account)
+  end
 end

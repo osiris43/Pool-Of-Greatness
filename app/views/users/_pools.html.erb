@@ -6,7 +6,6 @@
   <table>
     <% current_user.pickem_pools.each do |pool| %>
       <tr>
-        <td><%= pool.name %></td>
         <td><%= poolpath_for(pool) %></td>
       </tr>
     <% end %>
