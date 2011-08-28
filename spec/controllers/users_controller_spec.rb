@@ -18,7 +18,6 @@ describe UsersController do
   it "create action should redirect when model is valid" do
     User.any_instance.stubs(:valid?).returns(true)
     post :create
-    response.should redirect_to(root_url)
     session['user_id'].should == assigns['user'].id
   end
 

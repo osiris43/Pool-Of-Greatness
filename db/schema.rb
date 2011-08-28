@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110826171759) do
+ActiveRecord::Schema.define(:version => 20110828150213) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20110826171759) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "tiebreak_distance"
-    t.integer  "pickem_weeks_id"
+    t.integer  "pickem_week_id"
   end
 
   create_table "pickem_games", :force => true do |t|
@@ -114,6 +114,20 @@ ActiveRecord::Schema.define(:version => 20110826171759) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "sites", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "slug"
+    t.integer  "admin_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sites_users", :id => false, :force => true do |t|
+    t.integer "site_id", :null => false
+    t.integer "user_id", :null => false
   end
 
   create_table "teams", :force => true do |t|

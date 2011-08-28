@@ -31,6 +31,13 @@ Poolofgreatness::Application.routes.draw do
 
   match 'games/find' => "games#find", :as => :find_games
   resources :sessions
+  resources :sites do
+    collection do
+      get 'find'
+      get 'search'
+    end
+  end
+
   resources :pools
   resources :users
   resources :games do
@@ -42,7 +49,6 @@ Poolofgreatness::Application.routes.draw do
 
   match '/pricing', :to => 'pages#pricing'
   match '/features', :to => 'pages#features'
-
   root :to => 'pages#home'
 
   # The priority is based upon order of creation:

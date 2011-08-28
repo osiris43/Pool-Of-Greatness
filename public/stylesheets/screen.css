@@ -111,7 +111,7 @@ input[type="submit"] {
   padding: 5px;  
 }
 
-#pickem_navigation ul {
+.pickem_navigation ul {
   background-color: #d2b65f;
 	border-radius:5px;
 	-moz-border-radius:5px;
@@ -120,13 +120,13 @@ input[type="submit"] {
 
 }
 
-#pickem_navigation li {
+.pickem_navigation li {
   list-style: none;
   display: inline;
   padding:5px;
 }
 
-#pickem_navigation a {
+.pickem_navigation a {
   text-decoration: none;
   color: #04034b;
   padding: 5px;
@@ -134,7 +134,7 @@ input[type="submit"] {
 
 }
 
-#pickem_navigation a:hover {
+.pickem_navigation a:hover {
   background-color: #e9d7a2;
 	border-radius:5px;
 	-moz-border-radius:5px;
@@ -267,9 +267,9 @@ tr.header {
 }
 
 #notice {
-  border: 5px solid #a67d00;
+  border: 5px solid green;
   margin: 5px;
-  color: red;
+  color: #a67d00;
 }
 
 #error {

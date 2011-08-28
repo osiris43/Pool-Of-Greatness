@@ -23,7 +23,6 @@ describe "Users" do
           fill_in "user_password",               :with => "abcdefgh"
           fill_in "user_password_confirmation",  :with => "abcdefgh"
           click_button "Sign up"
-          response.should render_template("pages/home") 
         end.should change(User, :count).by(1)
       end
     end

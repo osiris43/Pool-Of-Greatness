@@ -1,0 +1,10 @@
+<div class="container_12">
+  <h1>Find a site</h1>
+
+  <%= form_tag(search_sites_path, :method => "get") do %>
+    <%= label_tag(:site_search, "Search for sites:") %>
+    <%= text_field_tag(:site_search) %>
+    <%= submit_tag("Search") %>
+  <% end %>
+  
+</div>

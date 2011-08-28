@@ -17,9 +17,10 @@ describe SessionsController do
   end
 
   it "create action should redirect when authentication is valid" do
-    User.stubs(:authenticate).returns(User.first)
+    user = User.first
+    User.stubs(:authenticate).returns(user)
     post :create
-    response.should redirect_to(root_url)
+    response.should redirect_to(user_path(user))
     session['user_id'].should == User.first.id
   end
 end

@@ -14,11 +14,11 @@ class User < ActiveRecord::Base
   validates_length_of :password, :minimum => 4, :allow_blank => true
   validates_presence_of :name
 
-  #has_many :adminpools, :foreign_key => "admin_id", :class_name => "Pool"
   has_one :account
   has_many :poolusers
   has_many :pickem_pools, :through => :poolusers  
   has_many :pickem_week_entries
+  has_and_belongs_to_many :sites
   
   # login can be either username or email address
   def self.authenticate(login, pass)

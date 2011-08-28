@@ -1,0 +1,11 @@
+  <nav class="pickem_navigation">
+    <ul>
+      <li><%= link_to current_user.username, user_path(current_user) %></li>
+      <li><%= link_to "Create a site", new_site_path %></li>
+      <li><%= link_to "Join a site", "#", %></li>
+      <% if current_user.admin? %>
+        <li><%= link_to "Site Admin", games_path %> </li>
+      <% end %>
+    </ul>
+  </nav>
+

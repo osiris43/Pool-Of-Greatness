@@ -10,7 +10,8 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_url, :notice => "Thank you for signing up! You are now logged in."
+      @user.create_account
+      redirect_to user_path(@user), :notice => "Thank you for signing up! You are now logged in."
     else
       render :action => 'new'
     end
@@ -31,6 +32,6 @@ class UsersController < ApplicationController
 
   def show
     @title = "#{current_user.username}'s profile"
-
+    @site = Site.find_by_slug(request.subdomain)
   end
 end
