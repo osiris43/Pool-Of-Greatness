@@ -1,0 +1,15 @@
+<div class="container_12">
+  <h1>Sites to join</h1>
+  <table>
+    <tr class="header">
+      <th>Site Name</th>
+      <th>Join</th>
+    </tr>
+    <% @sites.each do |site| %>
+      <tr>
+        <td><%= site.name %></td>
+        <td><%= link_to "Join", join_site_path(site.id) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

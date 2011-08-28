@@ -32,10 +32,12 @@ Poolofgreatness::Application.routes.draw do
   match 'games/find' => "games#find", :as => :find_games
   resources :sessions
   resources :sites do
+    get 'join', :on => :member
     collection do
       get 'find'
       get 'search'
     end
+
   end
 
   resources :pools

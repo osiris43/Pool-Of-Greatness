@@ -21,7 +21,6 @@ describe SitesController do
         get 'new'
         response.should be_success
       end
-
     end
   end
 
@@ -41,6 +40,21 @@ describe SitesController do
 
     it "adds a relation to the current user" do
       post :create, :site => @attr
+      @user.sites.count.should == 1
+    end
+  end
+
+  describe "PUT 'join'" do
+    before(:each) do
+      @attr = {:name => "my site", :description => 'site description'}
+      @user = Factory(:user)
+      @controller.stubs(:current_user).returns(@user)
+      @site = Site.create!(@attr)
+    end
+    
+    it "adds current user to the site" do
+      get :join, :id => @site.id
+      response.should redirect_to(user_path(@user))
       @user.sites.count.should == 1
     end
   end

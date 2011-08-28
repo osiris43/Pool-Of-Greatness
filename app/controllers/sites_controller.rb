@@ -36,4 +36,11 @@ class SitesController < ApplicationController
     end
   end
 
+  def join
+    @site = Site.find(params[:id])
+    current_user.sites << @site
+    current_user.save!
+    redirect_to user_path(current_user)
+  end
+
 end
