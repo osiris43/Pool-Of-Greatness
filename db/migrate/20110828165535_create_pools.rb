@@ -2,8 +2,9 @@ class CreatePools < ActiveRecord::Migration
   def self.up
     create_table :pools do |t|
       t.string :name
-      t.references :pool_template
-      t.references :user
+      t.integer :admin_id
+      t.references :site
+      t.string :type
 
       t.timestamps
     end

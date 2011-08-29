@@ -32,6 +32,5 @@ class UsersController < ApplicationController
 
   def show
     @title = "#{current_user.username}'s profile"
-    @site = Site.find_by_slug(request.subdomain)
   end
 end

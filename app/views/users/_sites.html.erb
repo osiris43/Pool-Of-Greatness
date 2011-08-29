@@ -1,0 +1,22 @@
+<section id="sites_container">
+  <h2>Your Sites</h2>
+  
+  <% current_user.sites.each do |site| %>
+    <div id="site_container">
+      <h4>Pools</h4>
+      <div id="pools">
+        <% site.pools.each do |pool| %>
+          <article>
+            <div class="grid_6">
+              <%= poolpath_for(pool) %>
+            </div>
+          </article>
+        <% end %>
+      </div>
+        <div class="grid_6">
+          <h4>Account Balance</h4>
+          <span>$12.00</span>
+        </div>
+      </div>
+  <% end %>
+</section>

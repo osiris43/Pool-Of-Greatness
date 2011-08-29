@@ -283,3 +283,20 @@ tr.header {
   margin-top: 15px;
 }
 
+#sites_container {
+  margin: 5px;
+  border: 2px solid #5D5BBA;
+}
+
+article {
+  display:block;
+}
+
+#pools article {
+  position: relative;
+  width: 220px;
+  min-height: 111px;
+  margin: 10px;
+  padding-top: 100 px;
+}
+
