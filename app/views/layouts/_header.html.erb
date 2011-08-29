@@ -1,14 +1,14 @@
 <header>
   <div class="container_12">
-    <h1><%= link_to "Pools of Greatness", root_path %></h1>
+    <span id="site-title"><%= link_to "Sports Pool Paradise", root_path %></span>
     <nav id="nav">
       <ul>
         <% if logged_in? %>
           <li><%= link_to "Dashboard", user_path(current_user) %></li>
           <li><%= link_to "Log out", logout_path %></li>
         <% else %>
-          <li><%= link_to 'Pricing', pricing_path %></li>
-          <li><%= link_to 'Features', features_path %></li>
+          <li><%= link_to 'Features', '#features' %></li>
+          <li><%= link_to 'Pricing', '#pricing' %></li>
           <li><%= link_to "Sign In", login_path %></li>
         <% end %>
       </ul>

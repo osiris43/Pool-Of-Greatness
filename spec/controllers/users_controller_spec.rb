@@ -71,22 +71,6 @@ describe UsersController do
         response.should have_selector("title", :content => @user.username)
       end
 
-      it "has a pools section" do
-        get :show, :id => @user
-        response.should have_selector("div", :id => "pools_container") 
-      end
-
-      #it "has a administered pools section for admins" do
-      #  @user.stubs(:admin?).returns(true)
-      #  get :show, :id => @user
-      #  response.should have_selector("div", :id => "admin_pools_container")
-      #end
-
-      it "has a 'Join a pool' button" do
-        get :show, :id => @user
-        response.should have_selector("a", :href => findpools_path,
-                                           :content => "Join a pool")
-      end
 
       describe "showing participating pools" do
         before(:each) do

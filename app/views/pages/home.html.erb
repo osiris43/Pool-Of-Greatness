@@ -1,2 +1,15 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div id="banner">
+  <div class="container_12">
+    <div class="bannerimg grid_6">
+      <%= image_tag("dashboard.png") %>
+    </div>
+    <div class="grid_6">
+      <strong><span class="salespitch">Pool Hosting Made Easy</span></strong>
+      <h1><strong>Easily manage multiple pools in one convenient location.</strong> Use the same logins for all pools, 
+          centralize accounting and more.</h1>
+    </div>
+  </div>
+</div>
+
+<%= render "features" %>
+<%= render "pricing" %>

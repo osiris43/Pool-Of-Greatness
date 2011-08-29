@@ -17,9 +17,19 @@ font-size:100%;
 
 /* Subsection 2: Refine Standard HTML Tags */
 body {
-  font:normal 16px/24px "Helvetica Neue", "Helvetica", "Arial", sans-serif; 
+  font:normal 16px/24px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  background: #f2f2f5; 
 }
 
+h1 {
+  line-height: 35px;
+}
+
+h2 {
+  font-size:28px;
+  margin-bottom:20px;
+  color: #04034b;
+}
 
 /* END Refine Standard HTML Tags */
 
@@ -27,7 +37,6 @@ body {
 
 /* Structural Tags */
 header{
-	z-index:500;
 	font-weight:500;
 	background:#0B0974;
 	font-size:18px;
@@ -47,7 +56,6 @@ header a{
 
 header .container_12{
 	position:relative;
-	/* background:url("img/logo_bg.png") no-repeat left bottom; */
 	padding:10px 0;
 }
 
@@ -55,6 +63,37 @@ header .container_12{
 /* END Structural Tags */
 
 /* Custom classes and ids */
+#site-title {
+  font-size: 28px;
+}
+
+#banner {
+  background: url("/images/banner.png") top left repeat-x;
+  border-top: 1px solid #c2bcbd; 
+  height: 325px;
+}
+
+#banner .salespitch {
+  font-size: 38px;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px 0;
+  text-shadow: 0 -1px rgba(0,0,0,0.3);
+  
+}
+
+#banner .grid_6 {
+  padding: 50px 0 0 0;
+}
+
+#banner h1 {
+  color: #dadad3;
+  font-size: 26px;
+  font-weight: normal;
+  margin: 0 0 20px;
+}
+
 #nav ul{
 	position:absolute;
 	right:0;
@@ -81,7 +120,7 @@ header .container_12{
 }
 
 #main {
-  padding: 100px 0 15px 0;
+  padding: 45px 0 0 0;
 }
 
 input[type="text"], input[type="password"] {
@@ -298,5 +337,39 @@ article {
   min-height: 111px;
   margin: 10px;
   padding-top: 100 px;
+}
+
+#features,
+#pricing {
+  padding: 25px 0;
+}
+
+#features-overview {
+  margin-bottom: 10px;
+}
+
+#features {
+  background:rgba(0,0,0,.03);
+}
+
+#features .container_12 {
+  position: relative;
+  overflow: auto;
+}
+
+#pricing {
+  background:rgba(0,0,0,.07);
+  overflow: auto;
+}
+
+#footer {
+  padding: 40px 0;
+  background: #444444;
+  overflow: auto;
+  color: #cdba9d;
+}
+
+#footer h2 {
+  color: #d2ac35;
 }
 
