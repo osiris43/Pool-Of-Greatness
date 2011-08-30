@@ -1,4 +1,6 @@
-<%= form_tag({:controller => "pickem_pools", :action => "update"}, :method => "post") do %>
+<div class="pickem_container container_12">
+  <%= render 'navigation' %>
+  <%= form_tag({:controller => "pickem_pools", :action => "update"}, :method => "post") do %>
   <p>
     <%= label_tag(:number_of_games, "Number of Weekly Games") %>
     <%= text_field_tag(:number_of_games) %>
@@ -18,3 +20,4 @@
 
 
 <% end %>
+</div>

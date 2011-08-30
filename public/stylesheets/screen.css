@@ -16,6 +16,26 @@ font-size:100%;
 /* END CSS Reset */
 
 /* Subsection 2: Refine Standard HTML Tags */
+html, body {height: 100%}
+#wrap {min-height: 100%}
+#main {
+  overflow: auto;
+  padding-bottom: 200px;
+}
+#footer {
+  position: relative;
+  margin-top: -200px;
+  height: 200px;
+  clear:both;
+  color: #cdba9d;
+  background: #444444;
+}
+
+#footer .container_12 {
+  padding: 10px 0 0 0;
+}
+
+
 body {
   font:normal 16px/24px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   background: #f2f2f5; 
@@ -71,6 +91,7 @@ header .container_12{
   background: url("/images/banner.png") top left repeat-x;
   border-top: 1px solid #c2bcbd; 
   height: 325px;
+  padding: 20px 0 0 0;
 }
 
 #banner .salespitch {
@@ -119,9 +140,6 @@ header .container_12{
 	background:#3C39BA;
 }
 
-#main {
-  padding: 45px 0 0 0;
-}
 
 input[type="text"], input[type="password"] {
   border: solid 1px #85b1de; 
@@ -137,6 +155,9 @@ input[type="submit"] {
 
 }
 
+#dashboard_wrapper {
+  padding: 60px 0 0 0;
+}
 #dashboard_details {
   background-color: #D2b65F;
 	border-radius:5px;
@@ -150,6 +171,9 @@ input[type="submit"] {
   padding: 5px;  
 }
 
+.pickem_container {
+  padding: 60px 0 0 0;
+}
 .pickem_navigation ul {
   background-color: #d2b65f;
 	border-radius:5px;
@@ -362,14 +386,12 @@ article {
   overflow: auto;
 }
 
-#footer {
-  padding: 40px 0;
-  background: #444444;
-  overflow: auto;
-  color: #cdba9d;
-}
 
 #footer h2 {
   color: #d2ac35;
 }
 
+#login-wrapper,
+#signup-wrapper{
+  padding: 100px 0 200px 200px;
+}
