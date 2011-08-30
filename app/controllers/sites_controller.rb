@@ -43,4 +43,19 @@ class SitesController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def newpool
+    @site = Site.find(params[:id])
+  end
+
+  def add_pool
+    @site = Site.find(params[:id])
+    case params[:pool][:type]
+    when "PickemPool"
+      @pool = PickemPool.new(:name => params[:poolname], :admin_id => current_user.id)
+      @site.pools << @pool
+      @site.save
+    end
+    redirect_to user_path(current_user)
+  end
+
 end

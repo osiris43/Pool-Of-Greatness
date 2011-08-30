@@ -58,4 +58,21 @@ describe SitesController do
       @user.sites.count.should == 1
     end
   end
+
+  describe "POST 'add_pool'" do
+    before(:each) do
+      @attr = {:name => "my site", :description => 'site description'}
+
+      @user = Factory(:user)
+      @controller.stubs(:current_user).returns(@user)
+      @site = Site.create!(@attr)
+      @poolattr = {:poolname => "my site", :pool => {:type => 'PickemPool'}}
+
+    end
+
+    it "adds the site to the user's sites" do
+      post :add_pool, :id => @site.id, :poolname => "my name", :pool => {:type => 'PickemPool'} 
+      @site.pools.count.should == 1
+    end
+  end
 end

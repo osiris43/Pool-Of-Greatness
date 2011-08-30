@@ -2,7 +2,7 @@
     <ul>
       <li><%= link_to current_user.username, user_path(current_user) %></li>
       <li><%= link_to "Create a site", new_site_path %></li>
-      <li><%= link_to "Join a site", "#", %></li>
+      <li><%= link_to "Join a site", find_sites_path, %></li>
       <% if current_user.admin? %>
         <li><%= link_to "Site Admin", games_path %> </li>
       <% end %>

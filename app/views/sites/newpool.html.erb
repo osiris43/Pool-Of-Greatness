@@ -1,0 +1,14 @@
+<div class="pickem_container container_12">
+  <h1>Add a pool</h1>
+
+  <%= form_tag(add_pool_site_path, :method => "post") do %>
+    <%= collection_select(:pool, :type, PoolTemplate.all, :name, :description, :prompt => true) %>
+    <%= label_tag(:poolname, "Pool Name") %>
+    <%= text_field_tag(:poolname) %>
+    <br />
+
+    <%= submit_tag("Add Pool") %>
+  <% end %>
+
+</div>
+

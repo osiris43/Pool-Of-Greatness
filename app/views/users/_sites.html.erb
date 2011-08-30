@@ -3,6 +3,7 @@
   
   <% current_user.sites.each do |site| %>
     <div id="site_container">
+      <h3><%= site.name %></h3> <% if current_user.id == site.admin_id %>( <%= link_to("Add pool to this site", newpool_site_path) %> )<% end %>
       <h4>Pools</h4>
       <div id="pools">
         <% site.pools.each do |pool| %>
