@@ -52,9 +52,13 @@ class SitesController < ApplicationController
     case params[:pool][:type]
     when "PickemPool"
       @pool = PickemPool.new(:name => params[:poolname], :admin_id => current_user.id)
-      @site.pools << @pool
-      @site.save
+    when "SurvivorPool"
+      @pool = SurvivorPool.new(:name => params[:poolname], :admin_id => current_user.id)
     end
+      
+    @site.pools << @pool
+    @site.save
+
     redirect_to user_path(current_user)
   end
 

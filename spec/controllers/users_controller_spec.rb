@@ -102,6 +102,26 @@ describe UsersController do
           response.should have_selector("td", :content => "Fee for week 1")
         end
       end
+
+      describe "survivor pool links" do
+        before(:each) do
+          @user1 = Factory(:user)
+          @user1.create_account
+          @user1.sites.create!(:name => 'site name', :description => 'description')
+          @user1.sites[0].pools.create!(:admin_id => @user1.id, :name => "My Survivor Pool", :type => "SurvivorPool")
+          @user1.sites[0].save
+          @user1 = User.find(@user1.id)
+          @controller.stubs(:current_user).returns(@user1)
+        end
+
+        it "has a survivor pool link on the dashboard" do
+          get :show, :id => @user1
+          response.should have_selector("a", :content => "My Survivor Pool",
+                                             :href => survivor_pool_path(@user1.sites[0].pools[0])) 
+        end
+
+      end
+
     end
   end
 end

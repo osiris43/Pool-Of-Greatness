@@ -1,0 +1,2 @@
+module SurvivorPoolsHelper
+end

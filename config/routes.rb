@@ -54,6 +54,12 @@ Poolofgreatness::Application.routes.draw do
     end
   end
 
+  resources :survivor_pools do
+    member do
+      get "viewpicksheet"
+    end
+  end
+
   match '/pricing', :to => 'pages#pricing'
   match '/features', :to => 'pages#features'
   root :to => 'pages#home'

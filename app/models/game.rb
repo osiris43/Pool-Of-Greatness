@@ -70,4 +70,12 @@ class Game < ActiveRecord::Base
       return nil 
     end
   end
+
+  def display_line
+    if line > 0
+      line * -1
+    else
+      line
+    end
+  end
 end

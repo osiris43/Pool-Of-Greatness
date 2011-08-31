@@ -16,6 +16,13 @@ end
 
 Factory.define :pickem_pool do |pickempool|
   pickempool.name         "My Pool"
+  pickempool.type         "PickemPool"
+end
+
+Factory.define :survivor_pool do |survivorpool|
+  survivorpool.name         "My Survivor Pool"
+  survivorpool.type         "SurvivorPool"
+  survivorpool.admin_id     1
 end
 
 Factory.define :pool_config do |poolconfig|
