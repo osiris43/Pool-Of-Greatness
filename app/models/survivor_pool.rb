@@ -35,6 +35,17 @@ class SurvivorPool < Pool
     end
   end
 
+  def past_deadline
+    nextgame = Nflgame.where("season = ? AND gamedate > ?", getseason, DateTime.now).order("gamedate").first
+    previousgame = Nflgame.where("season = ? AND gamedate < ?", getseason, DateTime.now).order("gamedate").first
+
+    if previousgame.nil? || nextgame.week == previous.week
+      true
+    else
+      false
+    end
+  end
+
   private 
     def getseason
       "2011-2012"

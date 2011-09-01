@@ -61,14 +61,18 @@ describe SurvivorPoolsController do
                                              :checked => "checked")
     end
 
+    it "is disabled if kickoff has happened" do
+      @game.gamedate = DateTime.now - 1
+      get :viewpicksheet, :id => @user.sites[0].pools[0].id
+      flash[:notice].should =~ /games have started/i
+      response.should have_selector("input", :name => "commit",
+                                             :disabled => "disabled")
+    end
   end
 
   describe "POST 'makepick'" do
     before(:each) do
       setup_pool()
-      @away = Factory(:nflawayteam)
-      @home = Factory(:nflhometeam)
-      @game = Factory(:nflgame, :away_team => @away, :home_team => @home)
       @user.survivor_entries.create!(:team => @away, :game => @game, :week => @game.week, :season => @game.season)
     end
 

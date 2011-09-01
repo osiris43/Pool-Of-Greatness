@@ -409,9 +409,20 @@ article {
   -moz-border-radius:5px 5px 5px 5px;
   -webkit-border-radius:5px 5px 5px 5px;
   margin: 5px 0;
+  min-height: 111px;
 }
 
 #current_pick_container h3 {
   background-color: #5d5bba;
+  color: #d2b65f;
+  padding: 0 5px;
+}
+
+#current_pick_container span {
+  padding: 0 5px;
+}
+
+#current_pick_container a {
+  padding: 0 5px;
 
 }

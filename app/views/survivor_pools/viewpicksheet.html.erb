@@ -1,5 +1,13 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
+  
+  <% flash.each do |key, msg| %>
+    <div id="<%= key %>">
+      <p><%= msg %></p>
+      <div class="clear"></div>
+    </div>
+  <% end %>
+
   <h1>Picksheet</h1>
   <%= form_tag(makepick_survivor_pool_path, :method => "post") do %>
   <table id="survivor_picks_table">
@@ -19,12 +27,11 @@
         <td><%= game.display_line %></td>
         <td><%= radio_button_tag(:teamid, game.underdog.id, checked = (game.underdog.id == @entry.team_id)) %></td>
         <td><%= game.underdog_display_name %></td>
-        <%= hidden_field_tag(:gameid, game.id) %>
       </tr>
     <% end %>
   </table>
   <br /><br />
-  <%= submit_tag("Save Pick") %>
+  <%= submit_tag("Save Pick", :disabled => @deadline) %>
 <% end %>
 </div>
 

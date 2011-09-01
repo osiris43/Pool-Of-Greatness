@@ -6,8 +6,12 @@
       <span>
         <% if @current_pick.nil? %> 
           "No Pick"
+          <br />
+          <%= link_to "Make Pick", viewpicksheet_survivor_pool_path(@pool) %>
         <% else %>
           <%= @current_pick.team.display_name %>
+          <br />
+          <%= link_to "Change Pick", viewpicksheet_survivor_pool_path(@pool) %>
         <% end %>
       </span>
     </div>

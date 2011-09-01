@@ -20,6 +20,11 @@ class SurvivorPoolsController < ApplicationController
       @entry = SurvivorEntry.new
     end
 
+    @deadline = @pool.past_deadline
+    if @deadline
+      flash[:notice] = "Games have started this week.  You cannot make or change a pick."
+    end
+
   end
 
   def makepick
