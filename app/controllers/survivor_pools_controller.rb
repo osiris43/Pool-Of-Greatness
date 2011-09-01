@@ -19,6 +19,7 @@ class SurvivorPoolsController < ApplicationController
     if @entry.nil?
       @entry = SurvivorEntry.new
     end
+    @picked_teams = current_user.survivor_entries.where("week < ?", @games[0].week).all.map{|entry| entry.team.id}
 
     @deadline = @pool.past_deadline
     if @deadline

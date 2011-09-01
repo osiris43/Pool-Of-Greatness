@@ -8,7 +8,7 @@
     </div>
   <% end %>
 
-  <h1>Picksheet</h1>
+  <h1><%= "Picksheet for Week #{@games[0].week}" %></h1>
   <%= form_tag(makepick_survivor_pool_path, :method => "post") do %>
   <table id="survivor_picks_table">
     <tr class="header">
@@ -22,10 +22,16 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= game.gamedate.strftime("%m-%d-%Y") %></td>
-        <td><%= radio_button_tag(:teamid, game.favorite.id, checked = (game.favorite.id == @entry.team_id)) %></td>
+        <td><%= radio_button_tag(:teamid, game.favorite.id, 
+                                 checked = (game.favorite.id == @entry.team_id), 
+                                 :disabled => @picked_teams.include?(game.favorite.id),
+                                 :tooltip => "You previously picked this team") %></td>
         <td><%= game.favorite_display_name %></td>
         <td><%= game.display_line %></td>
-        <td><%= radio_button_tag(:teamid, game.underdog.id, checked = (game.underdog.id == @entry.team_id)) %></td>
+        <td><%= radio_button_tag(:teamid, game.underdog.id, 
+                                 checked = (game.underdog.id == @entry.team_id), 
+                                 :disabled => @picked_teams.include?(game.underdog.id),
+                                 :tooltip => "You previously picked this team.") %></td>
         <td><%= game.underdog_display_name %></td>
       </tr>
     <% end %>

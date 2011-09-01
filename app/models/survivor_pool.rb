@@ -39,8 +39,10 @@ class SurvivorPool < Pool
     nextgame = Nflgame.where("season = ? AND gamedate > ?", getseason, DateTime.now).order("gamedate").first
     previousgame = Nflgame.where("season = ? AND gamedate < ?", getseason, DateTime.now).order("gamedate").first
 
-    if previousgame.nil? || nextgame.week == previous.week
-      true
+    if previousgame.nil?
+      false
+    elsif nextgame.week == previousgame.week
+      true 
     else
       false
     end

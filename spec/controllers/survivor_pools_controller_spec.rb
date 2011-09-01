@@ -63,9 +63,22 @@ describe SurvivorPoolsController do
 
     it "is disabled if kickoff has happened" do
       @game.gamedate = DateTime.now - 1
+      @game.save
+      @game1 = Factory(:nflgame, :away_team => @away, :home_team => @home, :gamedate => DateTime.now + 1)
       get :viewpicksheet, :id => @user.sites[0].pools[0].id
       flash[:notice].should =~ /games have started/i
       response.should have_selector("input", :name => "commit",
+                                             :disabled => "disabled")
+    end
+
+    it "disables teams that have previously been picked" do
+      @game.gamedate = DateTime.now - 7
+      @game.save
+      @user.survivor_entries.create!(:team => @away, :game => @game, :week => @game.week, :season => @game.season)
+      @game1 = Factory(:nflgame, :away_team => @away, :home_team => @home, :week => 2)
+      get :viewpicksheet, :id => @user.sites[0].pools[0].id
+      response.should have_selector("input", :type => "radio",
+                                             :id => "teamid_#{@away.id}",
                                              :disabled => "disabled")
     end
   end
