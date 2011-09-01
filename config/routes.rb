@@ -57,6 +57,8 @@ Poolofgreatness::Application.routes.draw do
   resources :survivor_pools do
     member do
       get "viewpicksheet"
+      post "makepick"
+      get "standings"
     end
   end
 

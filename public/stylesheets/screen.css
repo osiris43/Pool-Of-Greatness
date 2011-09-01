@@ -298,10 +298,17 @@ input[type="submit"] {
   width: 100%
 }
 
+#survivor_picks_table {
+  width: 80%;
+}
 tr.header {
   border-top: 1px solid #FB7A31;
 	border-bottom: 1px solid #FB7A31;
 	background: #FFC;
+}
+
+tr.header th {
+  padding: 0 5px;
 }
 
 .activity_desc {
@@ -394,4 +401,17 @@ article {
 #login-wrapper,
 #signup-wrapper{
   padding: 100px 0 200px 200px;
+}
+
+#current_pick_container {
+  border: 1px solid #3c39ba;
+  border-radius:5px 5px 5px 5px;
+  -moz-border-radius:5px 5px 5px 5px;
+  -webkit-border-radius:5px 5px 5px 5px;
+  margin: 5px 0;
+}
+
+#current_pick_container h3 {
+  background-color: #5d5bba;
+
 }

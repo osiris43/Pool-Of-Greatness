@@ -1,0 +1,30 @@
+<div class="pickem_container container_12">
+  <%= render 'navigation' %>
+  <h1>Current Standings</h1>
+  <% flash.each do |key, msg| %>
+    <div id="<%= key %>">
+      <p><%= msg %></p>
+      <div class="clear"></div>
+    </div>
+  <% end %>
+
+  <table>
+    <tr class="header">
+      <th>Entry</th>
+      <th>Weeks</th>
+      <% (1..@current_week).to_a.each do |week| %>
+        <th><%= "Week #{week}" %></th>
+      <% end %>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.survivor_entries.count %></td>
+        <% user.survivor_entries.each do |entry| %>
+          <td><%= entry.team.display_name %></td>
+        <% end %>
+      </tr>
+    <% end %>
+
+  </table>
+</div>

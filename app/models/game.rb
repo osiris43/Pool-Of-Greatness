@@ -71,6 +71,14 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def winning_team
+    if homescore > awayscore
+      return home_team
+    else
+      return away_team
+    end
+  end
+
   def display_line
     if line > 0
       line * -1

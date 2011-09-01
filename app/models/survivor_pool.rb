@@ -21,6 +21,20 @@ class SurvivorPool < Pool
     @games
   end
 
+  def current_week
+    Nflgame.where("season = ? AND gamedate > ?", getseason, DateTime.now).order("gamedate").first.week
+  end
+
+  def show_week?
+    game = Nflgame.where("season = ? AND gamedate > ?", getseason, DateTime.now).order("gamedate").first
+
+    if DateTime.now < game.gamedate
+      false
+    else
+      true
+    end
+  end
+
   private 
     def getseason
       "2011-2012"

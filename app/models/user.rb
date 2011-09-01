@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :pickem_pools, :through => :poolusers  
   has_many :pickem_week_entries
   has_and_belongs_to_many :sites
+  has_many :survivor_entries
   
   # login can be either username or email address
   def self.authenticate(login, pass)

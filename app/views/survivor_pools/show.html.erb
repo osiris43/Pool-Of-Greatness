@@ -1,4 +1,15 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
-  <h1>some crap</h1>
+  <div class="grid_3">
+    <div id="current_pick_container">
+      <h3><%= "Your Week #{@current_week} Pick" %></h3>
+      <span>
+        <% if @current_pick.nil? %> 
+          "No Pick"
+        <% else %>
+          <%= @current_pick.team.display_name %>
+        <% end %>
+      </span>
+    </div>
+  </div>
 </div>

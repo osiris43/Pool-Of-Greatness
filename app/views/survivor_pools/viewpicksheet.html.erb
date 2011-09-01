@@ -1,21 +1,30 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
-  <h1>Some Crap</h1>
-  <table>
-    <tr>
-      <th>Time</th>
+  <h1>Picksheet</h1>
+  <%= form_tag(makepick_survivor_pool_path, :method => "post") do %>
+  <table id="survivor_picks_table">
+    <tr class="header">
+      <th>Game Date</th>
+      <th></th>
       <th>Favorite</th>
       <th>Line</th>
+      <th></th>
       <th>Underdog</th>
     </tr>
     <% @games.each do |game| %>
       <tr>
         <td><%= game.gamedate.strftime("%m-%d-%Y") %></td>
+        <td><%= radio_button_tag(:teamid, game.favorite.id, checked = (game.favorite.id == @entry.team_id)) %></td>
         <td><%= game.favorite_display_name %></td>
         <td><%= game.display_line %></td>
+        <td><%= radio_button_tag(:teamid, game.underdog.id, checked = (game.underdog.id == @entry.team_id)) %></td>
         <td><%= game.underdog_display_name %></td>
+        <%= hidden_field_tag(:gameid, game.id) %>
       </tr>
     <% end %>
   </table>
+  <br /><br />
+  <%= submit_tag("Save Pick") %>
+<% end %>
 </div>
 
