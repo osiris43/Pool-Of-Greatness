@@ -1,23 +1,23 @@
 <section id="sites_container">
-  <h2>Your Sites</h2>
-  
   <% current_user.sites.each do |site| %>
-    <div id="site_container">
-      <h3><%= site.name %></h3> <% if current_user.id == site.admin_id %>( <%= link_to("Add pool to this site", newpool_site_path) %> )<% end %>
-      <h4>Pools</h4>
+    <div class="site_container">
+      <h3><%= "Site: #{site.name}" %></h3>
+      <div id="site_navigation"> 
+      <% if current_user.id == site.admin_id %>
+        <%= link_to("Add pool to this site", newpool_site_path) %> 
+      <% end %>
+      </div>
       <div id="pools">
         <% site.pools.each do |pool| %>
-          <article>
-            <div class="grid_6">
+          <div class="pool_container grid_3">
+            <article>
+              <h4><%= pool.name %></h4>
               <%= poolpath_for(pool) %>
-            </div>
-          </article>
+            </article>
+          </div>
         <% end %>
       </div>
-        <div class="grid_6">
-          <h4>Account Balance</h4>
-          <span>$12.00</span>
-        </div>
-      </div>
+    </div>
+
   <% end %>
 </section>

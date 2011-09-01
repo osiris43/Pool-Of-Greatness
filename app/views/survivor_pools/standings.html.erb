@@ -1,13 +1,7 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
   <h1>Current Standings</h1>
-  <% flash.each do |key, msg| %>
-    <div id="<%= key %>">
-      <p><%= msg %></p>
-      <div class="clear"></div>
-    </div>
-  <% end %>
-
+  <%= render 'shared/flashpartial' %>
   <table>
     <tr class="header">
       <th>Entry</th>

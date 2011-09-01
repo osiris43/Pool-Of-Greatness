@@ -36,7 +36,10 @@ class SurvivorPoolsController < ApplicationController
 
     @entry = SurvivorEntry.where(:user_id => current_user.id, :week => game.week, :season => game.season).first
     if @entry.nil?
-      current_user.survivor_entries.create!(:game => game, :team => team)
+      current_user.survivor_entries.create!(:game => game, :team => team, :week => game.week, :season => game.season)
+      if @games[0].week == 1
+        add_initial_transaction(@pool.name)
+      end
     else
       @entry.update_attributes(:game => game, :team => team)
       @entry.save
@@ -59,7 +62,15 @@ class SurvivorPoolsController < ApplicationController
     @users = User.joins(:survivor_entries).where("survivor_entries.season = ? and survivor_entries.week = ?",  "2011-2012", @current_week).all
 
     if @users.count == 0
-      flash[:notice] = "No standings until after the week 1 deadline"
+      flash[:notice] = fading_flash_message( "No standings until after the week 1 deadline",5)
     end
   end
+
+  private 
+    def add_initial_transaction(name)
+      current_user.account.transactions.create!(:pooltype => "SurvivorPool", 
+                                                :poolname => name, 
+                                                :amount => -50,
+                                                :description => 'Survivor Pool fee')
+    end
 end

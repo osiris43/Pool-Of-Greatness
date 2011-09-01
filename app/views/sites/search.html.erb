@@ -3,12 +3,19 @@
   <table>
     <tr class="header">
       <th>Site Name</th>
-      <th>Join</th>
+      <th></th>
     </tr>
     <% @sites.each do |site| %>
       <tr>
         <td><%= site.name %></td>
-        <td><%= link_to "Join", join_site_path(site.id) %></td>
+        <td>
+          <% if current_user.sites.include?(site) %>
+            <span>You're already a member.</span>
+            <%= link_to "Dashboard", user_path(current_user) %>
+          <% else %>
+            <%= link_to "Join", join_site_path(site.id) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
