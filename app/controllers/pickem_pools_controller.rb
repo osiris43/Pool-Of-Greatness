@@ -1,21 +1,21 @@
 class PickemPoolsController < ApplicationController
   before_filter :login_required
-  before_filter :poolid_required, :except => :home
   
   def configure
     @title = "Configure your pool"
+    @pool = PickemPool.find(params[:id])
+
   end
 
   def update
     logger.debug(params)
-    @pool = PickemPool.find(session[:pool_id])
-    add_configuration(@pool)
+    @pool = PickemPool.find(params[:id])
+
     redirect_to user_path(current_user)
   end
 
   def home
-    @pool = PickemPool.find(params[:pool])
-    session[:pool_id] = @pool.id
+    @pool = PickemPool.find(params[:id])
     @title = @pool.name
 
     if current_user.account.nil?
@@ -29,17 +29,17 @@ class PickemPoolsController < ApplicationController
     @current_week = get_current_week
     @games = @current_week.pickem_games.joins(:game).order("games.gamedate")
     if DateTime.now > @current_week.deadline
-      @pool = PickemPool.find(session[:pool_id])
+      @pool = PickemPool.find(params[:id])
 
       flash[:notice] = "The deadline has passed"
-      redirect_to(pickem_home_path(:pool => @pool))
+      redirect_to(home_pickem_pool_path(@pool))
     else
       render 'view_games'
     end
   end
 
   def administer
-    @pool = PickemPool.find(session[:pool_id])
+    @pool = PickemPool.find(params[:id])
     @games = get_weekly_games(@pool.id)
     @current_week = get_current_week
     #@tiebreakGame = @current_week.pickem_games.find_by_istiebreaker(true)
@@ -54,7 +54,7 @@ class PickemPoolsController < ApplicationController
 
   def create_games
     @current_week = get_current_week
-
+    @pool = PickemPool.find(params[:id])
     @games = get_weekly_games(@pool.id)
     includedgames = params[:game_ids].collect {|id| id.to_i} if params[:game_ids]
     @games.each do |game|
@@ -69,7 +69,7 @@ class PickemPoolsController < ApplicationController
 
   def save_picks
     selectedGames = params.select {|key,value| key =~ /gameid_/ }
-    @pool = PickemPool.find(session[:pool_id])
+    @pool = PickemPool.find(params[:id])
     @current_week = get_current_week
  
    # save the picks 
@@ -85,7 +85,7 @@ class PickemPoolsController < ApplicationController
                                               :description => "Fee for week #{@current_week.week}, season #{@current_week.season}")
 
 
-    redirect_to(pickem_home_path(:pool => @pool))
+    redirect_to(home_pickem_pool_path(@pool))
   end
 
   def view_allgames
@@ -93,14 +93,14 @@ class PickemPoolsController < ApplicationController
     
     if DateTime.now < @current_week.deadline
       flash[:notice] = "The deadline has not passed"
-      @pool = PickemPool.find(session[:pool_id])
+      @pool = PickemPool.find(params[:id])
 
-      redirect_to(pickem_home_path(:pool => @pool))
+      redirect_to(home_pickem_pool_path(:pool => @pool))
     elsif @current_week.pickem_games.count < 1
       flash[:notice] = "There are no games for this week"
-      @pool = PickemPool.find(session[:pool_id])
+      @pool = PickemPool.find(params[:id])
 
-      redirect_to(pickem_home_path(:pool => @pool))
+      redirect_to(home_pickem_pool_path(:pool => @pool))
     else
       render 'view_allgames'
     end
@@ -108,7 +108,7 @@ class PickemPoolsController < ApplicationController
   end
 
   def admin_pick_weekly_games
-    @pool = PickemPool.find(session[:pool_id])
+    @pool = PickemPool.find(params[:id])
     @games = get_weekly_games(@pool.id)
     @current_week = get_current_week
 
@@ -117,22 +117,31 @@ class PickemPoolsController < ApplicationController
   def show_results
     @title = "Weekly Results"
     @current_week = get_current_week
-    if @current_week.pickem_entry_results.nil? || @current_week.pickem_entry_results.count < 1
-      @current_week = get_previous_week
-    end
+    #if @current_week.pickem_entry_results.nil? || @current_week.pickem_entry_results.count < 1
+    #  @current_week = get_previous_week
+    #end
     @results_header = "Results for Week #{@current_week.week}, Season #{@current_week.season}"
   end
 
-  def view_poolstats
+  def results
+    @title = "Weekly Results"
+    @current_week = get_current_week
+    #if @current_week.pickem_entry_results.nil? || @current_week.pickem_entry_results.count < 1
+    #  @current_week = get_previous_week
+    #end
+    @results_header = "Results for Week #{@current_week.week}, Season #{@current_week.season}"
+  end
+
+  def viewstats 
     @title = "Season Statistics"
-    @pool = PickemPool.find(session[:pool_id])
+    @pool = PickemPool.find(params[:id])
     @season = @pool.pickem_rules.where("config_key = ?", "current_season").first
     @userstats = Userstat.find_by_season(@season.config_value) 
   end
 
   private
     def get_current_week
-      @pool = PickemPool.find(session[:pool_id])
+      @pool = PickemPool.find(params[:id])
       @season = @pool.pickem_rules.where("config_key = ?", "current_season").first
       @week = @pool.pickem_rules.where("config_key = ?", "current_week").first
       logger.debug @season
@@ -140,7 +149,7 @@ class PickemPoolsController < ApplicationController
       @gamesHeader = "Games for Week #{@week.config_value}, #{@season.config_value}"
       logger.debug "PoolId: #{@pool.id}\tSeason: #{@season.config_value}\tWeek: #{@week.config_value}"
       @current_week = PickemWeek.where("pickem_pool_id = ? AND season = ? AND week = ?", 
-                                        session[:pool_id],
+                                        params[:id],
                                         @season.config_value,
                                         @week.config_value).first
 
@@ -148,11 +157,11 @@ class PickemPoolsController < ApplicationController
     end
     
     def get_previous_week
-      @pool = PickemPool.find(session[:pool_id])
+      @pool = PickemPool.find(params[:id])
       @season = @pool.pickem_rules.where("config_key = ?", "current_season").first
       @week = @pool.pickem_rules.where("config_key = ?", "current_week").first
       @current_week = PickemWeek.where("pickem_pool_id = ? AND season = ? AND week = ?", 
-                                        session[:pool_id],
+                                        params[:id],
                                         @season.config_value,
                                         @week.config_value.to_i - 1).first
 
@@ -166,30 +175,5 @@ class PickemPoolsController < ApplicationController
       @games = Game.find_by_season_week(season.config_value, week.config_value,
                                       includePro.config_value, includeCollege.config_value)
 
-    end
-
-    def poolid_required
-      redirect_to user_path(current_user) unless session[:pool_id]
-    end
-
-    def add_configuration(pool)
-      add_rule(@pool, :number_of_games, "number_of_games")
-      add_rule(@pool, :college, "college")
-      add_rule(@pool, :pro, "pro")
-      # TODO get rid of this hard code
-      add_rule(@pool, :current_season, "current_season")
-      add_rule(@pool, :current_week, "current_week")
-      add_rule(@pool, :weekly_fee, "weekly_fee")
-    end
-
-    def add_rule(pool, paramsValue, key)
-      if !params[paramsValue]
-        return
-      end
-
-      @rule= pool.pickem_rules.create
-      @rule.config_key = key
-      @rule.config_value = params[key] 
-      @rule.save
     end
 end

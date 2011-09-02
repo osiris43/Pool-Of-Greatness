@@ -28,3 +28,11 @@ $(document).ready(function(){
     }
   })
 })
+
+$(document).ready(function() {
+  $('#pool_type').change(function() {
+    if ($('#pool_type').val() == 'PickemPool') {
+      $('#pickem_options').show();
+    }
+  })
+})

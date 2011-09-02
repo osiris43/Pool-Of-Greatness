@@ -1,0 +1,24 @@
+<div class="pickem_container container_12">
+  <%= render "navigation" %>
+
+  <h1>Season Stats</h1>
+  <table class="results_table" >
+    <tr class="header">
+      <th>Name</th>
+      <th>Won</th>
+      <th>Lost</th>
+      <th>Tied</th>
+      <th>Win %</th>
+    </tr>
+    <% @userstats.each do |stat| %>
+      <tr>
+        <td><%= stat.name %></td>
+        <td><%= stat.won %></td>
+        <td><%= stat.lost %></td>
+        <td><%= stat.tied %></td>
+        <td><%= stat.win_percentage %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+  

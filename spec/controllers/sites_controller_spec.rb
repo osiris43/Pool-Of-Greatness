@@ -71,8 +71,38 @@ describe SitesController do
     end
 
     it "adds the site to the user's sites" do
-      post :add_pool, :id => @site.id, :poolname => "my name", :pool => {:type => 'PickemPool'} 
+      post :add_pool, :id => @site.id, :poolname => "my name",:current_week => 1, :current_season => '2011-2012',   
+        :pool => {:type => 'PickemPool'} 
       @site.pools.count.should == 1
+    end
+
+    it "adds the number of games to the config" do
+      lambda do
+        post :add_pool, :id => @site.id, :number_of_games => '1',:current_week => 1, 
+          :current_season => "2011-2012", :pool => {:type => 'PickemPool'}  
+      end.should change(PickemRule, :count).by(3)
+    end
+
+    it "adds college config to table" do
+      lambda do
+        post :add_pool, :id => @site.id, :college => '1',
+         :current_week => 1, :current_season => "2011-2012",  :pool => {:type => 'PickemPool'}  
+      end.should change(PickemRule, :count).by(3)
+    end
+
+    it "adds pro config to the table" do
+      lambda do
+        post :add_pool, :id => @site.id, :pro => "1", :current_week => 1, :current_season => '2011-2012',
+          :pool => {:type => 'PickemPool'}
+      end.should change(PickemRule, :count).by(3)
+    end
+
+    it "adds weekly fee to table" do
+      lambda do
+        post :add_pool, :id => @site.id, :weekly_fee => "10", :current_week => 1, :current_season => '2011-2012',    
+          :pool => {:type => 'PickemPool'}
+
+      end.should change(PickemRule, :count).by(3)
     end
   end
 end

@@ -7,6 +7,9 @@ class Userstat
     users.each do |user|
       won = lost = tied = 0
       user.pickem_week_entries.each do |entry|
+        if entry.pickem_entry_result.nil?
+          next
+        end 
         won += entry.pickem_entry_result.won
         lost += entry.pickem_entry_result.lost
         tied += entry.pickem_entry_result.tied
@@ -23,7 +26,11 @@ class Userstat
     @lost = lost
     @tied = tied
     @weeks_played = weeks_played
-    @win_percentage = ((won.to_f / (won+lost+tied)) * 100).round(2)
+    if won+lost+tied == 0
+      @win_percentage = 0.00
+    else
+      @win_percentage = ((won.to_f / (won+lost+tied)) * 100).round(2)
+    end
   end
 end
 

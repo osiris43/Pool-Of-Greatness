@@ -1,39 +1,10 @@
 <div class="pickem_container container_12">
   <%= render "navigation" %>
   <h1><%= @results_header %></h1>
-  <div class="place_label">
-    <label><strong>First Place:</strong> </label>
-    <span class="result_label">
-      <%= @current_week.pickem_entry_results[0].pickem_week_entry.user.name  %>
-    </span>
-  </div>
-  <% if @current_week.pickem_entry_results.count > 6 %>
-    <label>Second Place: </label><span><%= @current_week.pickem_entry_results[1].pickem_week_entry.user.name  %></span>
-    <br />
+  <%= link_to "Previous week", show_results_pickem_pool_path(:weekid => @current_week.week)  %>
+  <%= render 'places' %>
+  <% if !@current_week.pickem_entry_results.empty? %>
+    <%= render 'allentries' %>
   <% end %>
-  <% if @current_week.pickem_entry_results.count > 10 %>
-    <label>Third Place: </label><span><%= @current_week.pickem_entry_results[2].pickem_week_entry.user.name  %></span>
-    <br />
-  <% end %>
- <label><strong>Dead Ass Last: </strong> </label><span><%= @current_week.pickem_entry_results[-1].pickem_week_entry.user.name  %></span>
-  <br /><br />
-<table class="results_table">
-    <tr class="header">
-      <th>Name</tH>
-      <th>Won</th>
-      <th>Lost</th>
-      <th>Tied</th>
-      <th>Monday Night Total Distance</th>
-    </tr>
-  <% @current_week.pickem_entry_results.each do |result| %>
-    <tr>
-      <td><%= result.pickem_week_entry.user.name %></td>
-      <td><%= result.won %></td>
-      <td><%= result.lost %></td>
-      <td><%= result.tied %></td>
-      <td><%= result.tiebreak_distance %></td>
-    </tr>
-  <% end %>
-</table>
 </div>
 <div class="clear"></div>

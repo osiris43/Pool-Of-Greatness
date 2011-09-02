@@ -37,6 +37,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def pool_admin?(pool)
+    id == pool.admin_id
+  end
   private
 
     def prepare_password

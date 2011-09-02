@@ -11,13 +11,13 @@
         </td>
       <% end %>
     </tr>
-    <tr>
-      <% @current_week.pickem_week_entries.each do |entry| %>
+    <% @current_week.pickem_week_entries.each do |entry| %>
+      <tr>
         <td><%= entry.user.name %></td>
         <% entry.pickem_picks.each do |pick| %>
           <td><%= pick.team.teamname %></td>
         <% end %>
-      <% end %>
-    </tr>
+      </tr>
+    <% end %>
   </table>
 </div>

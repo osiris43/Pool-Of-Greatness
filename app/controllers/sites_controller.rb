@@ -45,6 +45,8 @@ class SitesController < ApplicationController
 
   def newpool
     @site = Site.find(params[:id])
+    @season = "2011-2012"
+    @week = 1
   end
 
   def add_pool
@@ -52,14 +54,45 @@ class SitesController < ApplicationController
     case params[:pool][:type]
     when "PickemPool"
       @pool = PickemPool.new(:name => params[:poolname], :admin_id => current_user.id)
+      @site.pools << @pool
+      @site.save
+
+      @pool.pickem_weeks.create!(:season => params[:current_season],
+                                 :week => params[:current_week],
+                                 :deadline => params[:deadline])
+      add_configuration(@pool)
+
     when "SurvivorPool"
       @pool = SurvivorPool.new(:name => params[:poolname], :admin_id => current_user.id)
+      @site.pools << @pool
+      @site.save
+
     end
       
-    @site.pools << @pool
-    @site.save
 
     redirect_to user_path(current_user)
   end
+
+  private 
+    def add_configuration(pool)
+      add_rule(@pool, :number_of_games, "number_of_games")
+      add_rule(@pool, :college, "college")
+      add_rule(@pool, :pro, "pro")
+      # TODO get rid of this hard code
+      add_rule(@pool, :current_season, "current_season")
+      add_rule(@pool, :current_week, "current_week")
+      add_rule(@pool, :weekly_fee, "weekly_fee")
+    end
+
+    def add_rule(pool, paramsValue, key)
+      if !params[paramsValue]
+        return
+      end
+
+      @rule= pool.pickem_rules.create
+      @rule.config_key = key
+      @rule.config_value = params[key] 
+      @rule.save
+    end
 
 end

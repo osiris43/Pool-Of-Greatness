@@ -4,7 +4,7 @@
       <h3><%= "Site: #{site.name}" %></h3>
       <div id="site_navigation"> 
       <% if current_user.id == site.admin_id %>
-        <%= link_to("Add pool to this site", newpool_site_path) %> 
+        <%= link_to("Add pool to this site", newpool_site_path(site)) %> 
       <% end %>
       </div>
       <div id="pools">

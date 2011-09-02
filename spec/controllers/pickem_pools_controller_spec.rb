@@ -9,89 +9,54 @@ describe PickemPoolsController do
 
   describe "GET 'configure'" do
     describe 'failure' do
+      before(:each) do
+        @pool = Factory(:pickem_pool)
+      end
       it "requires a logged in user" do
-        get 'configure'
+        get 'configure', :id => @pool.id
         response.should redirect_to(login_path)
       end
-
-      it "requires a pool id in the session" do
-        @controller.stubs(:current_user).returns(@user)
-        get 'configure'
-        response.should redirect_to user_path(@user)
-      end
-
     end
     
     describe 'success' do
       before(:each) do
         @controller.stubs(:current_user).returns(@user)
-        session[:pool_id] = "1"
+        @pool = Factory(:pickem_pool)
       end
 
 
       it "should be successful" do
-        get 'configure'
+        get 'configure', :id => @pool.id
         response.should be_success
       end
 
       it "has the right title" do
-        get 'configure'
+        get 'configure', :id => @pool.id
         response.should have_selector("title", :content => "Configure your pool")
       end
 
       it "has a number of games text box" do
-        get 'configure'
+        get 'configure', :id => @pool.id
         response.should have_selector("input", :id => "number_of_games")
       end
 
       it "has a include college check box" do
-        get 'configure'
+        get 'configure', :id => @pool.id
         response.should have_selector("input", :id => "college")
       end
 
       it "has an include pro check box" do
-        get 'configure'
+        get 'configure', :id => @pool.id
         response.should have_selector("input", :id => "pro")
       end
 
       it "has a weekly fee text box" do
-        get 'configure'
+        get 'configure', :id => @pool.id
         response.should have_selector("input", :id => "weekly_fee")
       end
 
     end
 
-  end
-
-  describe "POST 'update'" do
-    before(:each) do
-      @controller.stubs(:current_user).returns(@user)
-      session[:pool_id] = Factory(:pickem_pool).id 
-    end
-
-    it "adds the number of games to the config" do
-      lambda do
-        post :update, {:number_of_games => '1' } 
-      end.should change(PickemRule, :count).by(1)
-    end
-
-    it "adds college config to table" do
-      lambda do
-        post :update, { :college => '1' } 
-      end.should change(PickemRule, :count).by(1)
-    end
-
-    it "adds pro config to the table" do
-      lambda do
-        post :update, {:pro => "1"}
-      end.should change(PickemRule, :count).by(1)
-    end
-
-    it "adds weekly fee to table" do
-      lambda do
-        post :update, {:weekly_fee => "10"}
-      end.should change(PickemRule, :count).by(1)
-    end
   end
 
   describe "GET 'home'" do
@@ -102,40 +67,41 @@ describe PickemPoolsController do
       end
 
       it "should be successful" do
-        get 'home', :pool => @pool
+        get 'home', :id => @pool.id
         response.should be_success
       end
 
       it "has the right title" do
-        get 'home', :pool => @pool
+        get 'home', :id => @pool.id
         response.should have_selector("title", :content => "My Pool")
       end
 
       it "has a pool home link" do
-        get 'home', :pool => @pool
-        response.should have_selector("a", :href => pickem_home_path(:pool => @pool) ,
+        get 'home', :id => @pool.id
+        response.should have_selector("a", :href => home_pickem_pool_path(@pool) ,
                                            :content => "Pool Home")
       end
 
       it "has an admin link for the correct user" do
         @admin = Factory(:user, :username => "adminuser", :email => "test1@test.com", :admin => true)
-
+        @pool1 = Factory(:pickem_pool, :name => 'abd',  :admin_id => @admin.id)
+        
         @controller.stubs(:current_user).returns(@admin)
-        get 'home', :pool => @pool
-        response.should have_selector("a", :href => pickem_administer_path,
+        get 'home', :id => @pool1.id
+        response.should have_selector("a", :href => administer_pickem_pool_path(@pool1),
                                            :content => 'Pool Admin')
       end
 
       it "has a weekly games link" do
-        get 'home', :pool => @pool
-        response.should have_selector("a", :href => pickem_weeklygames_path,
+        get 'home', :id => @pool.id
+        response.should have_selector("a", :href => view_games_pickem_pool_path(@pool),
                                            :content => "Weekly Games" )
 
       end
 
       it "has a view all games link" do
-        get "home", :pool => @pool
-        response.should have_selector("a", :href => pickem_view_allgames_path,
+        get "home", :id => @pool.id
+        response.should have_selector("a", :href => view_allgames_pickem_pool_path(@pool),
                                            :content => "View All Games")
       end
 
@@ -145,12 +111,12 @@ describe PickemPoolsController do
         end
 
         it "displays a recent activity section" do
-          get "home", :pool => @pool
+          get "home", :id => @pool.id
           response.should have_selector("div", :class => "recent_activity")
         end
 
         it "displays a no activity message if none exists" do
-          get "home", :pool => @pool
+          get "home", :id => @pool.id
           response.should have_selector("h2", :content => "No recent activity")
         end
 
@@ -158,7 +124,7 @@ describe PickemPoolsController do
           @user.account.transactions.create!(:pooltype => 'Pickem', :poolname => @pool.name, 
                                              :amount => 12, 
                                              :description => "Fee for week 1")
-          get "home", :pool => @pool
+          get "home", :id => @pool.id
           response.should have_selector("td", :content => "Fee for week 1")
 
         end
@@ -170,7 +136,7 @@ describe PickemPoolsController do
   describe "GET 'view_games'" do
     describe 'failure' do
       it "requires a logged in user" do
-        get 'view_games'
+        get 'view_games', :id => 1
         response.should_not be_success
       end
     end
@@ -193,28 +159,28 @@ describe PickemPoolsController do
       it "is successful" do
         @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
 
-        get 'view_games'
+        get 'view_games', :id => @pool.id
         response.should be_success
       end
 
       it "displays current week" do
         @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
         
-        get 'view_games'
+        get 'view_games', :id => @pool.id
         response.should have_selector("h2", :content => "Games for Week 1")
       end
 
       it "displays the current season" do
         @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
 
-        get 'view_games'
+        get 'view_games', :id => @pool.id
         response.should have_selector("h2", :content => "2011-2012")
       end
 
       it "displays a message for past the deadline" do
         @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now - 1 )
-        get 'view_games'
-        response.should redirect_to(pickem_home_path(:pool => @pool))
+        get 'view_games', :id => @pool.id
+        response.should redirect_to(home_pickem_pool_path(@pool))
 
       end
 
@@ -232,18 +198,6 @@ describe PickemPoolsController do
   end
 
   describe "GET 'administer'" do
-    describe 'failure' do
-
-      it "requires a valid pool id" do
-        @controller.stubs(:current_user).returns(@user)
-
-        session[:pool_id] = nil
-        get 'administer'
-
-        response.should_not be_success
-      end
-
-    end
     describe 'success' do
       before(:each)do
         @controller.stubs(:current_user).returns(@user)
@@ -252,7 +206,6 @@ describe PickemPoolsController do
         @pool.pickem_rules.create(:config_key => "current_week", :config_value => "1")
         @pool.pickem_rules.create(:config_key => "pro", :config_value => "1")
         @pool.pickem_rules.create(:config_key => "college", :config_value => "1")
-        session[:pool_id] = @pool.id
       end
 
       describe 'list games' do
@@ -262,13 +215,14 @@ describe PickemPoolsController do
           @game = Factory(:nflgame, :away_team => @away, :home_team => @home, :type => 'Nflgame')
           pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
           pickem_game = Factory(:pickem_game, :game => @game, :pickem_week => pickemWeek)
+          pickemWeek.pickem_games << pickem_game
+          pickemWeek.save
           
         end
 
 
         it "has a 'modify config' section" do
-          get 'administer'
-
+          get 'administer', :id => @pool.id
           response.should have_selector("h2", :content => "Modify Pool Configuration")
         end
 
@@ -279,15 +233,10 @@ describe PickemPoolsController do
   describe "GET 'view_allgames'" do
     describe 'failure' do
       it "requires a logged in user" do
-        get 'view_allgames'
+        get 'view_allgames', :id => 1
         response.should_not be_success
       end
 
-      it "requires a pool " do
-        @controller.stubs(:current_user).returns(@user)
-        get 'view_allgames'
-        response.should_not be_success
-      end
     end
 
     describe 'success' do
@@ -301,13 +250,13 @@ describe PickemPoolsController do
 
       it "displays a message if the deadline hasn't passed" do
         pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
-        get 'view_allgames'
+        get 'view_allgames', :id => @pool.id
         flash[:notice].should =~ /deadline has not passed/i
       end
 
       it "displays a message if no games exist" do
         pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now - 1)
-        get "view_allgames"
+        get "view_allgames", :id => @pool.id
         flash[:notice].should =~ /no games for this week/i
       end
 
@@ -317,7 +266,7 @@ describe PickemPoolsController do
         pickem_game = Factory(:pickem_game, :game => game, :pickem_week => pickemWeek)
         entry = Factory(:pickem_pick, :game => game, :user => @user, :team => Factory(:nflhometeam))
 
-        get "view_allgames"
+        get "view_allgames", :id => @pool.id
         response.should have_selector("td", :content => "New York Jets at Dallas Cowboys (-2.0)")
       end
 
@@ -327,7 +276,7 @@ describe PickemPoolsController do
         game = Factory(:nflgame, :away_team => Factory(:nflawayteam), :home_team => Factory(:nflhometeam))
         pickem_game = Factory(:pickem_game, :game => game, :pickem_week => pickemWeek)
 
-        get "view_allgames"
+        get "view_allgames", :id => @pool.id
         response.should have_selector("td", :content => "Brett Bim")
       end
 
@@ -339,7 +288,7 @@ describe PickemPoolsController do
         entry.pickem_picks.create!(:game => game, :team => team)
         pickem_game = Factory(:pickem_game, :game => game, :pickem_week => pickemWeek)
 
-        get "view_allgames"
+        get "view_allgames", :id => @pool.id
         response.should have_selector("td", :content => "New York Jets")
       end
     end
@@ -348,15 +297,10 @@ describe PickemPoolsController do
   describe "GET 'show_results'" do
     describe 'failure' do
       it "requires a logged in user" do
-        get 'show_results'
+        get 'show_results', :id => 1
         response.should_not be_success
       end
 
-      it "requires a pool " do
-        @controller.stubs(:current_user).returns(@user)
-        get 'show_results'
-        response.should_not be_success
-      end
     end
 
     describe 'success' do
@@ -365,27 +309,17 @@ describe PickemPoolsController do
       end
 
       it "has the right title" do
-        get 'show_results'
+        get 'show_results', :id => @pool.id
         response.should have_selector("title", :content => "Weekly Results")
       end
 
       it "has first place listed" do
-        get "show_results"
+        get "show_results", :id => @pool.id
         response.should have_selector("span", :content => "Brett Bim")
       end
 
-      #it "has second place listed" do
-      #  get "show_results"
-      #  response.should have_selector("span", :content => "Damon Polk")
-      #end
-
-      #it "has third place listed" do
-      #  get "show_results"
-      #  response.should have_selector("span", :content => "Alex T")
-      #end
-
       it "has DAL listed" do
-        get "show_results"
+        get "show_results", :id => @pool.id
         response.should have_selector("span", :content => "Tom G")
       end
     end
@@ -394,13 +328,7 @@ describe PickemPoolsController do
   describe "GET 'view_poolstats'" do
     describe 'failure' do
       it "requires a logged in user" do
-        get 'view_poolstats'
-        response.should_not be_success
-      end
-
-      it "requires a pool " do
-        @controller.stubs(:current_user).returns(@user)
-        get 'view_poolstats'
+        get 'viewstats', :id => 1
         response.should_not be_success
       end
     end
@@ -411,7 +339,7 @@ describe PickemPoolsController do
       end
 
       it "has the right title" do
-        get 'view_poolstats'
+        get 'viewstats', :id => @pool.id
         response.should have_selector("title", :content => "Season Statistics")
       end
     end

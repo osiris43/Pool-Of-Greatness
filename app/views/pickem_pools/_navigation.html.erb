@@ -1,12 +1,12 @@
   <nav class="pickem_navigation">
     <ul>
-      <li><%= link_to "Pool Home", pickem_home_path(:pool => @pool) %></li>
-      <li><%= link_to "Weekly Games", pickem_weeklygames_path %></li>
-      <li><%= link_to "View All Games", pickem_view_allgames_path %></li>
-      <li><%= link_to "Weekly Results", pickem_results_path %></li>
-      <li><%= link_to "Season Stats", pickem_statistics_path %></li>
-      <% if current_user.admin? %>
-        <li><%= link_to "Pool Admin", pickem_administer_path %></li>
+      <li><%= link_to "Pool Home", home_pickem_pool_path(@pool) %></li>
+      <li><%= link_to "Weekly Games", view_games_pickem_pool_path(@pool) %></li>
+      <li><%= link_to "View All Games", view_allgames_pickem_pool_path(@pool) %></li>
+      <li><%= link_to "Weekly Results", show_results_pickem_pool_path(@pool) %></li>
+      <li><%= link_to "Season Stats", viewstats_pickem_pool_path(@pool) %></li>
+      <% if current_user.pool_admin?(@pool) %>
+        <li><%= link_to "Pool Admin", administer_pickem_pool_path %></li>
       <% end %>
     </ul>
   </nav>

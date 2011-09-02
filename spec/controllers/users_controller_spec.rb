@@ -116,7 +116,7 @@ describe UsersController do
 
         it "has a survivor pool link on the dashboard" do
           get :show, :id => @user1
-          response.should have_selector("a", :content => "My Survivor Pool",
+          response.should have_selector("a", :content => "Pool Home",
                                              :href => survivor_pool_path(@user1.sites[0].pools[0])) 
         end
 

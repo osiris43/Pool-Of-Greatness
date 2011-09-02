@@ -1,0 +1,19 @@
+<table class="results_table">
+    <tr class="header">
+      <th>Name</tH>
+      <th>Won</th>
+      <th>Lost</th>
+      <th>Tied</th>
+      <th>Monday Night Total Distance</th>
+    </tr>
+  <% @current_week.pickem_entry_results.each do |result| %>
+    <tr>
+      <td><%= result.pickem_week_entry.user.name %></td>
+      <td><%= result.won %></td>
+      <td><%= result.lost %></td>
+      <td><%= result.tied %></td>
+      <td><%= result.tiebreak_distance %></td>
+    </tr>
+  <% end %>
+</table>
+

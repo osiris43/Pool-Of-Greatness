@@ -1,12 +1,6 @@
 Poolofgreatness::Application.routes.draw do
   get "games/index"
 
-  get "pickem_pools/configure"
-
-  post "pickem_pools/update"
-
-  get "pickem_pools/home"
-
   match 'user/edit' => 'users#edit', :as => :edit_current_user
 
   match 'signup' => 'users#new', :as => :signup
@@ -14,22 +8,29 @@ Poolofgreatness::Application.routes.draw do
   match 'logout' => 'sessions#destroy', :as => :logout
 
   match 'login' => 'sessions#new', :as => :login
-  match 'pickem_configure' => 'pickem_pools#configure', :as => :pickem_configure
-  match 'pickem_pools/home' => 'pickem_pools#home', :as => :pickem_home
-  match 'pickem_weeklygames' => 'pickem_pools#view_games', :as => :pickem_weeklygames
-  match 'pickem_administer' => 'pickem_pools#administer', :as => :pickem_administer
-  match 'pickem_view_allgames' => 'pickem_pools#view_allgames', :as => :pickem_view_allgames
 
   match 'pools/join' => 'pools#join', :as => :joinpool
   match 'pools/find' => 'pools#find', :as => :findpools
   match 'pools/search' => 'pools#search', :as => :poolsearch
-  match 'pickem_pools/create_games' => 'pickem_pools#create_games', :as => :create_games
-  match 'pickem_pools/save_picks' => "pickem_pools#save_picks", :as => :save_picks 
-  match 'pickem_pools/admin_pick_weekly_games' => "pickem_pools#admin_pick_weekly_games", :as => :admingames
-  match "pickem_pools/show_results" => "pickem_pools#show_results", :as => :pickem_results
-  match "pickem_pools/view_poolstats" => "pickem_pools#view_poolstats", :as => :pickem_statistics
 
   match 'games/find' => "games#find", :as => :find_games
+
+  resources :pickem_pools do
+    member do
+      get 'configure'
+      get 'show_results'
+      post 'update'
+      get 'home'
+      get 'viewstats'
+      get 'view_allgames'
+      get 'view_games'
+      get 'administer'
+      get 'admin_pick_weekly_games'
+      post 'create_games'
+      post 'save_picks'
+    end
+  end
+
   resources :sessions
   resources :sites do
     member do
