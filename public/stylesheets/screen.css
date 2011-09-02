@@ -61,7 +61,7 @@ header{
 	background:#0B0974;
 	font-size:18px;
 	text-transform:uppercase;
-	position:fixed;
+	position:relative;
 	width:100%;
 }
 
@@ -419,7 +419,8 @@ article {
 }
 
 #features,
-#pricing {
+#pricing, 
+#pools {
   padding: 25px 0;
 }
 
@@ -437,10 +438,21 @@ article {
 }
 
 #pricing {
+  background:rgba(0,0,0,.1);
+  overflow: auto;
+}
+
+#pools {
   background:rgba(0,0,0,.07);
   overflow: auto;
 }
 
+#pools .grid_12 {
+  margin-bottom: 20px;
+}
+
+#pools .grid_6 {
+}
 
 #footer h2 {
   color: #d2ac35;
@@ -480,4 +492,30 @@ article {
 
 #allgames_table td {
   padding: 3px;
+}
+
+#future_pools {
+  border: 1px solid #3c39ba;
+  border-radius:5px 5px 5px 5px;
+  -moz-border-radius:5px 5px 5px 5px;
+  -webkit-border-radius:5px 5px 5px 5px;
+  width: 220px;
+  margin: 20px 0;
+}
+
+#future_pools h2 {
+  background-color: #0b0974;
+  color: #d2b65f;
+  padding: 0 5px;
+}
+
+#future_pools ul {
+  list-style-type: none;
+  position: relative;
+  padding: 5px;
+}
+
+#pools_features {
+  margin: 20px 0;
+  padding: 10px 0;
 }
