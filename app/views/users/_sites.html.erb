@@ -7,7 +7,7 @@
         <%= link_to("Add pool to this site", newpool_site_path(site)) %> 
       <% end %>
       </div>
-      <div id="pools">
+      <div id="pools_container">
         <% site.pools.each do |pool| %>
           <div class="pool_container grid_3">
             <article>
