@@ -82,6 +82,13 @@ class SitesController < ApplicationController
       add_rule(@pool, :current_season, "current_season")
       add_rule(@pool, :current_week, "current_week")
       add_rule(@pool, :weekly_fee, "weekly_fee")
+
+      if params[:include_weekly_jackpot]
+        pool.create_jackpot(:weeklyjackpot => 0,
+                            :seasonjackpot => 0,
+                            :weeklyamount => params[:weekly_jackpot_amount],
+                            :seasonamount => params[:season_jackpot_amount])
+      end
     end
 
     def add_rule(pool, paramsValue, key)

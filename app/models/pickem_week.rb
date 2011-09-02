@@ -68,20 +68,37 @@ class PickemWeek < ActiveRecord::Base
 
   def update_accounting
     results = PickemEntryResult.joins(:pickem_week_entry).where('pickem_week_entries.pickem_week_id' => id).all
+    winner = results[0].pickem_week_entry
+    @pool = winner.pickem_week.pickem_pool
+    week = winner.pickem_week.week
+    season = winner.pickem_week.season
+
     if results.count < 6
-      winningEntry = results[0].pickem_week_entry
-      winningEntry.user.account.transactions.create!(:pooltype => "Pickem",
-                                                     :poolname => winningEntry.pickem_week.pickem_pool.name,
-                                                     :amount => results.count * 10,
-                                                     :description => "Winning prize for week #{winningEntry.pickem_week.week}, season #{winningEntry.pickem_week.season}")
+      add_transaction(winner.user, "Pickem", results.count * @pool.weeklyfee, week, season)
+    elsif results.count < 11
+      second = results[1].pickem_week_entry
+      add_transaction(winner.user, "Pickem", results.count * @pool.weeklyfee * 0.7, week, season)
+      add_transaction(second.user, "Pickem",results.count * @pool.weeklyfee * 0.3, week, season) 
+    else
+      second = results[1].pickem_week_entry
+      third = results[2].pickem_week_entry
+      add_transaction(winner.user, "Pickem", results.count * @pool.weeklyfee * 0.7, week, season)
+      add_transaction(second.user, "Pickem",results.count * @pool.weeklyfee * 0.2, week, season) 
+      add_transaction(third.user, "Pickem", results.count * @pool.weeklyfee * 0.1, week, season)
+
     end
 
-    @week = self.pickem_pool.pickem_rules.where("config_key = ?", "current_week").first
-    logger.debug "Found a week"
-    newWeek = @week.config_value.to_i + 1
-    logger.debug "setting the week to #{newWeek}"
-    @week.config_value = newWeek
-    @week.save
+    if @pool.award_jackpot?(results[0].won)
+      winner.user.account.transactions.create!(:pooltype => "Pickem",
+                                               :poolname => @pool.name,
+                                               :amount => @pool.jackpot.weeklyjackpot,
+                                               :description => "Jackpot for week #{winner.pickem_week.week}, season #{winner.pickem_week.season}")
+
+      @pool.jackpot.weeklyjackpot = 0;
+      @pool.save
+    end
+
+    self.pickem_pool.increment_current_week
 
   end
 
@@ -89,6 +106,13 @@ class PickemWeek < ActiveRecord::Base
     def save_pick(gamekey, teamid, current_user, entry)
       # gamekey looks like gameid_xxx where xxx is the game id
       entry.pickem_picks.create!(:game_id => gamekey[7..-1].to_i, :team_id => teamid.to_i)
+    end
+
+    def add_transaction(user, pooltype, amount, week, season)
+      user.account.transactions.create!(:pooltype => pooltype,
+                                        :poolname => self.pickem_pool.name,
+                                        :amount => amount,
+                                        :description => "Winning prize for week #{week}, season #{season}") 
     end
 
 end

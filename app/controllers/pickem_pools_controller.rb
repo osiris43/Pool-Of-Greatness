@@ -81,9 +81,10 @@ class PickemPoolsController < ApplicationController
     end
 
     current_user.account.transactions.create!(:pooltype => 'Pickem', :poolname => @pool.name, 
-                                              :amount => -12, 
+                                              :amount => @pool.weeklyfee * -1, 
                                               :description => "Fee for week #{@current_week.week}, season #{@current_week.season}")
 
+    @pool.incrementjackpots
 
     redirect_to(home_pickem_pool_path(@pool))
   end

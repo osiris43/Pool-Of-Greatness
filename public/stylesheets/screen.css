@@ -519,3 +519,11 @@ article {
   margin: 20px 0;
   padding: 10px 0;
 }
+
+#jackpot_rule {
+  border: 1px solid #3c39ba;
+  border-radius:5px 5px 5px 5px;
+  -moz-border-radius:5px 5px 5px 5px;
+  -webkit-border-radius:5px 5px 5px 5px;
+
+}

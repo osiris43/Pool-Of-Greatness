@@ -25,6 +25,22 @@
         <%= label_tag(:deadline, "First Week Deadline") %>
         <%= text_field_tag(:deadline) %>
         </p>
+      <p id="jackpot_rule">
+        <%= check_box_tag(:include_weekly_jackpot) %>
+        <%= label_tag(:include_weekly_jackpot, "Include a weekly jackpot?") %>
+        <br /><br />
+        <%= label_tag(:weekly_jackpot_amount, "Amount of weekly fee that goes towards weekly jackpot") %>
+        <%= text_field_tag(:weekly_jackpot_amount) %>
+        <br /><br />
+        <%= label_tag(:no_of_jackpot_wins, "How many wins to claim weekly jackpot?") %>
+        <%= text_field_tag(:no_of_jackpot_wins) %>
+        <br /><br />
+        <h3>Season Ending Jackpot</h3>
+        <%= label_tag(:season_jackpot_amount, "Amount of weekly fee that goes towards season jackpot") %>
+        <%= text_field_tag(:season_jackpot_amount) %>
+        <br /><br />
+        
+      </p>
 
         <%= hidden_field_tag(:current_season, @season) %>
         <%= hidden_field_tag(:current_week, @week) %>

@@ -104,5 +104,36 @@ describe SitesController do
 
       end.should change(PickemRule, :count).by(3)
     end
+
+    it "adds weekly jackpot to the table" do
+      lambda do
+        post :add_pool, :id => @site.id, :include_weekly_jackpot => "1", 
+          :current_week => 1, :current_season => '2011-2012', :weekly_jackpot_amount => "1",
+          :pool => {:type => 'PickemPool'}
+      end.should change(Jackpot, :count).by(1)
+    end
+
+  end
+
+  describe "GET 'newpool'" do
+    before(:each) do
+      @attr = {:name => "my site", :description => 'site description'}
+      @user = Factory(:user)
+      @controller.stubs(:current_user).returns(@user)
+      @site = Site.create!(@attr)
+    end
+
+    it "has a include weekly jackpot checkbox" do
+      get :newpool, :id => @site
+      response.should have_selector("input", :id => "include_weekly_jackpot",
+                                             :type => "checkbox")
+    end
+
+    it "has number of wins to qualify for weekly jackpot textbox" do
+      get :newpool, :id => @site
+      response.should have_selector("input", :id => "no_of_jackpot_wins",
+                                             :type => "text")
+    end
+
   end
 end

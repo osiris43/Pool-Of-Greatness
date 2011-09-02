@@ -66,6 +66,11 @@ describe UsersController do
         @controller.stubs(:current_user).returns(@user)
       end
 
+      it "has a 'edit profile link'" do
+        get :show, :id => @user
+        response.should have_selector("a", :href => edit_user_path(@user),
+                                           :content => "Edit Profile")
+      end
       it "shows logged in user" do
         get :show, :id => @user 
         response.should have_selector("title", :content => @user.username)

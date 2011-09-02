@@ -65,6 +65,7 @@ describe PickemWeek do
       @pickem_week = Factory(:pickem_week, :pickem_pool => @pool)
       @user.create_account
       @pool.pickem_rules.create(:config_key => "current_week", :config_value => "1") 
+      @pool.pickem_rules.create(:config_key => "weekly_fee", :config_value => "10") 
       @pickem_week.pickem_week_entries.create!(:user => @user, :mondaynighttotal => 45.5)
       @away = Factory(:nflawayteam)
       @home = Factory(:nflhometeam)
@@ -78,7 +79,7 @@ describe PickemWeek do
       @pickem_week.score
       @pickem_week.update_accounting
 
-      @pool.pickem_rules[0].config_value.should == "2"
+      @pool.current_week.should == 2
     end
   end
   
