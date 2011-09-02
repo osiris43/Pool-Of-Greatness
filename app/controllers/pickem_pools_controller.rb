@@ -116,16 +116,8 @@ class PickemPoolsController < ApplicationController
 
   def show_results
     @title = "Weekly Results"
-    @current_week = get_current_week
-    #if @current_week.pickem_entry_results.nil? || @current_week.pickem_entry_results.count < 1
-    #  @current_week = get_previous_week
-    #end
-    @results_header = "Results for Week #{@current_week.week}, Season #{@current_week.season}"
-  end
-
-  def results
-    @title = "Weekly Results"
-    @current_week = get_current_week
+    logger.debug "Week Id is #{params[:weekid]}"
+    @current_week = get_current_week(params[:weekid])
     #if @current_week.pickem_entry_results.nil? || @current_week.pickem_entry_results.count < 1
     #  @current_week = get_previous_week
     #end
@@ -140,18 +132,19 @@ class PickemPoolsController < ApplicationController
   end
 
   private
-    def get_current_week
+    def get_current_week(week=0)
       @pool = PickemPool.find(params[:id])
       @season = @pool.pickem_rules.where("config_key = ?", "current_season").first
-      @week = @pool.pickem_rules.where("config_key = ?", "current_week").first
-      logger.debug @season
-      logger.debug @week
-      @gamesHeader = "Games for Week #{@week.config_value}, #{@season.config_value}"
-      logger.debug "PoolId: #{@pool.id}\tSeason: #{@season.config_value}\tWeek: #{@week.config_value}"
+      if week.nil? || week == 0
+        week = @pool.pickem_rules.where("config_key = ?", "current_week").first.config_value
+      end
+      
+      @gamesHeader = "Games for Week #{week}, #{@season.config_value}"
+      logger.debug "PoolId: #{@pool.id}\tSeason: #{@season.config_value}\tWeek: #{week}"
       @current_week = PickemWeek.where("pickem_pool_id = ? AND season = ? AND week = ?", 
                                         params[:id],
                                         @season.config_value,
-                                        @week.config_value).first
+                                        week).first
 
       return @current_week
     end

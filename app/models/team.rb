@@ -1,5 +1,5 @@
 class Team < ActiveRecord::Base
-  attr_accessible :teamname
+  attr_accessible :teamname, :abbreviation
 
   def display_name
     teamname

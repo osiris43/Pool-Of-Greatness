@@ -2,21 +2,26 @@
   <%= render 'navigation' %>
 
   <h1>All Games For This Week</h1>
-  <table>
+  <table id="allgames_table">
     <tr class="header">
-      <td>Player</td>
+      <td></td>
       <% @current_week.pickem_games.each do |game| %>
         <td>
-          <%= "#{game.game.away_team.teamname} at #{game.game.home_team.teamname} (#{game.game.line})" %>
-        </td>
-      <% end %>
+          <%= "#{game.game.away_team.abbreviation}" %><br />
+          <%= "#{game.game.home_team.abbreviation}" %></br />
+        <%= "(#{game.game.line})" %>
+      </td>
+    <% end %>
+    <td>Monday Night Totals</td>
+
     </tr>
     <% @current_week.pickem_week_entries.each do |entry| %>
       <tr>
         <td><%= entry.user.name %></td>
         <% entry.pickem_picks.each do |pick| %>
-          <td><%= pick.team.teamname %></td>
+          <td><%= pick.team.abbreviation %></td>
         <% end %>
+        <td><%= entry.mondaynighttotal %></td>
       </tr>
     <% end %>
   </table>

@@ -1,7 +1,9 @@
 <div class="pickem_container container_12">
   <%= render "navigation" %>
   <h1><%= @results_header %></h1>
-  <%= link_to "Previous week", show_results_pickem_pool_path(:weekid => @current_week.week)  %>
+  <% if @current_week.week > 1 %>
+    <%= link_to "Previous week", show_results_pickem_pool_path(:weekid => @current_week.week - 1)  %>
+  <% end %>
   <%= render 'places' %>
   <% if !@current_week.pickem_entry_results.empty? %>
     <%= render 'allentries' %>

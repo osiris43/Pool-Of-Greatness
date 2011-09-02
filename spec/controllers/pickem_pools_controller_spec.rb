@@ -267,7 +267,7 @@ describe PickemPoolsController do
         entry = Factory(:pickem_pick, :game => game, :user => @user, :team => Factory(:nflhometeam))
 
         get "view_allgames", :id => @pool.id
-        response.should have_selector("td", :content => "New York Jets at Dallas Cowboys (-2.0)")
+        response.should have_selector("td", :content => "NYJ")
       end
 
       it "shows the user pick" do
@@ -289,7 +289,7 @@ describe PickemPoolsController do
         pickem_game = Factory(:pickem_game, :game => game, :pickem_week => pickemWeek)
 
         get "view_allgames", :id => @pool.id
-        response.should have_selector("td", :content => "New York Jets")
+        response.should have_selector("td", :content => "NYJ")
       end
     end
   end

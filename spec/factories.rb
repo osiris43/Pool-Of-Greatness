@@ -43,11 +43,13 @@ Factory.define :team do |team|
 end
 
 Factory.define :nflhometeam, :parent => :team do |team|
-  team.teamname "Dallas Cowboys"
+  team.teamname       "Dallas Cowboys"
+  team.abbreviation   "DAL"
 end
 
 Factory.define :nflawayteam, :parent => :team do |team|
-  team.teamname "New York Jets"
+  team.teamname       "New York Jets"
+  team.abbreviation   "NYJ"
 end
 
 Factory.define :nflgame do |game|

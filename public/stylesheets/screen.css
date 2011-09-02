@@ -473,3 +473,11 @@ article {
   padding: 0 5px;
 
 }
+
+#allgames_table {
+  width: 100%;
+}
+
+#allgames_table td {
+  padding: 3px;
+}
