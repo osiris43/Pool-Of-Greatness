@@ -10,7 +10,20 @@ class PickemWeek < ActiveRecord::Base
   validates_numericality_of :week, :greater_than => 0
 
   def save_picks(selectedGames, current_user, mnfTotal)
-    entry = pickem_week_entries.create!(:user => current_user, :mondaynighttotal => mnfTotal)
+    entry = pickem_week_entries.find_by_user_id(current_user.id)
+
+    if entry.nil?
+      entry = pickem_week_entries.create!(:user => current_user, :mondaynighttotal => mnfTotal)
+      current_user.account.transactions.create!(:pooltype => 'Pickem', :poolname => pickem_pool.name, 
+                                               :amount => pickem_pool.weeklyfee * -1, 
+                                               :description => "Fee for week #{week}, season #{season}")
+
+      pickem_pool.incrementjackpots
+
+    else
+      entry.update_attributes(:user => current_user, :mondaynighttotal => mnfTotal) 
+    end
+
     selectedGames.each {|key, value| save_pick(key, value, current_user, entry)} 
   end
 
@@ -22,7 +35,7 @@ class PickemWeek < ActiveRecord::Base
         tiebreakerTotal = pg.game.awayscore + pg.game.homescore
       end
 
-      if pg.game.winning_team_ats.id.nil?
+      if pg.game.winning_team_ats.nil?
         winningTeams[pg.game.id] = 'push'
       else
         winningTeams[pg.game.id] = pg.game.winning_team_ats.id
@@ -105,7 +118,14 @@ class PickemWeek < ActiveRecord::Base
   private
     def save_pick(gamekey, teamid, current_user, entry)
       # gamekey looks like gameid_xxx where xxx is the game id
-      entry.pickem_picks.create!(:game_id => gamekey[7..-1].to_i, :team_id => teamid.to_i)
+      gameid = gamekey[7..-1].to_i
+      pick = entry.pickem_picks.find_by_game_id(gameid) 
+      if pick.nil?
+        entry.pickem_picks.create!(:game_id => gamekey[7..-1].to_i, :team_id => teamid.to_i)
+      else
+        pick.update_attributes(:team_id => teamid)
+      end
+
     end
 
     def add_transaction(user, pooltype, amount, week, season)

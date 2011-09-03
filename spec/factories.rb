@@ -77,6 +77,7 @@ Factory.define :pickem_rule do |rule|
 end
 
 Factory.define :pickem_pick do |factory|
+
   factory.association :game 
 end
 

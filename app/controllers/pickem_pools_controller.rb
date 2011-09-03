@@ -28,6 +28,13 @@ class PickemPoolsController < ApplicationController
   def view_games
     @current_week = get_current_week
     @games = @current_week.pickem_games.joins(:game).order("games.gamedate")
+    entry = @current_week.pickem_week_entries.find_by_user_id(current_user.id)
+   
+    @teamids = []
+    if !entry.nil? && !entry.pickem_picks.empty?
+      @teamids = entry.pickem_picks.map{ |pick| pick.team_id}
+    end
+
     if DateTime.now > @current_week.deadline
       @pool = PickemPool.find(params[:id])
 
@@ -80,11 +87,8 @@ class PickemPoolsController < ApplicationController
       current_user.create_account
     end
 
-    current_user.account.transactions.create!(:pooltype => 'Pickem', :poolname => @pool.name, 
-                                              :amount => @pool.weeklyfee * -1, 
-                                              :description => "Fee for week #{@current_week.week}, season #{@current_week.season}")
 
-    @pool.incrementjackpots
+    flash[:notice] = "Picks successfully saved"
 
     redirect_to(home_pickem_pool_path(@pool))
   end

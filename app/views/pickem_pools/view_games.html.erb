@@ -2,14 +2,7 @@
   <%= render 'navigation' %>
 
 <h2><%= @gamesHeader %></h2>
-<% flash.each do |key, msg| %>
-  <div id="<%= key %>">
-    <p style="float:right;"><%= link_to_function 'X', "Effect.Fade('#{key}')" %></p>
-    <p><%= msg %></p>
-    <div class="clear"></div>
-  </div>
-<% end %>
-
+<%= render 'shared/flashpartial' %>
 <%= form_tag(save_picks_pickem_pool_path, :method => "post") do %>
 
 <table id="weeklygames">
@@ -20,7 +13,7 @@
 <% @games.each do |weeklygame| %>
   <tr class="gamerow" id="<%= "gameid_#{weeklygame.game.id}" %>">
     <td>
-      <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.favorite.id) %>
+      <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.favorite.id, checked = @teamids.include?(weeklygame.game.favorite.id)) %>
       <%= label_tag(:favorite, weeklygame.game.favorite_display_name) %> 
     </td>
     <td>
@@ -31,7 +24,7 @@
       <% end %>
     </td>
     <td>
-      <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.underdog.id) %>
+      <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.underdog.id, checked = @teamids.include?(weeklygame.game.underdog.id)) %>
       <%= label_tag(:underdog, weeklygame.game.underdog_display_name) %> 
     </td>
   </tr>

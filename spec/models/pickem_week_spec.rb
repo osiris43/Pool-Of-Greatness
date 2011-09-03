@@ -25,6 +25,8 @@ describe PickemWeek do
       @user = Factory(:user)
       @pool = Factory(:pickem_pool)
       @pickem_week = Factory(:pickem_week, :pickem_pool => @pool)
+      @user.create_account
+      @pool.pickem_rules.create(:config_key => "weekly_fee", :config_value => "12")
     end
 
     it "creates a weekly entry" do

@@ -189,10 +189,14 @@ describe PickemPoolsController do
           @away = Factory(:team)
           @home = Factory(:team, :teamname => "New York Jets" ) 
           @game = Factory(:nflgame, :away_team => @away, :home_team => @home)
+          pick = Factory(:pickem_pick, :game => @game)
         end
   
-        it "displays the game"
-
+        it "has the teams listed" #do
+          #@pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
+          #get 'view_games', :id => @pool.id
+          #response.should have_selector("td", :content => "Dallas Cowboys")
+        #end
       end 
     end
   end
