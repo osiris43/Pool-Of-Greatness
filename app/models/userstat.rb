@@ -1,5 +1,5 @@
 class Userstat
-  attr_reader :name, :won, :lost, :tied, :win_percentage
+  attr_reader :name, :won, :lost, :tied, :win_percentage, :weeks_played
 
   def self.find_by_season(season)
     users = User.joins(:pickem_week_entries => :pickem_week).where(:pickem_weeks => {:season => season})

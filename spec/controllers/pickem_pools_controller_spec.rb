@@ -64,6 +64,7 @@ describe PickemPoolsController do
       before(:each) do
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
+        @pool.pickem_rules.create!(:config_key => 'current_season', :config_value => "2011-2012")
       end
 
       it "should be successful" do
@@ -85,6 +86,7 @@ describe PickemPoolsController do
       it "has an admin link for the correct user" do
         @admin = Factory(:user, :username => "adminuser", :email => "test1@test.com", :admin => true)
         @pool1 = Factory(:pickem_pool, :name => 'abd',  :admin_id => @admin.id)
+        @pool1.pickem_rules.create!(:config_key => 'current_season', :config_value => "2011-2012")
         
         @controller.stubs(:current_user).returns(@admin)
         get 'home', :id => @pool1.id

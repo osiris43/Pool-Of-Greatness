@@ -1,0 +1,5 @@
+<%= form_for @game do |f| %>
+  <%= f.error_messages %>
+  <p><%= f.submit (@game.new_record? ? "Create" : "Update") %></p>
+<% end %>
+

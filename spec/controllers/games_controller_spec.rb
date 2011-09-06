@@ -64,4 +64,15 @@ describe GamesController do
     end
   end
 
+  describe 'new' do
+    before(:each) do
+      @user = Factory(:user, :admin => true)
+      @controller.stubs(:current_user).returns(@user)
+    end
+
+    it "has the right title" do
+      get 'new'
+      response.should have_selector("title", :content => "Create a new game")
+    end
+  end
 end

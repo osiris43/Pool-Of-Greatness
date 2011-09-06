@@ -9,6 +9,7 @@
       <th>Lost</th>
       <th>Tied</th>
       <th>Win %</th>
+      <th>Weeks Played</th>
     </tr>
     <% @userstats.each do |stat| %>
       <tr>
@@ -17,6 +18,7 @@
         <td><%= stat.lost %></td>
         <td><%= stat.tied %></td>
         <td><%= stat.win_percentage %></td>
+        <td><%= stat.weeks_played %></td>
       </tr>
     <% end %>
   </table>

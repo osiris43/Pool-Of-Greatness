@@ -22,6 +22,7 @@ class PickemPoolsController < ApplicationController
       current_user.create_account
     end
     @transactions = current_user.account.transactions.find(:all, :limit => 10, :order => "created_at DESC")
+    @userstats = Userstat.find_by_season(@pool.current_season)[0..3] 
     
   end
 
@@ -132,8 +133,7 @@ class PickemPoolsController < ApplicationController
   def viewstats 
     @title = "Season Statistics"
     @pool = PickemPool.find(params[:id])
-    @season = @pool.pickem_rules.where("config_key = ?", "current_season").first
-    @userstats = Userstat.find_by_season(@season.config_value) 
+    @userstats = Userstat.find_by_season(@pool.current_season) 
   end
 
   private

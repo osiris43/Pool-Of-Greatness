@@ -35,6 +35,11 @@ class GamesController < ApplicationController
     
     redirect_to user_path(current_user)
   end
+
+  def new
+    @title = "Create a new game"
+    @game = Game.new
+  end
   
   private
     def admin_required

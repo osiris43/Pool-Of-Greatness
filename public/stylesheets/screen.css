@@ -527,3 +527,20 @@ article {
   -webkit-border-radius:5px 5px 5px 5px;
 
 }
+
+#pickem_home_box {
+  border: 1px solid #3c39ba;
+  border-radius:5px 5px 5px 5px;
+  -moz-border-radius:5px 5px 5px 5px;
+  -webkit-border-radius:5px 5px 5px 5px;
+  width: 220px;
+  margin: 20px 0;
+  min-height: 110px;
+}
+
+#pickem_home_box h2 {
+  background-color: #0b0974;
+  color: #d2b65f;
+  padding: 0 5px;
+}
+
