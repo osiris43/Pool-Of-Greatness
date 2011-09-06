@@ -22,16 +22,24 @@ describe PickemPool do
     @pool.pickem_rules[0].config_value.should == "2"
   end
 
-  it "returns a weekly fee minus the jackpot" do
+  it "returns a weekly fee" do
     @pool.create_jackpot(:weeklyjackpot => 0, :seasonjackpot => 0, :weeklyamount => 1, :seasonamount => 1)
-    @pool.pickem_rules.create!(:config_key => "weekly_fee", 
-                               :config_value => "12")
-    @pool.weeklyfee.should == 10.0
-  end
-
-  it "returns the base fee when there isn't a jackpot" do
     @pool.pickem_rules.create!(:config_key => "weekly_fee", 
                                :config_value => "12")
     @pool.weeklyfee.should == 12.0
   end
+
+  it "returns the base fee for prize amount when there isn't a jackpot" do
+    @pool.pickem_rules.create!(:config_key => "weekly_fee", 
+                               :config_value => "12")
+    @pool.prize_amount_per_person.should == 12.0
+  end
+
+  it "returns base fee minus jackpot for prize amount" do
+    @pool.create_jackpot(:weeklyjackpot => 0, :seasonjackpot => 0, :weeklyamount => 1, :seasonamount => 1)
+    @pool.pickem_rules.create!(:config_key => "weekly_fee", 
+                               :config_value => "12")
+    @pool.prize_amount_per_person.should == 10.0
+  end
+
 end

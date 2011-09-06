@@ -1,4 +1,5 @@
 <div class="pickem_container container_12">
+  <%= link_to "New Game", new_game_path %><br /><br />
   <%= form_tag(find_games_path, :method => "get") do %>
     <%= label_tag(:begin_date, "Begin Date") %>
     <%= text_field_tag(:begin_date) %><br />

@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
-  attr_accessible :away_team, :home_team, :line, :overunder, :type, :awayscore, :homescore
+  attr_accessible :away_team, :home_team, :line, :overunder, :type, 
+    :awayscore, :homescore, :away_team_id, :home_team_id, :week, :season, :gamedate
   belongs_to :away_team, :foreign_key => 'away_team_id', :class_name => 'Team'
   belongs_to :home_team, :foreign_key => 'home_team_id', :class_name => 'Team'
 

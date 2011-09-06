@@ -68,11 +68,18 @@ describe GamesController do
     before(:each) do
       @user = Factory(:user, :admin => true)
       @controller.stubs(:current_user).returns(@user)
+      @away = Factory(:nflawayteam)
+      @home = Factory(:nflhometeam)
     end
 
     it "has the right title" do
       get 'new'
       response.should have_selector("title", :content => "Create a new game")
+    end
+
+    it "lists all teams in the away select box" do
+      get 'new'
+      response.should have_selector("option", :content => "New York Jets")
     end
   end
 end

@@ -17,11 +17,7 @@
       <%= label_tag(:favorite, weeklygame.game.favorite_display_name) %> 
     </td>
     <td>
-      <% if weeklygame.game.line > 0 %>
-        <%= weeklygame.game.line * -1 %>
-      <% else %>
-        <%= weeklygame.game.line %>
-      <% end %>
+      <%= weeklygame.game.display_line %>
     </td>
     <td>
       <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.underdog.id, checked = @teamids.include?(weeklygame.game.underdog.id)) %>

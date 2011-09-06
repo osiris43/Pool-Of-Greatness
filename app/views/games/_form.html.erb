@@ -1,5 +1,39 @@
 <%= form_for @game do |f| %>
   <%= f.error_messages %>
+  <p>
+    <%= f.label :away_team %><br />
+    <%= collection_select(:game, :away_team_id, Team.order(:teamname).all, :id, :teamname, {:prompt => true}) %><br />
+    </p>
+  <p>
+    <%= f.label :home_team %><br />
+    <%= collection_select(:game, :home_team_id, Team.order(:teamname).all, :id, :teamname, {:prompt => true}) %><br />
+    </p>
+    <p>
+    <%= f.label :line %>
+    <%= f.text_field :line %>
+    </p>
+    <p><%= f.label :overunder %>
+      <%= f.text_field :overunder %>
+      </p> 
+      <p>
+      <%= f.radio_button(:type, 'Ncaagame') %>
+      <%= f.label(:college_game, "College") %>
+      <%= f.radio_button(:type, 'Nflgame') %>
+      <%= f.label(:college_game, "Pro") %>
+      </p>
+      <p>
+        <%= f.label :season %>
+        <%= f.text_field :season %>
+        </p>
+      <p>
+        <%= f.label :week %>
+        <%= f.text_field :week %>
+        </p>
+      <p>
+        <%= f.label :gamedate %>
+        <%= datetime_select :game, :gamedate %>
+        </p>
+
   <p><%= f.submit (@game.new_record? ? "Create" : "Update") %></p>
 <% end %>
 

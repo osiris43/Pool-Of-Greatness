@@ -114,12 +114,12 @@ describe PickemPoolsController do
 
         it "displays a recent activity section" do
           get "home", :id => @pool.id
-          response.should have_selector("div", :class => "recent_activity")
+          response.should have_selector("div", :class => "recent_activity grid_12")
         end
 
         it "displays a no activity message if none exists" do
           get "home", :id => @pool.id
-          response.should have_selector("h2", :content => "No recent activity")
+          response.should have_selector("h2", :content => "No account activity")
         end
 
         it "displays a record for recent activity" do
@@ -128,7 +128,6 @@ describe PickemPoolsController do
                                              :description => "Fee for week 1")
           get "home", :id => @pool.id
           response.should have_selector("td", :content => "Fee for week 1")
-
         end
       end
 

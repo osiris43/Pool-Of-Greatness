@@ -40,6 +40,21 @@ class GamesController < ApplicationController
     @title = "Create a new game"
     @game = Game.new
   end
+
+  def create
+    if params[:game][:type] == 'Ncaagame'
+      @game = Ncaagame.new(params[:game])
+    else
+      @game = Nflgame.new(params[:game])
+    end
+     
+    if @game.save
+      redirect_to games_path, :notice => "Game(s) created"
+    else
+      render :action => 'new'
+    end
+
+  end
   
   private
     def admin_required

@@ -19,6 +19,10 @@ class PickemPool < Pool
   end
 
   def weeklyfee
+    pickem_rules.find_by_config_key("weekly_fee").config_value.to_f 
+  end
+
+  def prize_amount_per_person
     basefee = pickem_rules.find_by_config_key("weekly_fee").config_value.to_f 
     if jackpot.nil?
       basefee

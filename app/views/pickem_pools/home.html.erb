@@ -15,18 +15,18 @@
       <% end %>
     </div>
     <div class="grid_4">
-      some stuff
+      More Info Coming Soon 
     </div>
     <div class="grid_4">
-      some stuff
+      More Info Coming Soon 
     </div>
     <div class="clear"></div> 
   </div>
   <div class="recent_activity grid_12">
     <% if current_user.account.nil? || current_user.account.transactions.count == 0 %>
-      <h2>No recent activity</h2>
+      <h2>No account activity</h2>
     <% else %>
-      <h2>Recent Activity</h2>
+      <h2>Recent Account Activity</h2>
       <table class="activity_table">
         <tr class="header">
           <th class="activity_desc">Description</th>

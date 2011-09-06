@@ -87,17 +87,17 @@ class PickemWeek < ActiveRecord::Base
     season = winner.pickem_week.season
 
     if results.count < 6
-      add_transaction(winner.user, "Pickem", results.count * @pool.weeklyfee, week, season)
+      add_transaction(winner.user, "Pickem", results.count * @pool.prize_amount_per_person, week, season)
     elsif results.count < 11
       second = results[1].pickem_week_entry
-      add_transaction(winner.user, "Pickem", results.count * @pool.weeklyfee * 0.7, week, season)
-      add_transaction(second.user, "Pickem",results.count * @pool.weeklyfee * 0.3, week, season) 
+      add_transaction(winner.user, "Pickem", results.count * @pool.prize_amount_per_person * 0.7, week, season)
+      add_transaction(second.user, "Pickem",results.count * @pool.prize_amount_per_person * 0.3, week, season) 
     else
       second = results[1].pickem_week_entry
       third = results[2].pickem_week_entry
-      add_transaction(winner.user, "Pickem", results.count * @pool.weeklyfee * 0.7, week, season)
-      add_transaction(second.user, "Pickem",results.count * @pool.weeklyfee * 0.2, week, season) 
-      add_transaction(third.user, "Pickem", results.count * @pool.weeklyfee * 0.1, week, season)
+      add_transaction(winner.user, "Pickem", results.count * @pool.prize_amount_per_person * 0.7, week, season)
+      add_transaction(second.user, "Pickem",results.count * @pool.prize_amount_per_person * 0.2, week, season) 
+      add_transaction(third.user, "Pickem", results.count * @pool.prize_amount_per_person * 0.1, week, season)
 
     end
 
