@@ -41,6 +41,14 @@ describe SurvivorPoolsController do
       response.should have_selector("a", :href => viewpicksheet_survivor_pool_path(@user.sites[0].pools[0]),
                                          :content => "Picksheet")
     end
+
+    it "has all teams currently picked for the week" do
+      @user.survivor_entries.create!(:team => @away, :game => @game, :week => @game.week, 
+                                     :season => @game.season, :pool_id => @user.sites[0].pools[0].id)
+      get :show, :id => @user.sites[0].pools[0].id
+      response.should have_selector("td", :content => @away.teamname)
+      response.should have_selector("td", :content => "1")
+    end
   end
 
   describe "GET 'viewpicksheet'" do

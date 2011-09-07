@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110902190722) do
+ActiveRecord::Schema.define(:version => 20110907185847) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(:version => 20110902190722) do
     t.datetime "updated_at"
     t.integer  "week"
     t.string   "season"
+    t.integer  "pool_id"
   end
 
   create_table "teams", :force => true do |t|

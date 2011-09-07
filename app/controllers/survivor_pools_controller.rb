@@ -2,6 +2,7 @@ class SurvivorPoolsController < ApplicationController
   before_filter :login_required 
 
   def index
+
   end
   
   def show
@@ -9,6 +10,7 @@ class SurvivorPoolsController < ApplicationController
     @title = "#{@pool.name} Home"
     @current_week = @pool.current_week
     @current_pick = current_user.survivor_entries.where(:week => @current_week, :season => "2011-2012").first
+    @teamscount = @pool.survivor_entries.where(:week => @current_week).all.group_by{|entry| entry.team.teamname}
   end
 
   def viewpicksheet
@@ -34,7 +36,7 @@ class SurvivorPoolsController < ApplicationController
 
     @entry = SurvivorEntry.where(:user_id => current_user.id, :week => game.week, :season => game.season).first
     if @entry.nil?
-      current_user.survivor_entries.create!(:game => game, :team => team, :week => game.week, :season => game.season)
+      current_user.survivor_entries.create!(:game => game, :team => team, :week => game.week, :season => game.season, :pool_id => @pool.id)
       if @games[0].week == 1
         add_initial_transaction(@pool.name)
       end
@@ -42,7 +44,7 @@ class SurvivorPoolsController < ApplicationController
       @entry.update_attributes(:game => game, :team => team)
       @entry.save
     end
-    flash[:notice] = "Week #{game.week} successfully made"
+    flash[:notice] = "Week #{game.week} pick successfully made"
 
     redirect_to survivor_pool_path(@pool) 
   end

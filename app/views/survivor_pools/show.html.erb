@@ -1,7 +1,10 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
+  <div class="grid_9">
+    <h1><%= "Welcome to #{@pool.name}" %></h1>
+  </div>
   <div class="grid_3">
-    <div id="current_pick_container">
+    <div class="survivor_home_box">
       <h3><%= "Your Week #{@current_week} Pick" %></h3>
       <span>
         <% if @current_pick.nil? %> 
@@ -14,6 +17,17 @@
           <%= link_to "Change Pick", viewpicksheet_survivor_pool_path(@pool) %>
         <% end %>
       </span>
+    </div>
+    <div class="survivor_home_box">
+      <h3>Teams picked this week</h3>
+      <table id="sv_entries_table">
+        <% @teamscount.each do |team,entries| %>
+          <tr>
+            <td><%= team %></td>
+            <td id="entries_count"><%= entries.count %></td>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

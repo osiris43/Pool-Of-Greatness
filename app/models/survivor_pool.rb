@@ -3,6 +3,7 @@ require 'date'
 class SurvivorPool < Pool
   attr_accessible :name, :type
 
+  has_many :survivor_entries, :foreign_key => "pool_id"
   validates_presence_of :admin_id, :site_id
 
   def get_weekly_games(week=0)

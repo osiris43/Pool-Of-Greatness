@@ -463,25 +463,27 @@ article {
   padding: 100px 0 200px 200px;
 }
 
-#current_pick_container {
+.survivor_home_box {
   border: 1px solid #3c39ba;
   border-radius:5px 5px 5px 5px;
   -moz-border-radius:5px 5px 5px 5px;
   -webkit-border-radius:5px 5px 5px 5px;
   margin: 5px 0;
+  float: right;
+  min-width: 220px;
 }
 
-#current_pick_container h3 {
-  background-color: #5d5bba;
+.survivor_home_box h3 {
+  background-color: #04034b;
   color: #d2b65f;
   padding: 0 5px;
 }
 
-#current_pick_container span {
+#survivor_home_box span {
   padding: 0 5px;
 }
 
-#current_pick_container a {
+#survivor_home_box a {
   padding: 0 5px;
 
 }
@@ -582,3 +584,12 @@ article {
 .Loss {
   background: red;
 }
+
+#entries_count{
+  padding-left: 15px;
+}
+
+#sv_entries_table td {
+  padding: 0 0 0 10px;
+}
+
