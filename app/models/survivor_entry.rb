@@ -9,7 +9,7 @@ class SurvivorEntry < ActiveRecord::Base
 
   def result
     if game.awayscore == 0 && game.homescore == 0
-      "Not Scored yet"
+      "NotScored"
     elsif game.winning_team == team
       "Win"
     else

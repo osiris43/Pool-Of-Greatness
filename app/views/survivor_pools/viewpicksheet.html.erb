@@ -1,12 +1,7 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
   
-  <% flash.each do |key, msg| %>
-    <div id="<%= key %>">
-      <p><%= msg %></p>
-      <div class="clear"></div>
-    </div>
-  <% end %>
+  <%= render 'shared/flashpartial' %>
 
   <h1><%= "Picksheet for Week #{@games[0].week}" %></h1>
   <%= form_tag(makepick_survivor_pool_path, :method => "post") do %>
@@ -21,23 +16,39 @@
     </tr>
     <% @games.each do |game| %>
       <tr>
-        <td><%= game.gamedate.strftime("%m-%d-%Y") %></td>
-        <td><%= radio_button_tag(:teamid, game.favorite.id, 
-                                 checked = (game.favorite.id == @entry.team_id), 
-                                 :disabled => @picked_teams.include?(game.favorite.id),
-                                 :tooltip => "You previously picked this team") %></td>
-        <td><%= game.favorite_display_name %></td>
-        <td><%= game.display_line %></td>
-        <td><%= radio_button_tag(:teamid, game.underdog.id, 
-                                 checked = (game.underdog.id == @entry.team_id), 
-                                 :disabled => @picked_teams.include?(game.underdog.id),
-                                 :tooltip => "You previously picked this team.") %></td>
-        <td><%= game.underdog_display_name %></td>
+        <% if @pastgames.include?(game.id)  %>
+          <td><%= game.gamedate.strftime("%m-%d-%Y") %></td>
+          <td><%= radio_button_tag(:teamid, game.favorite.id, 
+                                   checked = (game.favorite.id == @entry.team_id), 
+                                   :disabled => true, 
+                                   :tooltip => "Game has passed") %></td>
+          <td><%= game.favorite_display_name %></td>
+          <td><%= game.display_line %></td>
+          <td><%= radio_button_tag(:teamid, game.underdog.id, 
+                                   checked = (game.underdog.id == @entry.team_id), 
+                                   :disabled => true, 
+                                   :tooltip => "Game has passed") %></td>
+          <td><%= game.underdog_display_name %></td>
+        <% else %>
+          <td><%= game.gamedate.strftime("%m-%d-%Y") %></td>
+          <td><%= radio_button_tag(:teamid, game.favorite.id, 
+                                   checked = (game.favorite.id == @entry.team_id), 
+                                   :disabled => @picked_teams.include?(game.favorite.id),
+                                   :tooltip => "You previously picked this team") %></td>
+          <td><%= game.favorite_display_name %></td>
+          <td><%= game.display_line %></td>
+          <td><%= radio_button_tag(:teamid, game.underdog.id, 
+                                   checked = (game.underdog.id == @entry.team_id), 
+                                   :disabled => @picked_teams.include?(game.underdog.id),
+                                   :tooltip => "You previously picked this team.") %></td>
+          <td><%= game.underdog_display_name %></td>
+
+        <% end %>
       </tr>
     <% end %>
   </table>
   <br /><br />
-  <%= submit_tag("Save Pick", :disabled => @deadline) %>
+  <%= submit_tag("Save Pick", :disabled => @pastgames.include?(@entry.game_id)) %>
 <% end %>
 </div>
 

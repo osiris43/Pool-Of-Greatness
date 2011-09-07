@@ -20,12 +20,10 @@ class SurvivorPoolsController < ApplicationController
       @entry = SurvivorEntry.new
     end
     @picked_teams = current_user.survivor_entries.where("week < ?", @games[0].week).all.map{|entry| entry.team.id}
-
-    @deadline = @pool.past_deadline
-    if @deadline
-      flash[:notice] = "Games have started this week.  You cannot make or change a pick."
+    @pastgames = @games.where("gamedate < ?", DateTime.now).all.map{|game| game.id}
+    if @pastgames.include?(@entry.game_id)
+      flash[:notice] = "You picked a game this week that has already started.  You cannot change picks."
     end
-
   end
 
   def makepick
@@ -53,10 +51,6 @@ class SurvivorPoolsController < ApplicationController
     @pool = SurvivorPool.find(params[:id])
     @title = "Pool Standings"
     @current_week = @pool.current_week 
-
-    if !@pool.show_week?
-      @current_week -= 1
-    end
 
     # TODO another season fix
     @users = User.joins(:survivor_entries).where("survivor_entries.season = ? and survivor_entries.week = ?",  "2011-2012", @current_week).all

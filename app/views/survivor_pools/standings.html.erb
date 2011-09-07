@@ -2,8 +2,8 @@
   <%= render 'navigation' %>
   <h1>Current Standings</h1>
   <%= render 'shared/flashpartial' %>
-  <table>
-    <tr class="header">
+  <table class="survivor_standings">
+    <tr id="survivor_standings_header">
       <th>Entry</th>
       <th>Weeks</th>
       <% (1..@current_week).to_a.each do |week| %>
@@ -15,7 +15,7 @@
         <td><%= user.name %></td>
         <td><%= user.survivor_entries.count %></td>
         <% user.survivor_entries.each do |entry| %>
-          <td><%= entry.team.display_name %></td>
+          <td class=<%= "#{entry.result}" %>><%= entry.team.abbreviation %></td>
         <% end %>
       </tr>
     <% end %>

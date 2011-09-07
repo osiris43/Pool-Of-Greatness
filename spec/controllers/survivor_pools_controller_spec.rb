@@ -66,9 +66,8 @@ describe SurvivorPoolsController do
       @game.save
       @game1 = Factory(:nflgame, :away_team => @away, :home_team => @home, :gamedate => DateTime.now + 1)
       get :viewpicksheet, :id => @user.sites[0].pools[0].id
-      flash[:notice].should =~ /games have started/i
-      response.should have_selector("input", :name => "commit",
-                                             :disabled => "disabled")
+      response.should have_selector("input", :id => "teamid_#{@away.id}",
+                                    :disabled => "disabled")
     end
 
     it "disables teams that have previously been picked" do
@@ -80,6 +79,16 @@ describe SurvivorPoolsController do
       response.should have_selector("input", :type => "radio",
                                              :id => "teamid_#{@away.id}",
                                              :disabled => "disabled")
+    end
+
+    it "is disabled if user has picked a game that is started or over" do
+      @user.survivor_entries.create!(:team => @away, :game => @game, :week => @game.week, :season => @game.season)
+      @game.gamedate = DateTime.now - 1
+      @game.save
+      @game1 = Factory(:nflgame, :away_team => @away, :home_team => @home, :gamedate => DateTime.now + 1)
+      get :viewpicksheet, :id => @user.sites[0].pools[0].id
+      response.should have_selector("input", :name => "commit", 
+                                    :disabled => "disabled")
     end
   end
 
@@ -96,5 +105,4 @@ describe SurvivorPoolsController do
       end.should_not change(SurvivorEntry, :count)
     end
   end
-
 end
