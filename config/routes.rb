@@ -28,6 +28,9 @@ Poolofgreatness::Application.routes.draw do
       get 'admin_pick_weekly_games'
       post 'create_games'
       post 'save_picks'
+      get 'modify_accounting'
+      get 'view_transactions'
+      put 'update_transactions'
     end
   end
 

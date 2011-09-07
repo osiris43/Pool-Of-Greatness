@@ -136,6 +136,25 @@ class PickemPoolsController < ApplicationController
     @userstats = Userstat.find_by_season(@pool.current_season) 
   end
 
+  def modify_accounting
+    @title = "Modify Accounting"
+    @pool = PickemPool.find(params[:id])
+    @users = User.joins(:pickem_week_entries).all
+  end
+
+  def view_transactions
+    @pool = PickemPool.find(params[:id])
+    @transactions = User.find(params[:user][:id]).account.transactions
+  end
+
+  def update_transactions
+    @pool = PickemPool.find(params[:id])
+    @transactions = Transaction.update(params[:transactions].keys, params[:transactions].values).reject { |g| g.errors.empty?}
+
+    flash[:notice] = "Successfully updated"
+    redirect_to modify_accounting_pickem_pool_path(@pool)
+  end
+  
   private
     def get_current_week(week=0)
       @pool = PickemPool.find(params[:id])

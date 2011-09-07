@@ -1,0 +1,10 @@
+<div class="pickem_container container_12">
+  <%= render 'navigation' %>
+  <%= render 'shared/flashpartial' %>
+
+  <h2>Select a user to modify their accounting records</h2>
+  <%= form_tag(view_transactions_pickem_pool_path(@pool), :method => "get") do %>
+    <%= collection_select(:user, :id, @users, :id, :name) %>
+    <%= submit_tag("View Transactions") %>
+  <% end %>
+</div>

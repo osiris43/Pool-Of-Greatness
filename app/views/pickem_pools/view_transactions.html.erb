@@ -1,0 +1,28 @@
+<div class="container_12">
+  <%= render 'navigation' %>
+  <div id="transactions_list" >
+    <%= form_tag(update_transactions_pickem_pool_path(@pool), :method => "put") do %>
+      <table>
+        <tr>
+          <th>Pool Type</th>
+          <th>Pool Name</th>
+          <th>Amount</th>
+          <th>Description</th>
+        </tr>
+        <% for transaction in @transactions %>
+          <%= fields_for "transactions[]", transaction do |t| %>
+            <tr>
+              <td><%= t.text_field(:pooltype) %></td>
+              <td><%= t.text_field(:poolname) %></td>
+              <td><%= t.text_field(:amount) %></td>
+              <td><%= t.text_field(:description) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table> 
+
+      <%= submit_tag("Save") %>
+    <% end %>
+  </div>
+</div>
+
