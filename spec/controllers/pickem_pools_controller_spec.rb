@@ -104,7 +104,7 @@ describe PickemPoolsController do
       it "has a view all games link" do
         get "home", :id => @pool.id
         response.should have_selector("a", :href => view_allgames_pickem_pool_path(@pool),
-                                           :content => "View All Games")
+                                           :content => "View All Picks")
       end
 
       describe "recent activity" do

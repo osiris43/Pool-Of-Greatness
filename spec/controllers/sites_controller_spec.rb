@@ -62,12 +62,10 @@ describe SitesController do
   describe "POST 'add_pool'" do
     before(:each) do
       @attr = {:name => "my site", :description => 'site description'}
-
       @user = Factory(:user)
       @controller.stubs(:current_user).returns(@user)
       @site = Site.create!(@attr)
       @poolattr = {:poolname => "my site", :pool => {:type => 'PickemPool'}}
-
     end
 
     it "adds the site to the user's sites" do
@@ -134,6 +132,19 @@ describe SitesController do
       response.should have_selector("input", :id => "no_of_jackpot_wins",
                                              :type => "text")
     end
+  end
 
+  describe "GET 'search'" do
+    before(:each) do
+      @attr = {:name => "my site", :description => 'site description'}
+      @user = Factory(:user)
+      @controller.stubs(:current_user).returns(@user)
+      @site = Site.create!(@attr)
+    end 
+
+    it "is not case senstive" do
+      get 'search', :site_search => "My Site"
+      response.should have_selector("td", :content => "my site")
+    end
   end
 end

@@ -29,7 +29,7 @@ class SitesController < ApplicationController
       flash[:notice] = "You must enter a name to search by."
       render :action => 'new'
     else 
-      @sites = Site.where("name LIKE '" + params[:site_search] + "%'").all
+      @sites = Site.where("lower(name) LIKE '%" + params[:site_search].downcase + "%'").all
       if @sites == nil || @sites.count < 1
         flash[:notice] = "No sites found"
       end
