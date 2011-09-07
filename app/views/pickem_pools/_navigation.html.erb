@@ -2,7 +2,7 @@
     <ul>
       <li><%= link_to "Pool Home", home_pickem_pool_path(@pool) %></li>
       <li><%= link_to "Weekly Games", view_games_pickem_pool_path(@pool) %></li>
-      <li><%= link_to "View All Games", view_allgames_pickem_pool_path(@pool) %></li>
+      <li><%= link_to "View All Picks", view_allgames_pickem_pool_path(@pool) %></li>
       <li><%= link_to "Weekly Results", show_results_pickem_pool_path(@pool) %></li>
       <li><%= link_to "Season Stats", viewstats_pickem_pool_path(@pool) %></li>
       <% if current_user.pool_admin?(@pool) %>
