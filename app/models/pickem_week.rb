@@ -117,12 +117,15 @@ class PickemWeek < ActiveRecord::Base
 
   private
     def save_pick(gamekey, teamid, current_user, entry)
+      logger.debug "Gamekey: #{gamekey}\tTeamId: #{teamid}\tEntryId: #{entry.id}"
       # gamekey looks like gameid_xxx where xxx is the game id
       gameid = gamekey[7..-1].to_i
       pick = entry.pickem_picks.find_by_game_id(gameid) 
       if pick.nil?
+        logger.debug "Pick was nil, creating it"
         entry.pickem_picks.create!(:game_id => gamekey[7..-1].to_i, :team_id => teamid.to_i)
       else
+        logger.debug "Pick existed, updating it"
         pick.update_attributes(:team_id => teamid)
       end
 

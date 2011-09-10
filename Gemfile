@@ -6,6 +6,7 @@ gem 'rails', '3.0.5'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem 'hpricot'
 
 group :development do
   gem 'annotate-models', '1.0.4'

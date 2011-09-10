@@ -2,6 +2,8 @@ class GamesController < ApplicationController
   before_filter :login_required
   before_filter :admin_required
 
+  respond_to :html, :xml
+
   def index
     @title = "All Games"
   end
@@ -10,6 +12,7 @@ class GamesController < ApplicationController
     @title = "Games Found"
     @games = Game.where("gamedate between ? AND ?", params[:begin_date], params[:end_date])
     logger.debug "Found #{@games.count} games"
+    respond_with(@games)
   end
 
   def update_individual

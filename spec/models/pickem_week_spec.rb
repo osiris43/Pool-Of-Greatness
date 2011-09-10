@@ -38,6 +38,7 @@ describe PickemWeek do
     it "creates the picks" do
       selectedGames = { "gameid_1" => "23" }
       @pickem_week.save_picks(selectedGames, @user, 43.5)
+      @pickem_week = PickemWeek.find(@pickem_week.id)
       @pickem_week.pickem_week_entries[0].pickem_picks.count.should == 1
     end
   end
