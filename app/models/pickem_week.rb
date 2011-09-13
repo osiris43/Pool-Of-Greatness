@@ -57,7 +57,7 @@ class PickemWeek < ActiveRecord::Base
       
       tiebreakDistance = tiebreakerTotal - entry.mondaynighttotal
       if entry.pickem_entry_result.nil?
-        entry.create_pickem_entry_result(:won => wins, :lost => losses, :tied => ties, :tiebreak_distance => tiebreakDistance.abs )
+        entry.create_pickem_entry_result(:won => wins, :lost => losses, :tied => ties, :tiebreak_distance => tiebreakDistance.abs, :pickem_week_id => id )
       else
         entry.pickem_entry_result.update_attributes(:won => wins, :lost => losses, :tied => ties, :tiebreak_distance => tiebreakDistance.abs )
       end
@@ -108,7 +108,7 @@ class PickemWeek < ActiveRecord::Base
                                                :description => "Jackpot for week #{winner.pickem_week.week}, season #{winner.pickem_week.season}")
 
       @pool.jackpot.weeklyjackpot = 0;
-      @pool.save
+      @pool.jackpot.save
     end
 
     self.pickem_pool.increment_current_week

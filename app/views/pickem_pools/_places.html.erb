@@ -8,11 +8,11 @@
     </span>
   </div>
   <% if @current_week.pickem_entry_results.count > 6 %>
-    <label>Second Place: </label><span><%= @current_week.pickem_entry_results[1].pickem_week_entry.user.name  %></span>
+    <label><strong>Second Place:</strong> </label><span><%= @current_week.pickem_entry_results[1].pickem_week_entry.user.name  %></span>
     <br />
   <% end %>
   <% if @current_week.pickem_entry_results.count > 10 %>
-    <label>Third Place: </label><span><%= @current_week.pickem_entry_results[2].pickem_week_entry.user.name  %></span>
+    <label><strong>Third Place:</strong> </label><span><%= @current_week.pickem_entry_results[2].pickem_week_entry.user.name  %></span>
     <br />
   <% end %>
   <label><strong>Dead Ass Last: </strong> </label><span><%= @current_week.pickem_entry_results[-1].pickem_week_entry.user.name  %></span>

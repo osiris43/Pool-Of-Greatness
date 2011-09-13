@@ -30,7 +30,7 @@ class GamesController < ApplicationController
         @week = pool.pickem_rules.where("config_key = ?", "current_week").first
         pool.pickem_weeks.create!(:season => @season.config_value,
                                   :week => @week.config_value, 
-                                  :deadline => week.deadline + 7)
+                                  :deadline => week.deadline + 7.days)
       end
       
     end 

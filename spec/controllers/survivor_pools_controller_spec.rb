@@ -113,4 +113,17 @@ describe SurvivorPoolsController do
       end.should_not change(SurvivorEntry, :count)
     end
   end
+
+  describe "GET 'standings'" do
+    before(:each) do
+      setup_pool()
+    end
+
+    it "shows results from week 1" do
+      @user.survivor_entries.create!(:team => @away, :game => @game, :week => @game.week, :season => @game.season)
+      get :standings, :id => @user.sites[0].pools[0].id
+      response.should have_selector(:td, :content => "Brett Bim")
+      response.should have_selector(:td, :content => "NYJ")
+    end
+  end
 end
