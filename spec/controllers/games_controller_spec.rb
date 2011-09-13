@@ -82,4 +82,19 @@ describe GamesController do
       response.should have_selector("option", :content => "New York Jets")
     end
   end
+
+  describe "PUT 'update'" do
+    before(:each) do
+      @user = Factory(:user, :admin => true)
+      @controller.stubs(:current_user).returns(@user)
+      @away = Factory(:nflawayteam)
+      @home = Factory(:nflhometeam)
+      @game = Factory(:nflgame, :away_team => @away, :home_team => @home, :gamedate => '2011-08-02')
+    end
+
+    it 'updates the away team' do
+      away = Factory(:nflawayteam, :teamname => 'Cinncinati', :abbreviation => 'CIN')
+      @game.away_team = away  
+    end
+  end
 end

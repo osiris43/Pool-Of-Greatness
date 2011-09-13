@@ -58,6 +58,9 @@ Poolofgreatness::Application.routes.draw do
     end
   end
 
+  resources :ncaagames, :controller => "games", :type => 'Ncaagame'
+  resources :nflgames, :controller => "games", :type => "Nflgame"
+
   resources :survivor_pools do
     member do
       get "viewpicksheet"
