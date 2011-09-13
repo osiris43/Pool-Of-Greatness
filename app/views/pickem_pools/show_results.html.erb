@@ -1,8 +1,12 @@
 <div class="pickem_container container_12">
   <%= render "navigation" %>
   <h1><%= @results_header %></h1>
-  <% if @current_week.week > 1 %>
-    <%= link_to "Previous week", show_results_pickem_pool_path(:weekid => @current_week.week - 1)  %>
+
+  <%= form_tag(show_results_pickem_pool_path, :method => 'get') do %>
+    <%= label_tag(:weekid, "Select a week") %>
+    <%= select_tag(:weekid, options_from_collection_for_select(@allweeks, :week, :week)) %>
+    <br />
+    <%= submit_tag("Get Results") %>
   <% end %>
   <%= render 'places' %>
   <% if !@current_week.pickem_entry_results.empty? %>

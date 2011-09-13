@@ -95,6 +95,7 @@ class PickemPoolsController < ApplicationController
   end
 
   def view_allgames
+
     @current_week = get_current_week
     
     if DateTime.now < @current_week.deadline
@@ -124,6 +125,7 @@ class PickemPoolsController < ApplicationController
     @title = "Weekly Results"
     logger.debug "Week Id is #{params[:weekid]}"
     @current_week = get_current_week(params[:weekid])
+    @allweeks = get_all_weeks
     #if @current_week.pickem_entry_results.nil? || @current_week.pickem_entry_results.count < 1
     #  @current_week = get_previous_week
     #end
@@ -158,19 +160,25 @@ class PickemPoolsController < ApplicationController
   private
     def get_current_week(week=0)
       @pool = PickemPool.find(params[:id])
-      @season = @pool.pickem_rules.where("config_key = ?", "current_season").first
+      @season = @pool.current_season
       if week.nil? || week == 0
         week = @pool.pickem_rules.where("config_key = ?", "current_week").first.config_value
       end
       
-      @gamesHeader = "Games for Week #{week}, #{@season.config_value}"
-      logger.debug "PoolId: #{@pool.id}\tSeason: #{@season.config_value}\tWeek: #{week}"
+      @gamesHeader = "Games for Week #{week}, #{@season}"
+      logger.debug "PoolId: #{@pool.id}\tSeason: #{@season}\tWeek: #{week}"
       @current_week = PickemWeek.where("pickem_pool_id = ? AND season = ? AND week = ?", 
                                         params[:id],
-                                        @season.config_value,
+                                        @season,
                                         week).first
 
       return @current_week
+    end
+    
+    def get_all_weeks
+      PickemWeek.select("week").where("season = ? AND pickem_pool_id = ?",
+                                      @pool.current_season,
+                                      params[:id]).all
     end
     
     def get_previous_week
