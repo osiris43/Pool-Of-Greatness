@@ -42,7 +42,7 @@
                                    checked = (game.underdog.id == @entry.team_id), 
                                    :disabled => @picked_teams.include?(game.underdog.id),
                                    ) %></td>
-          <td><%= label_tag(:underdog, game.underdog.display_name, 
+          <td><%= label_tag(:underdog, game.underdog_display_name, 
                             :class => (@picked_teams.include?(game.underdog.id) ? "picked_team":nil)) %></td>
 
         <% end %>
