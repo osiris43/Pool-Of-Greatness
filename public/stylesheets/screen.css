@@ -558,10 +558,6 @@ article {
 }
 
 .survivor_standings {
-  border: 2px solid #04034b;
-  border-radius:5px 5px 5px 5px;
-  -moz-border-radius:5px 5px 5px 5px;
-  -webkit-border-radius:5px 5px 5px 5px;
 }
 
 #survivor_standings_header {

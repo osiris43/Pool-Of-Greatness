@@ -55,7 +55,7 @@ class SurvivorPoolsController < ApplicationController
     @current_week = @pool.current_week 
 
     # TODO another season fix
-    @users = User.joins(:survivor_entries).where("survivor_entries.season = ? and survivor_entries.week = ?",  "2011-2012", @current_week).all
+    @users = User.joins(:survivor_entries).select("distinct(users.id)").all.map {|user| User.find(user.id)}
 
     if @users.count == 0
       flash[:notice] = fading_flash_message( "No standings until after the week 1 deadline",5)
