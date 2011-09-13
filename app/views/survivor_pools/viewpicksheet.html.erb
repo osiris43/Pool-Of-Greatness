@@ -34,14 +34,16 @@
           <td><%= radio_button_tag(:teamid, game.favorite.id, 
                                    checked = (game.favorite.id == @entry.team_id), 
                                    :disabled => @picked_teams.include?(game.favorite.id),
-                                   :tooltip => "You previously picked this team") %></td>
-          <td><%= game.favorite_display_name %></td>
+                                   ) %></td>
+          <td><%= label_tag(:favorite, game.favorite_display_name, 
+                            :class => (@picked_teams.include?(game.favorite.id) ? "picked_team":nil)) %></td>
           <td><%= game.display_line %></td>
           <td><%= radio_button_tag(:teamid, game.underdog.id, 
                                    checked = (game.underdog.id == @entry.team_id), 
                                    :disabled => @picked_teams.include?(game.underdog.id),
-                                   :tooltip => "You previously picked this team.") %></td>
-          <td><%= game.underdog_display_name %></td>
+                                   ) %></td>
+          <td><%= label_tag(:underdog, game.underdog.display_name, 
+                            :class => (@picked_teams.include?(game.underdog.id) ? "picked_team":nil)) %></td>
 
         <% end %>
       </tr>
