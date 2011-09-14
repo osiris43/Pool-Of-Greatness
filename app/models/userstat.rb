@@ -2,7 +2,7 @@ class Userstat
   attr_reader :name, :won, :lost, :tied, :win_percentage, :weeks_played
 
   def self.find_by_season(season)
-    users = User.joins(:pickem_week_entries => :pickem_week).where(:pickem_weeks => {:season => season})
+    users = User.joins(:pickem_week_entries => :pickem_week).select("distinct(users.id)").where(:pickem_weeks => {:season => season}).all.map {|user| User.find(user.id)}
     @userstats = []
     users.each do |user|
       won = lost = tied = 0
