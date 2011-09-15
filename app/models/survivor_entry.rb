@@ -1,7 +1,7 @@
 class SurvivorEntry < ActiveRecord::Base
   attr_accessible :game, :team, :week, :season, :pool_id
 
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   belongs_to :game
   belongs_to :team
   belongs_to :pool

@@ -40,6 +40,9 @@ Poolofgreatness::Application.routes.draw do
       get 'join'
       get 'newpool'
       post 'add_pool'
+      get 'administer'
+      get 'newtransaction'
+      post 'create_transaction'
     end
 
     collection do

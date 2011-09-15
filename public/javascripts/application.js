@@ -32,7 +32,15 @@ $(document).ready(function(){
 $(document).ready(function() {
   $('#pool_type').change(function() {
     if ($('#pool_type').val() == 'PickemPool') {
-      $('#pickem_options').show();
+      $('#pickem_options').slideToggle('medium');
     }
   })
 })
+
+$(document).ready(function() {
+  $("ul.site_menu_body li:even").addClass("alt"); 
+  $("img.site_menu_head").click(function() {
+    $('ul.site_menu_body').slideToggle('medium');
+  });
+});
+

@@ -593,3 +593,39 @@ article {
   background: red;
 }
 
+#site_menu {
+  background: #7c661f;
+  width:186px;
+}
+
+#site_menu ul, li{
+  margin:0; 
+  padding:0;
+  list-style:none;
+}
+
+.site_menu_head {
+  border:1px solid #998675; 
+}
+
+.site_menu_body {
+  display: none;
+  border-right:1px solid #998675; 
+  border-bottom:1px solid #998675; 
+  border-left:1px solid #998675; 
+}
+
+.site_menu_body li {
+  background: #493e3b;
+}
+
+.site_menu_body a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+}
+
+.site_menu_body li.alt {
+  background: #362f2d;
+}

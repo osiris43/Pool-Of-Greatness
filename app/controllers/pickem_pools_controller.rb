@@ -83,12 +83,6 @@ class PickemPoolsController < ApplicationController
    # save the picks 
     @current_week.save_picks(selectedGames, current_user, params[:mnftotal].to_f) 
 
-    # add accounting record
-    if current_user.account.nil?
-      current_user.create_account
-    end
-
-
     flash[:notice] = "Picks successfully saved"
 
     redirect_to(home_pickem_pool_path(@pool))
@@ -146,7 +140,9 @@ class PickemPoolsController < ApplicationController
 
   def view_transactions
     @pool = PickemPool.find(params[:id])
-    @transactions = User.find(params[:user][:id]).account.transactions
+    user = User.find(params[:user][:id])
+
+    @transactions = user.account.transactions
   end
 
   def update_transactions
@@ -156,7 +152,7 @@ class PickemPoolsController < ApplicationController
     flash[:notice] = "Successfully updated"
     redirect_to modify_accounting_pickem_pool_path(@pool)
   end
-  
+ 
   private
     def get_current_week(week=0)
       @pool = PickemPool.find(params[:id])

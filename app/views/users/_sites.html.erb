@@ -5,6 +5,7 @@
       <div id="site_navigation"> 
       <% if current_user.id == site.admin_id %>
         <%= link_to("Add pool to this site", newpool_site_path(site)) %> 
+        <%= link_to("Site Administration", administer_site_path(site)) %>
       <% end %>
       </div>
       <div id="pools_container">
