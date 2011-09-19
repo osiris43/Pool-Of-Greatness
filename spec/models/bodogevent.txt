@@ -1,0 +1,99 @@
+<div class="event" id="880527"> 
+    <div class="event-header"> 
+      <div class="time-open">11:00a</div> 
+      <div class="event-name">NFL WEEK 2</div> 
+ 
+      <div class="event-links"> 
+      <ul> 
+        <li><a class="info-link" title="Event Open, Click for Game Preview!" href="/betting-previews/nfl-football/20110918/CHI-NO/"  rel="follow">Preview</a></li> 
+        <li><a class="info-link" title="Event Open, Click for Game Matchup!" href="/betting-matchups/nfl-football/20110918/CHI-NO/"  rel="follow">Matchup</a></li> 
+        </ul> 
+      </div> 
+    </div> 
+    <!-- Ignore exception --> 
+<div class="event-body"> 
+  <table border="0" cellpadding="0" cellspacing="0"> 
+    <tr> 
+          <td><div class="time">&nbsp;</div></td> 
+              <td><div class="rot-number">197</div></td> 
+          <td><div class="competitor-name"> 
+              <a class="competitor" title="Click for Chicago Bears team info!" href="/betting-teams/nfl-football/CHI/"  rel="follow">Chicago Bears</a> <br/> 
+                  <span class="competitor-note"></span> </div></td> 
+          <!-- If set to true will modify links to add selection to Bet Slip and not to Bet Board --> 
+<td class="borderTopNoColor borderLeftNoColor"> 
+			<div class="line-normal"> 
+                <a class="lineOdd" onClick="EsportzCouponManager.toggleSelection('7966526', $(this))" title="Click to bet on Chicago Bears to win against the Point Spread">+7 (-120)</a> 
+        				<input type="checkbox" value="7966526" name="lineID"
+        					onclick="EsportzCouponManager.toggleSelection('7966526', $(this))" title="Click to bet on Chicago Bears to win against the Point Spread" class="checkbox-pos" /> 
+			         <br /> 
+			</div> 
+			</td> 
+		<!-- If set to true will modify links to add selection to Bet Slip and not to Bet Board --> 
+<td class="borderTopNoColor"> 
+			<div class="moneyline-line-normal"> 
+                <a class="lineOdd" onClick="EsportzCouponManager.toggleSelection('7979394', $(this))" title="Click to bet on Chicago Bears to win straight up">+250</a> 
+        				<input type="checkbox" value="7979394" name="lineID"
+        					onclick="EsportzCouponManager.toggleSelection('7979394', $(this))" title="Click to bet on Chicago Bears to win straight up" class="checkbox-pos" /> 
+			         <br /> 
+			</div> 
+			</td> 
+		<!-- If set to true will modify links to add selection to Bet Slip and not to Bet Board --> 
+<td rowspan="2" class="borderTopNoColor borderBottomNoColor"> 
+			<div class="total-normal"> 
+			<table border="0" cellpadding="0" cellspacing="0"> 
+				<tr> 
+					<td> 
+					<div class="total-number"><b>47½</b></div> 
+					</td> 
+					<td nowrap="nowrap"> 
+					<div class="total-lines"> 
+                    <div> 
+	    					<a class="lineOdd" 
+	    						onClick="EsportzCouponManager.toggleSelection('7968626', $(this))" title="Click to bet on the game's total score to be over 47½">(-110)o</a> 
+	    					<input type="checkbox" value="7968626" name="lineID"
+	    						onclick="EsportzCouponManager.toggleSelection('7968626', $(this))" title="Click to bet on the game's total score to be over 47½" /> 
+   						</div> 
+   						<div> 
+	    					<a class="lineOdd" 
+	    						onClick="EsportzCouponManager.toggleSelection('7968627', $(this))" title="Click to bet on the game's total score to be under 47½">(-110)u</a> 
+	    					<input type="checkbox" value="7968627" name="lineID"
+	    						onclick="EsportzCouponManager.toggleSelection('7968627', $(this))" title="Click to bet on the game's total score to be under 47½" /> 
+   						</div> 
+    					</div> 
+					</td> 
+				</tr> 
+			</table> 
+			</div> 
+			</td> 
+		<td><div class="score"></div></td> 
+            </tr> 
+        <tr> 
+          <td><div class="time">&nbsp;</div></td> 
+              <td><div class="rot-number">198</div></td> 
+          <td><div class="competitor-name"> 
+              <a class="competitor" title="Click for New Orleans Saints team info!" href="/betting-teams/nfl-football/NO/"  rel="follow">New Orleans Saints</a> <br/> 
+                  <span class="competitor-note"></span> </div></td> 
+          <!-- If set to true will modify links to add selection to Bet Slip and not to Bet Board --> 
+<td class="borderBottomNoColor borderLeftNoColor"> 
+			<div class="line-normal"> 
+                <a class="lineOdd" onClick="EsportzCouponManager.toggleSelection('7966528', $(this))" title="Click to bet on New Orleans Saints to cover the Point Spread">-7 (EVEN)</a> 
+        				<input type="checkbox" value="7966528" name="lineID"
+        					onclick="EsportzCouponManager.toggleSelection('7966528', $(this))" title="Click to bet on New Orleans Saints to cover the Point Spread" class="checkbox-pos" /> 
+			         <br /> 
+			</div> 
+			</td> 
+		<!-- If set to true will modify links to add selection to Bet Slip and not to Bet Board --> 
+<td class="borderBottomNoColor"> 
+			<div class="moneyline-line-normal"> 
+                <a class="lineOdd" onClick="EsportzCouponManager.toggleSelection('7979395', $(this))" title="Click to bet on New Orleans Saints to win straight up">-300</a> 
+        				<input type="checkbox" value="7979395" name="lineID"
+        					onclick="EsportzCouponManager.toggleSelection('7979395', $(this))" title="Click to bet on New Orleans Saints to win straight up" class="checkbox-pos" /> 
+			         <br /> 
+			</div> 
+			</td> 
+		<td><div class="score"></div></td> 
+            </tr> 
+        </table> 
+</div> 
+</div> 
+

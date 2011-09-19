@@ -28,6 +28,19 @@ describe GamesController do
         get 'index'
         response.should have_selector("title", :content => "All Games")
       end
+
+      it "has a parse college games button" do
+        get 'index'
+        response.should have_selector("input", :type => "submit",
+                                      :value => "Parse College Scores")
+      end
+
+      it "has a parse pro games button" do
+        get 'index'
+        response.should have_selector("input", :type => "submit",
+                                      :value => "Parse Pro Scores")
+      end
+
     end
   end
 
@@ -97,4 +110,6 @@ describe GamesController do
       @game.away_team = away  
     end
   end
+
+  
 end

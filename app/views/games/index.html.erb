@@ -1,4 +1,5 @@
 <div class="pickem_container container_12">
+  <%= render 'shared/flashpartial' %>
   <%= link_to "New Game", new_game_path %><br /><br />
   <%= form_tag(find_games_path, :method => "get") do %>
     <%= label_tag(:begin_date, "Begin Date") %>
@@ -7,4 +8,28 @@
     <%= text_field_tag(:end_date) %><br />
     <%= submit_tag("Find Games") %> 
   <% end %>
+  <br /><br />
+
+  <%= form_tag(parse_college_scores_games_path, :method => "get") do %>
+    <%= label_tag(:season, "Season") %>
+    <%= text_field_tag(:season, nil, :class => "small_tb") %><br />
+    <%= label_tag(:week, "Week (Always 1 more than the pro week)") %>
+    <%= text_field_tag(:week, nil, :class => "small_tb") %><br />
+    <%= submit_tag("Parse College Scores") %>
+  <% end %>
+  <br /><br />
+
+  <%= form_tag(parse_pro_scores_games_path, :method => "get") do %>
+    <%= label_tag(:season, "Season") %>
+    <%= text_field_tag(:season, nil, :class => "small_tb") %><br />
+    <%= label_tag(:week, "Week") %>
+    <%= text_field_tag(:week, nil, :class => "small_tb") %><br />
+    <%= submit_tag("Parse Pro Scores") %>
+  <% end %>
+  <br /><br />
+
+  <%= form_tag(score_pickem_games_path, :method => "get") do %>
+    <%= submit_tag("Score Pickem Pools") %>
+  <% end %>
+  
 </div>

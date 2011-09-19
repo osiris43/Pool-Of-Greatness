@@ -35,14 +35,7 @@ describe PickemWeek do
       @pickem_week.pickem_week_entries.count.should == 1
     end
 
-    it "creates the picks" do
-      selectedGames = { "gameid_1" => "23" }
-      @pickem_week.save_picks(selectedGames, @user, 43.5)
-      @pickem_week = PickemWeek.find(@pickem_week.id)
-      @pickem_week.pickem_week_entries[0].pickem_picks.count.should == 1
-    end
   end
-
   describe "scoring week" do
     before(:each) do
       @user = Factory(:user)

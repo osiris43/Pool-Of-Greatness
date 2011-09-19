@@ -58,6 +58,9 @@ Poolofgreatness::Application.routes.draw do
     collection do
       get'find'
       put 'update_individual'
+      get 'parse_college_scores'
+      get 'parse_pro_scores'
+      get 'score_pickem'
     end
   end
 

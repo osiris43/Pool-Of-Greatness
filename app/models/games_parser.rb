@@ -1,6 +1,5 @@
 class GamesParser
   require 'rubygems'
-  require 'hpricot'
   require 'open-uri'
 
   def read_document(url)
@@ -39,28 +38,39 @@ class GamesParser
 
   def parse_nfl_scores(season, seasontype, week)
     doc = read_document(build_nfl_url(season, seasontype, week))
-    local_season = season.to_s + "-" + (season + 1).to_s
-    parse_scores(doc, week, local_season)
+    local_season = season + "-" + (season.to_i + 1).to_s
+    parse_scores(doc, week, local_season, 'Nflgame')
   end
 
   def parse_ncaa_scores(season, seasontype, week)
     doc = read_document(build_ncaa_url(season, seasontype, week))
-    local_season = season.to_s + "-" + (season + 1).to_s
-    parse_scores(doc, week, local_season)
+    local_season = season + "-" + (season.to_i + 1).to_s
+    parse_scores(doc, week, local_season, 'Ncaagame')
   end
 
-  def parse_scores(doc, week, local_season)
+  def find_game(week, season, awaymascot, type)
+    if type == 'Nflgame'
+      Nflgame.joins(:away_team).where("week = #{week} AND season = '#{season}' AND teamname LIKE '%" + awaymascot + "%'").readonly(false).first
+    else
+      Ncaagame.joins(:away_team).where("week = #{week} AND season = '#{season}' AND teamname LIKE '%" + awaymascot + "%'").readonly(false).first
+    end
+  end
+
+  def parse_scores(doc, week, local_season, type)
     gameids = get_gameids(doc)
     gameids.each do |gameid|
-      awaymascot = get_awayteam(gameid, doc, 'a')
-      homemascot = get_awayteam(gameid, doc, 'h')
+      awaymascot = get_awayteam(gameid, doc, 'a').strip
+      homemascot = get_awayteam(gameid, doc, 'h').strip
       awayTotal = get_final_score(gameid, 'a', doc)
       homeTotal = get_final_score(gameid, 'h', doc)
       puts "Away: #{awaymascot}\tHome: #{homemascot}\tAwayTotal: #{awayTotal}\tHomeTotal: #{homeTotal}"
-      game = Game.joins(:away_team).where("week = #{week} AND season = '#{local_season}' AND teamname LIKE '%" + awaymascot + "%'").readonly(false).first
+
+      game = find_game(week, local_season, awaymascot, type)
+
       if game.nil?
         next
       end
+
       game.awayscore = awayTotal.to_i
       game.homescore = homeTotal.to_i
       game.save

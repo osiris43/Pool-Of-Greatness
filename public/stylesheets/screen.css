@@ -629,3 +629,7 @@ article {
 .site_menu_body li.alt {
   background: #362f2d;
 }
+
+.small_tb {
+  width: 75px;
+}

@@ -19,21 +19,6 @@ class GamesController < ApplicationController
     @games = Game.update(params[:games].keys, params[:games].values).reject { |g| g.errors.empty?}
     flash[:notice] = "Games updated"
 
-    # TODO this needs to only happen for pickem pools. 
-    if params[:scoregames]
-      pools = PickemPool.all
-      pools.each do |pool|
-        week = PickemWeek.get_current_week(pool.id)
-        week.score
-        week.update_accounting
-        @season = pool.pickem_rules.where("config_key = ?", "current_season").first
-        @week = pool.pickem_rules.where("config_key = ?", "current_week").first
-        pool.pickem_weeks.create!(:season => @season.config_value,
-                                  :week => @week.config_value, 
-                                  :deadline => week.deadline + 7.days)
-      end
-      
-    end 
 
     
     redirect_to user_path(current_user)
@@ -78,7 +63,33 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id]) 
   end
-  
+ 
+  def parse_college_scores
+    parser = GamesParser.new
+    parser.parse_ncaa_scores(params[:season], '2', params[:week])
+    flash[:success] = "Done with NCAA..."
+    redirect_to games_path
+  end 
+
+  def parse_pro_scores
+    parser = GamesParser.new
+    parser.parse_nfl_scores(params[:season], '2', params[:week])
+    flash[:success] = "Done with NFL..."
+    redirect_to games_path
+  end 
+
+  def score_pickem
+    pools = PickemPool.all
+    pools.each do |pool|
+      week = PickemWeek.get_current_week(pool.id)
+      week.score
+      week.update_accounting
+      pool.pickem_weeks.create!(:season => pool.current_season,
+                                :week => pool.current_week, 
+                                :deadline => week.deadline + 7.days)
+    end
+  end
+
   private
     def admin_required
       redirect_to user_path(current_user) unless current_user.admin?
