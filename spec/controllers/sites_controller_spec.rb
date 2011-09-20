@@ -156,7 +156,7 @@ describe SitesController do
       @controller.stubs(:current_user).returns(@user)
       @site = Site.create!(@attr)
       @user.sites<<(@site)
-      @site.pools.create(:name => "My Pool", :type => "PickemPool", :admin_id => @user.id)
+      @site.pools<<(Factory(:pickem_pool))
     end
     
     it "has the right title" do

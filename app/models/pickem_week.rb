@@ -81,31 +81,59 @@ class PickemWeek < ActiveRecord::Base
 
   def update_accounting
     results = PickemEntryResult.joins(:pickem_week_entry).where('pickem_week_entries.pickem_week_id' => id).all
+    comparer = PickemResultComparer.new(results)
     winner = results[0].pickem_week_entry
     @pool = winner.pickem_week.pickem_pool
     week = winner.pickem_week.week
     season = winner.pickem_week.season
 
     if results.count < 6
-      add_transaction(winner.user, "Pickem", results.count * @pool.prize_amount_per_person, week, season)
+      # yay the simple case
+      award_firstplace(comparer, results, @pool, week, season, 1.0)
     elsif results.count < 11
-      second = results[1].pickem_week_entry
-      add_transaction(winner.user, "Pickem", results.count * @pool.prize_amount_per_person * 0.7, week, season)
-      add_transaction(second.user, "Pickem",results.count * @pool.prize_amount_per_person * 0.3, week, season) 
-    else
-      second = results[1].pickem_week_entry
-      third = results[2].pickem_week_entry
-      add_transaction(winner.user, "Pickem", results.count * @pool.prize_amount_per_person * 0.7, week, season)
-      add_transaction(second.user, "Pickem",results.count * @pool.prize_amount_per_person * 0.2, week, season) 
-      add_transaction(third.user, "Pickem", results.count * @pool.prize_amount_per_person * 0.1, week, season)
+      # if we have a tie for first, all money is split between the ties,
+      # else it's the normal 70%
+      first_prize_per = 1.0 ? comparer.firstplace.count > 1 : 0.7
 
+      award_firstplace(comparer, results, @pool, week, season, first_prize_per)
+
+      # This only happens if we didn't have a tie so no need to compute
+      # the percentage.
+      if comparer.firstplace.count == 1
+        award_secondplace(comparer, results, @pool, week, season, 0.3)
+      end 
+    else
+      if comparer.firstplace.count == 1
+        first_prize_percent = 0.7
+      elsif comparer.firstplace.count == 2
+        first_prize_percent = 0.9
+      else
+        first_prize_percent = 1.0
+      end
+
+      award_firstplace(comparer, results, @pool, week, season, first_prize_percent)
+
+      if comparer.firstplace.count == 1
+        if comparer.secondplace.count == 2
+          second_percent = 0.3
+        else
+          second_percent = 0.2
+        end
+        award_secondplace(comparer, results, @pool, week, season, second_percent)
+      end 
+
+      if comparer.firstplace.count + comparer.firstplace.count < 3
+        award_thirdplace(comparer, results, @pool, week, season, 0.1)
+      end
     end
 
     if @pool.award_jackpot?(results[0].won)
-      winner.user.account.transactions.create!(:pooltype => "Pickem",
-                                               :poolname => @pool.name,
-                                               :amount => @pool.jackpot.weeklyjackpot,
-                                               :description => "Jackpot for week #{winner.pickem_week.week}, season #{winner.pickem_week.season}")
+      comparer.firstplace.each do |first|
+        first.pickem_week_entry.user.account.transaction.create!(:pooltype => "Pickem",
+                                                                 :poolname => @pool.name, 
+                                                                 :amount => @pool.jackpot.weeklyjackpot / comparer.firstplace.count,
+                                                                 :description => "Jackpot for week #{winner.pickem_week.week}, season #{winner.pickem_week.season}")
+      end
 
       @pool.jackpot.weeklyjackpot = 0;
       @pool.jackpot.save
@@ -116,6 +144,39 @@ class PickemWeek < ActiveRecord::Base
   end
 
   private
+    def award_firstplace(comparer, results, pool, week, season, percentage)
+      first_place_prize = results.count * pool.prize_amount_per_person * percentage
+      comparer.firstplace.each do |first|
+        add_transaction(first.pickem_week_entry.user, 
+                        "Pickem", 
+                        first_place_prize * (1 / comparer.firstplace.count.to_f),
+                        "First place prize for week #{week}, #{season}")
+      end
+    end
+
+    def award_secondplace(comparer, results, pool, week, season, percentage)
+      second_place_prize = results.count * pool.prize_amount_per_person * percentage
+
+      comparer.secondplace.each do |second|
+        add_transaction(second.pickem_week_entry.user, 
+                        "Pickem", 
+                        second_place_prize * (1 / comparer.secondplace.count.to_f),
+                        "Second place prize for week #{week}, #{season}")
+
+      end
+    end
+
+    def award_thirdplace(comparer, results, pool, week, season, percentage)
+      third_place_prize = results.count * pool.prize_amount_per_person * percentage
+
+      comparer.thirdplace.each do |third|
+        add_transaction(third.pickem_week_entry.user, 
+                        "Pickem", 
+                        third_place_prize * (1 / comparer.thirdplace.count.to_f),
+                        "Third place prize for week #{week}, #{season}")
+      end
+    end
+
     def save_pick(gamekey, teamid, current_user, entry)
       logger.debug "Gamekey: #{gamekey}\tTeamId: #{teamid}\tEntryId: #{entry.id}"
       # gamekey looks like gameid_xxx where xxx is the game id
@@ -131,11 +192,11 @@ class PickemWeek < ActiveRecord::Base
 
     end
 
-    def add_transaction(user, pooltype, amount, week, season)
+    def add_transaction(user, pooltype, amount, description)
       user.account.transactions.create!(:pooltype => pooltype,
                                         :poolname => self.pickem_pool.name,
                                         :amount => amount,
-                                        :description => "Winning prize for week #{week}, season #{season}") 
+                                        :description => description) 
     end
 
 end

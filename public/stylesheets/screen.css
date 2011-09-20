@@ -63,6 +63,7 @@ header{
 	text-transform:uppercase;
 	position:relative;
 	width:100%;
+  height: 50px;
 }
 
 header h1 {
@@ -156,7 +157,15 @@ input[type="submit"] {
 }
 
 #dashboard_wrapper {
-  padding: 60px 0 0 0;
+  padding: 5px 0 10px 0;
+}
+
+#dashboard_wrapper .grid_12 {
+  margin-bottom: 18px;
+}
+
+#dashboard_wrapper span {
+  font-size: 24px;
 }
 #dashboard_details {
   background-color: #D2b65F;
@@ -332,8 +341,17 @@ tr.header th {
 }
 
 .results_table {
-  width: 80%;
-  margin: 0 0 0 15px;
+  border: 1px solid #0b0974;
+  background: #fff;
+  width: 100%;
+}
+
+.results_table th, .results_table td {
+  padding: 0.5em;
+}
+
+.results_table tr.odd {
+  background: #eee;
 }
 
 #notice {
@@ -348,9 +366,35 @@ tr.header th {
 
 }
 
-#account_activity {
-  border: 2px solid #a67d00;
-  margin-top: 15px;
+#account_activity, #pool_summary {
+  border: 1px solid #3c39ba;
+  border-radius:5px 5px 5px 5px;
+  -moz-border-radius:5px 5px 5px 5px;
+  -webkit-border-radius:5px 5px 5px 5px;
+  background: #e1e1e1;
+}
+
+#pool_summary {
+  margin-bottom: 10px;
+}
+
+#pool_summary_data {
+  padding: 0 12px 12px 12px;
+  
+}
+
+#account_activity h2, #pool_summary h2 {
+  background: #0b0974;
+  color: #f0ebec; 
+  padding-left: 8px;
+}
+
+#account_activity_data {
+  padding: 0 12px 12px 12px;
+}
+
+#account_activity_data span {
+  font-size: 16px;
 }
 
 #sites_container {
@@ -593,12 +637,12 @@ article {
   background: red;
 }
 
-#site_menu {
+#adminsite_menu {
   background: #7c661f;
   width:186px;
 }
 
-#site_menu ul, li{
+#adminsite_menu ul, li{
   margin:0; 
   padding:0;
   list-style:none;
@@ -632,4 +676,34 @@ article {
 
 .small_tb {
   width: 75px;
+}
+
+#site-nav {
+  position: absolute;
+  background: #d2ac35;
+  height: 80%;
+  border-right: 1px solid #ccc;
+}
+
+#site-nav li {
+}
+
+#site-nav a {
+  display: block;
+  text-decoration: none;
+  color: #04034b;
+  padding: 0 10px;
+}
+
+#site-nav li a:hover {
+  background: #ccc;
+}
+
+.site-nav-header {
+  font-weight: 800;
+  padding: 0 10px;
+}
+.site-nav-menu-item {
+  background:  #f0e9ea;
+  font:normal 16px/24px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }

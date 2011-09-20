@@ -11,6 +11,7 @@
   <div id="wrap">
   <%= render 'layouts/header' %>
   <div id="main">
+    <%= render "layouts/sitenav" unless current_user.nil? %> 
     <%= yield %>
   </div>
 </div>

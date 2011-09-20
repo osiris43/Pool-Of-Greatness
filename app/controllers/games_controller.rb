@@ -88,6 +88,10 @@ class GamesController < ApplicationController
                                 :week => pool.current_week, 
                                 :deadline => week.deadline + 7.days)
     end
+    flash[:notice] = "Games updated"
+    
+    redirect_to games_path 
+
   end
 
   private

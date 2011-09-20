@@ -1,5 +1,6 @@
 <div id="account_activity">
-  <h1>Your Account Activity</h1> 
+  <h2>Your Account Activity</h2> 
+  <div id="account_activity_data">
   <label>Current Balance: </label><span><%= number_to_currency(current_user.balance) %></span>
   <br /><br />
   <span>Last 10 transactions</span> 
@@ -11,7 +12,7 @@
       <th>Description</th>
     </tr>
     <% current_user.account.last_transactions(10).each do |trans| %>
-      <tr>
+      <tr class="<%= cycle("even", "odd") %>">
         <td><%= trans.created_at.strftime("%m-%d-%Y") %></td>
         <td><%= trans.poolname %></td>
         <td><%= number_to_currency(trans.amount) %></td>
@@ -19,4 +20,5 @@
       </tr>
     <% end %>
   </table>
+</div>
 </div>

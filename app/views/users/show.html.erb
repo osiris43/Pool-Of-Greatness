@@ -1,5 +1,21 @@
 <div id="dashboard_wrapper" class="container_12">
-  <%= render "navigation" %> 
-  <%= render "sites" %>
-  <%= render "accountinfo" %>
+  <div class="grid_12">
+  <%= image_tag("home_48.png") %>
+  <span>Dashboard</span>
+    <%= render "shared/flashpartial" %>
+  </div>
+  <div class="clear"></div>
+  <div class="grid_6">
+    <% if !current_user.pickem_week_entries.empty? %>
+      <%= render "pickem" %>
+    <%end %>
+  </div>
+  <div class="grid_6">
+    some stuff
+  </div>
+  <div class="clear"></div>
+  <div class="grid_12">
+    <%= render "accountinfo" %>
+
+  </div>
 </div>

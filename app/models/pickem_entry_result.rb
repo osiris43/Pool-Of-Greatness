@@ -6,5 +6,4 @@ class PickemEntryResult < ActiveRecord::Base
   belongs_to :pickem_week
   
   default_scope order('pickem_entry_results.won DESC','pickem_entry_results.tiebreak_distance')
-
 end

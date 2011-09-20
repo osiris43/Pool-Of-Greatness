@@ -77,6 +77,19 @@ describe PickemWeek do
 
       @pool.current_week.should == 2
     end
+
+    it "splits the pot for a tie" do
+      @user2 = Factory(:user, :username => "test2", :email => "test1@test.com")
+      @user2.create_account
+      @pickem_week.pickem_week_entries.create!(:user => @user2, :mondaynighttotal => 45.5)
+      @pickem_week.pickem_week_entries[0].pickem_picks.create!(:game_id => @game.id, :team_id => @away.id)
+      @pickem_week.pickem_week_entries[1].pickem_picks.create!(:game_id => @game.id, :team_id => @away.id)
+      @pickem_week.score
+      @pickem_week.update_accounting
+      @user2 = User.find(@user2.id)
+      @user2.account.transactions[0].should_not be_nil
+      @user2.account.transactions[0].amount.should == 10
+    end
   end
   
 end

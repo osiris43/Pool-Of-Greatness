@@ -42,7 +42,13 @@ class BodogEvent
 
   def find_overunder
     doc = Hpricot(@html)
-
+    ou_div = doc.search("//div[@class='total-number']")
+    number = (ou_div/"b").inner_html
+    if number.length == 2
+      @overunder = number.to_f
+    else
+      @overunder = (number[0..1].to_f) + 0.5
+    end
   end
 
   def parse
