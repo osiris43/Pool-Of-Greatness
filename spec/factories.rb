@@ -1,8 +1,17 @@
 require 'date'
+FactoryGirl.define do
+  factory :pickem_pool do
+    sequence :name do |n|
+      "My Pool #{n}"
+    end
+    type         "PickemPool"
+    after_create { |pickempool| add_standard_config(pickempool)}
+  end
+end
 
 Factory.define :user do |user|
-  user.username               "testusername"
-  user.email                  "test@test.com"
+  user.sequence(:username)    {|n| "testusername#{n}" }
+  user.sequence(:email)       {|n| "test#{n}@test.com" }
   user.password               "password"
   user.password_confirmation  "password"
   user.admin                  false
@@ -14,9 +23,13 @@ Factory.define :pool_template do |pool_template|
   pool_template.description "A weekly pick 'em pool"  
 end
 
-Factory.define :pickem_pool do |pickempool|
-  pickempool.name         "My Pool"
-  pickempool.type         "PickemPool"
+def add_standard_config(pool)
+  pool.pickem_rules.create(:config_key => "current_week", :config_value => "1") 
+  pool.pickem_rules.create(:config_key => "weekly_fee", :config_value => "10") 
+  pool.pickem_rules.create(:config_key => "current_season", :config_value => "2011-2012")
+  pool.pickem_rules.create(:config_key => "pro", :config_value => "1")
+  pool.pickem_rules.create(:config_key => "college", :config_value => "1")
+
 end
 
 Factory.define :survivor_pool do |survivorpool|
@@ -53,12 +66,14 @@ Factory.define :nflawayteam, :parent => :team do |team|
 end
 
 Factory.define :nflgame do |game|
-  game.season     "2011-2012"
-  game.week       1
-  game.away_team  :away_team
-  game.home_team  :home_team
-  game.line       -2
-  game.gamedate   DateTime.now + 1
+  game.season       "2011-2012"
+  game.week         1
+  game.association  :away_team, :factory => :nflawayteam
+  game.association  :home_team, :factory => :nflhometeam
+  game.line         -2
+  game.gamedate     DateTime.now + 1
+  game.awayscore    20
+  game.homescore    23
 end
 
 Factory.define :ncaagame do |game|
@@ -76,9 +91,22 @@ Factory.define :pickem_rule do |rule|
   rule.association    :pickem_pool
 end
 
-Factory.define :pickem_pick do |factory|
+Factory.define :pickem_week_entry do |entry|
+  entry.association       :user
+  entry.association       :pickem_week
+  entry.mondaynighttotal  45
+end
 
-  factory.association :game 
+Factory.define :pickem_pick do |factory|
+  factory.association :team, :factory => :nflawayteam
+  factory.association :game, :factory => :nflgame 
+  factory.association :pickem_week_entry
+end
+
+Factory.define :pickem_pick_with_favorite, :parent => :pickem_pick do |factory|
+  factory.association :team, :factory => :nflhometeam
+  factory.association :game, :factory => :nflgame 
+  factory.association :pickem_week_entry
 end
 
 Factory.define :pickem_game do |factory|

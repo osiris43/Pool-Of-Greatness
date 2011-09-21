@@ -1,6 +1,23 @@
 <div id="pool_summary">
-  <h2>Pickem Summary</h2>
+  <h2>Your Pickem Summary</h2>
   <div id="pool_summary_data">
-    You've played in <%= current_user.pickem_week_entries.count %> weeks of the pickem pool.  
+    <table>
+      <tr>
+        <td>Weeks Played</td>
+        <td><%= current_user.pickem_week_entries.count %></td>
+      </tr>
+      <tr>
+        <td>In the money</td>
+        <td><%= @moneytimes %></td>
+      </tr>
+      <tr>
+        <td>Favorites</td>
+        <td><%= current_user.favorites_picked %></td>
+      </tr>
+      <tr>
+        <td>Underdogs</td>
+        <td><%= current_user.underdogs_picked %></td>
+      </tr>
+    </table>
   </div>
 </div>

@@ -64,7 +64,6 @@ describe PickemPoolsController do
       before(:each) do
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
-        @pool.pickem_rules.create!(:config_key => 'current_season', :config_value => "2011-2012")
       end
 
       it "should be successful" do
@@ -85,8 +84,7 @@ describe PickemPoolsController do
 
       it "has an admin link for the correct user" do
         @admin = Factory(:user, :username => "adminuser", :email => "test1@test.com", :admin => true)
-        @pool1 = Factory(:pickem_pool, :name => 'abd',  :admin_id => @admin.id)
-        @pool1.pickem_rules.create!(:config_key => 'current_season', :config_value => "2011-2012")
+        @pool1 = Factory(:pickem_pool, :admin_id => @admin.id)
         
         @controller.stubs(:current_user).returns(@admin)
         get 'home', :id => @pool1.id
@@ -146,15 +144,6 @@ describe PickemPoolsController do
       before(:each) do
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
-        @season_config = Factory(:pickem_rule,
-                                 :config_value => "2011-2012", 
-                                 :config_key => "current_season", 
-                                 :pickem_pool => @pool) 
-        @week_config = Factory(:pickem_rule,
-                               :config_key => "current_week",
-                               :config_value => "1",
-                               :pickem_pool => @pool) 
-        session[:pool_id] = @pool.id
       end
 
       it "is successful" do
@@ -189,7 +178,7 @@ describe PickemPoolsController do
         before(:each) do
           @away = Factory(:team)
           @home = Factory(:team, :teamname => "New York Jets" ) 
-          @game = Factory(:nflgame, :away_team => @away, :home_team => @home)
+          @game = Factory(:nflgame)
           pick = Factory(:pickem_pick, :game => @game)
         end
   
@@ -207,10 +196,6 @@ describe PickemPoolsController do
       before(:each)do
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
-        @pool.pickem_rules.create(:config_key => "current_season", :config_value => "2011-2012")
-        @pool.pickem_rules.create(:config_key => "current_week", :config_value => "1")
-        @pool.pickem_rules.create(:config_key => "pro", :config_value => "1")
-        @pool.pickem_rules.create(:config_key => "college", :config_value => "1")
       end
 
       describe 'list games' do
@@ -248,9 +233,6 @@ describe PickemPoolsController do
       before(:each) do
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
-        session[:pool_id] = @pool.id
-        @pool.pickem_rules.create(:config_key => "current_season", :config_value => "2011-2012")
-        @pool.pickem_rules.create(:config_key => "current_week", :config_value => "1")
       end
 
       it "displays a message if the deadline hasn't passed" do
@@ -269,7 +251,7 @@ describe PickemPoolsController do
         pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now - 1)
         game = Factory(:nflgame, :away_team => Factory(:nflawayteam), :home_team => Factory(:nflhometeam))
         pickem_game = Factory(:pickem_game, :game => game, :pickem_week => pickemWeek)
-        entry = Factory(:pickem_pick, :game => game, :user => @user, :team => Factory(:nflhometeam))
+        entry = Factory(:pickem_pick)
 
         get "view_allgames", :id => @pool.id
         response.should have_selector("td", :content => "NYJ")

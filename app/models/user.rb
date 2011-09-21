@@ -39,6 +39,33 @@ class User < ActiveRecord::Base
   def pool_admin?(pool)
     id == pool.admin_id
   end
+
+  def favorites_picked
+    favorites = 0
+    pickem_week_entries.each do |entry|
+      entry.pickem_picks.each do |pick|
+        if pick.picked_favorite?
+          favorites += 1
+        end
+      end
+    end
+
+    favorites
+  end
+
+  def underdogs_picked
+    underdogs = 0
+    pickem_week_entries.each do |entry|
+      entry.pickem_picks.each do |pick|
+        if pick.picked_underdog?
+          underdogs += 1
+        end
+      end
+    end
+
+    underdogs 
+  end
+
   private
 
     def prepare_password

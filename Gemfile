@@ -18,7 +18,7 @@ group :test do
   gem 'rspec-rails', '2.6.1'
   gem 'webrat', '0.7.1'
   gem 'mocha', '0.9.8'
-  gem 'factory_girl_rails', '1.0'
+  gem 'factory_girl_rails', '~> 1.2'
 end
 
 # Use unicorn as the web server

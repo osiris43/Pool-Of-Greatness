@@ -383,6 +383,10 @@ tr.header th {
   
 }
 
+#pool_summary_data th, #pool_summary_data td {
+  padding: 0 0.5em;
+}
+
 #account_activity h2, #pool_summary h2 {
   background: #0b0974;
   color: #f0ebec; 
