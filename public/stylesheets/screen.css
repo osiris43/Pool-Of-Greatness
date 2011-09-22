@@ -35,7 +35,6 @@ html, body {height: 100%}
   padding: 10px 0 0 0;
 }
 
-
 body {
   font:normal 16px/24px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   background: #f2f2f5; 
@@ -181,13 +180,9 @@ input[type="submit"] {
 }
 
 .pickem_container {
-  padding: 60px 0 0 0;
 }
 .pickem_navigation ul {
-  background-color: #d2b65f;
-	border-radius:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
+  background-color: #f2f2f5;
   padding: 10px 0;
 
 }
@@ -683,31 +678,45 @@ article {
 }
 
 #site-nav {
-  position: absolute;
-  background: #d2ac35;
-  height: 80%;
-  border-right: 1px solid #ccc;
+  width: 100%;
+  background: url('/images/site_nav.png') top left repeat-x;
+  min-height: 75px;
 }
 
+#site-nav ul {
+  padding-top: 25px;
+}
 #site-nav li {
+  list-style: none;
+  display: inline;
 }
 
 #site-nav a {
-  display: block;
   text-decoration: none;
-  color: #04034b;
-  padding: 0 10px;
+  color: #f2f2f5;
+  padding: 10px;
+  border-radius: 5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  -webkit-transition: background .3s ease-out;
 }
 
 #site-nav li a:hover {
-  background: #ccc;
+  background: #d2ac35;
 }
 
-.site-nav-header {
-  font-weight: 800;
-  padding: 0 10px;
-}
 .site-nav-menu-item {
-  background:  #f0e9ea;
   font:normal 16px/24px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
+
+#pool_banner{
+  width: 100%;
+  background: url('/images/pool_header.png') top left repeat-x;
+  min-height: 75px;
+}
+
+.banner_text {
+  font: normal 32px 'Marvel', sans-serif;
+  color:#f2f2f5;
+  padding-top: 20px;
+ } 

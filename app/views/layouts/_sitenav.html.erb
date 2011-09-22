@@ -1,45 +1,32 @@
 <div id="site-nav">
-  <ul class="site-nav-body">
-    <li class="site-nav-header">
-      <%= link_to "Dashboard", user_path(current_user) %>
-    </li>
-    <li class="site-nav-menu-item">
-      
-      <%= link_to "Home", user_path(current_user)  %>
-    </li>
-
-    <li class="site-nav-menu-item">
-      <%= link_to "Account Activity", "#" %>
-    </li>
-    <li class="site-nav-menu-item">
-      <%= link_to "Edit Profile", edit_user_path(current_user) %>
-    </li>
-    <li class="site-nav-menu-item">
-      <%= link_to "Create Site", new_site_path %>
-    </li>
-    <li class="site-nav-menu-item">
-      <%= link_to "Join Site", find_sites_path %>
-    </li>
-    <% if current_user.admin? %>
-      <li class="site-nav-menu-item"><%= link_to "Site Admin", games_path %> </li>
-    <% end %>
-    <% current_user.sites.each do |site| %>
-      <li class="site-nav-header">
-        <%= site.name %>
-      </li>
-      <% site.pools.each do |pool| %>
+  <div class="container_12">
+    <div class="grid_12">
+      <ul class="site-nav-body">
         <li class="site-nav-menu-item">
-        <%= poolpath_for(pool) %>
-        </li>
-      <%end %>
-      <% if site.admin_id == current_user.id %>
-        <li class="site-nav-menu-item">
-        <%= link_to "Add Pool", newpool_site_path(site) %>
+          <%= link_to "Home", user_path(current_user)  %>
         </li>
         <li class="site-nav-menu-item">
-        <%= link_to "Site Administration", administer_site_path(site) %>
-        </li>
-      <%end %>
-    <% end %>
-  </ul>
+          <%= link_to "Edit Profile", edit_user_path(current_user) %>
+          </li>
+        <% if current_user.admin? %>
+          <li class="site-nav-menu-item"><%= link_to "Site Admin", games_path %> </li>
+        <% end %>
+        <% current_user.sites.each do |site| %>
+          <% site.pools.each do |pool| %>
+            <li class="site-nav-menu-item">
+              <%= poolpath_for(pool) %>
+            </li>
+          <%end %>
+          <% if site.admin_id == current_user.id %>
+            <li class="site-nav-menu-item">
+              <%= link_to "Add Pool", newpool_site_path(site) %>
+            </li>
+            <li class="site-nav-menu-item">
+              <%= link_to "Site Administration", administer_site_path(site) %>
+            </li>
+          <%end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
