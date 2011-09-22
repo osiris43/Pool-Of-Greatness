@@ -7,8 +7,8 @@
 
   <h1><%= "Picksheet for Week #{@games[0].week}" %></h1>
   <%= form_tag(makepick_survivor_pool_path, :method => "post") do %>
-  <table id="survivor_picks_table">
-    <tr class="header">
+  <table class="survivor_standings">
+    <tr id="survivor_standings_header">
       <th>Game Date</th>
       <th></th>
       <th>Favorite</th>

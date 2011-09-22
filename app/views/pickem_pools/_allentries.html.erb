@@ -1,5 +1,5 @@
-<table class="results_table">
-    <tr class="header">
+<table id="weeklygames">
+    <tr>
       <th>Name</tH>
       <th>Won</th>
       <th>Lost</th>
@@ -7,7 +7,7 @@
       <th>Monday Night Total Distance</th>
     </tr>
   <% @current_week.pickem_entry_results.each do |result| %>
-    <tr>
+    <tr class="<%= cycle("odd", "even") %>" >
       <td><%= result.pickem_week_entry.user.name %></td>
       <td><%= result.won %></td>
       <td><%= result.lost %></td>

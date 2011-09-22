@@ -2,10 +2,11 @@
 
 <div class="pickem_container container_12">
   <%= render "navigation" %>
-
+  <%= render 'shared/flashpartial' %>
+  <div class="grid_12"> 
   <h1>Season Stats</h1>
-  <table class="results_table" >
-    <tr class="header">
+  <table id="weeklygames"  >
+    <tr>
       <th>Name</th>
       <th>Won</th>
       <th>Lost</th>
@@ -14,7 +15,7 @@
       <th>Weeks Played</th>
     </tr>
     <% @userstats.each do |stat| %>
-      <tr>
+      <tr class="<%= cycle("odd", "even") %>" >
         <td><%= stat.name %></td>
         <td><%= stat.won %></td>
         <td><%= stat.lost %></td>
@@ -24,5 +25,6 @@
       </tr>
     <% end %>
   </table>
+</div>
 </div>
   

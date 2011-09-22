@@ -1,8 +1,10 @@
 <%= render 'shared/poolbanner' %>
 
 <div class="pickem_container container_12">
-  <div class="grid_12">
   <%= render "navigation" %>
+  <%= render 'shared/flashpartial' %>
+
+  <div class="grid_12">
   <h1><%= @results_header %></h1>
 
   <%= form_tag(show_results_pickem_pool_path, :method => 'get') do %>

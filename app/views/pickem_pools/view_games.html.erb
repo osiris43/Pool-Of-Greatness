@@ -1,9 +1,8 @@
 <%= render 'shared/poolbanner' %>
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
-
+  <%= render 'shared/flashpartial' %>
 <h2><%= @gamesHeader %></h2>
-<%= render 'shared/flashpartial' %>
 <%= form_tag(save_picks_pickem_pool_path, :method => "post") do %>
 
 <table id="weeklygames">
@@ -12,7 +11,7 @@
     <th>Line</th>
     <th>Underdog</th> 
 <% @games.each do |weeklygame| %>
-  <tr class="gamerow" id="<%= "gameid_#{weeklygame.game.id}" %>">
+  <tr class="<%= cycle("odd", "even") %>" id="<%= "gameid_#{weeklygame.game.id}" %>">
     <td>
       <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.favorite.id, checked = @teamids.include?(weeklygame.game.favorite.id)) %>
       <%= label_tag(:favorite, weeklygame.game.favorite_display_name) %> 
@@ -38,3 +37,4 @@
 <% end %>
 </div>
 
+</div>

@@ -2,14 +2,13 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
   <%= render 'shared/flashpartial' %>
-  <div class="main_content">
     <h1>Welcome to <%= @pool.name %></h1> 
     <div class="grid_9">
       <span>
         Welcome to the 12th season of the Pool of Greatness Pickem pool.  It's been a long
         scary offseason but now we're through the lockout, past TO's retirement, over
         Eli Manning thinking he's as good as Tom Brady and ready for a new, exciting season.
-        Hope you have a good one.
+        Hope you have a good one.</span>
     </div>
     <div id="pickem_info_boxes">
       <div class="grid_3">
@@ -36,18 +35,19 @@
       </div>
     </div>
   </div>
-  <div class="recent_activity grid_12">
+  <div class="container_12">
+  <div class="pickem_home_box grid_12">
     <% if current_user.account.nil? || current_user.account.transactions.count == 0 %>
       <h2>No account activity</h2>
     <% else %>
       <h2>Recent Account Activity</h2>
-      <table class="activity_table">
-        <tr class="header">
-          <th class="activity_desc">Description</th>
-          <th class="activity_amount">Amount</th>
+      <table>
+        <tr>
+          <th>Description</th>
+          <th>Amount</th>
         </tr>
         <% @transactions.each do |t| %>
-          <tr>
+          <tr class="<%= cycle("odd", "even") %>">
             <td><%= t.description %></td>
             <td><%= number_to_currency(t.amount) %></td>
           </tr>
@@ -57,3 +57,4 @@
   </div>
 </div>
 <div class="clear"></div>
+
