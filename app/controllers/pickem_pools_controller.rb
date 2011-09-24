@@ -77,6 +77,7 @@ class PickemPoolsController < ApplicationController
 
   def save_picks
     selectedGames = params.select {|key,value| key =~ /gameid_/ }
+    logger.debug "Selected Games: #{selectedGames}"
     @pool = PickemPool.find(params[:id])
     @current_week = get_current_week
  

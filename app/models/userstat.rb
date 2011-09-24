@@ -29,7 +29,7 @@ class Userstat
     if won+lost+tied == 0
       @win_percentage = 0.00
     else
-      @win_percentage = ((won.to_f / (won+lost)) * 100).round(2)
+      @win_percentage = (((won.to_f + tied / 2.0) / (won+lost+tied)) * 100).round(2)
     end
   end
 end

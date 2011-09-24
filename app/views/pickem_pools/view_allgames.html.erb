@@ -4,8 +4,8 @@
   <%= render 'navigation' %>
 
   <h1>All Games For This Week</h1>
-  <table id="allgames_table">
-    <tr class="header">
+  <table id="weeklygames">
+    <tr>
       <td></td>
       <% @current_week.pickem_games.each do |game| %>
         <td>
@@ -18,7 +18,7 @@
 
     </tr>
     <% @current_week.pickem_week_entries.each do |entry| %>
-      <tr>
+      <tr class="<%= cycle("odd", "even") %>" >
         <td><%= entry.user.name %></td>
         <% entry.pickem_picks.each do |pick| %>
           <td><%= pick.team.abbreviation %></td>

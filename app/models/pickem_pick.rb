@@ -1,5 +1,5 @@
 class PickemPick < ActiveRecord::Base
-  attr_accessible :team, :game
+  attr_accessible :team, :game, :team_id, :game_id
 
   belongs_to :game
   belongs_to :team
