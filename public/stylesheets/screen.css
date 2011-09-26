@@ -514,14 +514,6 @@ article {
 
 }
 
-#allgames_table {
-  width: 100%;
-}
-
-#allgames_table td {
-  padding: 3px;
-}
-
 #future_pools {
   border: 1px solid #3c39ba;
   border-radius:5px 5px 5px 5px;

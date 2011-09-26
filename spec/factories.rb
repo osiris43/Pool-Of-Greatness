@@ -7,6 +7,16 @@ FactoryGirl.define do
     type         "PickemPool"
     after_create { |pickempool| add_standard_config(pickempool)}
   end
+
+  factory :team do
+    teamname  'Dallas Cowboys'
+  end
+
+  factory :sequence_team, :parent => :team do
+    sequence :teamname do |n|
+      "Team #{n}"
+    end
+  end
 end
 
 Factory.define :user do |user|
@@ -51,10 +61,6 @@ Factory.define :pickem_week do |pickemweek|
   pickemweek.association  :pickem_pool
 end
 
-Factory.define :team do |team|
-  team.teamname   "Dallas Cowboys"
-end
-
 Factory.define :nflhometeam, :parent => :team do |team|
   team.teamname       "Dallas Cowboys"
   team.abbreviation   "DAL"
@@ -70,6 +76,17 @@ Factory.define :nflgame do |game|
   game.week         1
   game.association  :away_team, :factory => :nflawayteam
   game.association  :home_team, :factory => :nflhometeam
+  game.line         -2
+  game.gamedate     DateTime.now + 1
+  game.awayscore    20
+  game.homescore    23
+end
+
+Factory.define :sequence_game, :parent => :nflgame do |game|
+  game.season       "2011-2012"
+  game.week         1
+  game.association  :away_team, :factory => :sequence_team
+  game.association  :home_team, :factory => :sequence_team
   game.line         -2
   game.gamedate     DateTime.now + 1
   game.awayscore    20
@@ -106,6 +123,12 @@ end
 Factory.define :pickem_pick_with_favorite, :parent => :pickem_pick do |factory|
   factory.association :team, :factory => :nflhometeam
   factory.association :game, :factory => :nflgame 
+  factory.association :pickem_week_entry
+end
+
+Factory.define :pickem_pick_with_game_seq, :parent => :pickem_pick do |factory|
+  factory.association :team, :factory => :nflhometeam
+  factory.association :game, :factory => :sequence_game
   factory.association :pickem_week_entry
 end
 

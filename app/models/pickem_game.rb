@@ -3,5 +3,5 @@ class PickemGame < ActiveRecord::Base
   belongs_to :pickem_week
   belongs_to :game
 
-  default_scope :joins => :game, :order => 'games.gamedate'
+  default_scope :joins => :game, :order => 'games.gamedate, games.id'
 end
