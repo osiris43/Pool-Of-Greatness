@@ -111,8 +111,9 @@ describe PickemPoolsController do
         end
 
         it "displays a recent activity section" do
+          @user.account.transactions.create!(:amount => -12.00)
           get "home", :id => @pool.id
-          response.should have_selector("div", :class => "recent_activity grid_12")
+          response.should have_selector("h2", :content => "Recent Account Activity")
         end
 
         it "displays a no activity message if none exists" do

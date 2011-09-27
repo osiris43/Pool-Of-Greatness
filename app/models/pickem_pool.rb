@@ -52,4 +52,23 @@ class PickemPool < Pool
       pickem_rules.find_by_config_key("no_of_jackpot_wins").config_value.to_i <= wins
     end 
   end
+
+  def current_deadline(week=0)
+    current_pickem_week.deadline
+  end
+
+  def current_deadline=(deadline)
+    week = current_pickem_week
+    week.deadline = deadline
+    week.save
+  end
+
+  def current_pickem_week(week=0)
+    if week.nil? || week == 0
+      week = current_week 
+    end
+    
+    pickem_weeks.where("season = ? AND week = ?", current_season, week).first
+  end
+  
 end

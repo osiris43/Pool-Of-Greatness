@@ -2,7 +2,7 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
   <%= render 'shared/flashpartial' %>
-<h2><%= @gamesHeader %></h2>
+  <h2><%= "Games for Week #{@pool.current_week} #{@pool.current_season}" %></h2>
 <%= form_tag(save_picks_pickem_pool_path, :method => "post") do %>
 
 <table id="weeklygames">

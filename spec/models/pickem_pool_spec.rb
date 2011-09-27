@@ -4,6 +4,11 @@ describe PickemPool do
   before(:each) do
     @attr = { :name => "Pool of Greatness" }
     @pool = PickemPool.create!(@attr)
+    @pool.pickem_rules.create!(:config_key => 'current_week', 
+                            :config_value => '1')
+    @pool.pickem_rules.create!(:config_key => 'current_season', 
+                            :config_value => '2011-2012')
+
   end 
 
   it "responds to rules" do
@@ -16,10 +21,8 @@ describe PickemPool do
   end
 
   it "increments the current_week" do
-    @pool.pickem_rules.create!(:config_key => 'current_week', 
-                            :config_value => '1')
     @pool.increment_current_week
-    @pool.pickem_rules[0].config_value.should == "2"
+    @pool.current_week.should == 2 
   end
 
   it "returns a weekly fee" do
@@ -42,4 +45,18 @@ describe PickemPool do
     @pool.prize_amount_per_person.should == 10.0
   end
 
+  it "returns the current week's deadline" do
+    deadline = DateTime.current
+
+    @pool.pickem_weeks.create!(:season => '2011-2012', :week => 1, :deadline => deadline)
+    @pool.current_deadline.to_i.should == deadline.to_i
+  end
+
+  it "sets the current week's deadline" do
+    deadline = DateTime.current + 1
+    @pool.pickem_weeks.create!(:season => '2011-2012', :week => 1, :deadline => deadline)
+
+    @pool.current_deadline = deadline
+    @pool.current_deadline.to_i.should == deadline.to_i 
+  end
 end

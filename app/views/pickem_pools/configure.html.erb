@@ -16,6 +16,11 @@
     <%= text_field_tag(:weekly_fee) %>
   </p>
 
+  <p>
+    <%= label_tag(:deadline, "Deadline") %>
+    <%= select_datetime(DateTime.now, :prefix => :deadline) %>
+  </p>
+    
   <p><%= submit_tag ("Save Config") %></p>
 
 
