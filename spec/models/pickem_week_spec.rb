@@ -25,14 +25,36 @@ describe PickemWeek do
       @user = Factory(:user)
       @pool = Factory(:pickem_pool)
       @pickem_week = Factory(:pickem_week, :pickem_pool => @pool)
+      @game = Factory(:nflgame)
       @user.create_account
       @pool.pickem_rules.create(:config_key => "weekly_fee", :config_value => "12")
     end
 
     it "creates a weekly entry" do
-      selectedGames = { "gameid_1" => "23" }
+      selectedGames = { "gameid_#{@game.id}" => @game.away_team.id.to_s }
       @pickem_week.save_picks(selectedGames, @user, 43.5)
       @pickem_week.pickem_week_entries.count.should == 1
+    end
+
+    it "creates a pickem_pick" do
+      lambda do
+        selectedGames = { "gameid_#{@game.id}" => @game.away_team.id.to_s }
+        @pickem_week.save_picks(selectedGames, @user, 43.5)
+      end.should change(PickemPick, :count).by(1)
+    end
+
+    it "updates the team_id" do
+      selectedGames = { "gameid_#{@game.id}" => @game.away_team.id.to_s }
+      @pickem_week.save_picks(selectedGames, @user, 43.5)
+      @pickem_week = PickemWeek.first
+      @pickem_week.pickem_week_entries[0].pickem_picks[0].team_id.should == @game.away_team.id
+    end
+    
+    it "updates the game_id" do
+      selectedGames = { "gameid_#{@game.id}" => @game.away_team.id.to_s }
+      @pickem_week.save_picks(selectedGames, @user, 43.5)
+      @pickem_week = PickemWeek.first
+      @pickem_week.pickem_week_entries[0].pickem_picks[0].game_id.should == @game.id
     end
 
   end

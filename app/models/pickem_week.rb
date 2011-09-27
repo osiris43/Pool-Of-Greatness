@@ -93,7 +93,8 @@ class PickemWeek < ActiveRecord::Base
     elsif results.count < 11
       # if we have a tie for first, all money is split between the ties,
       # else it's the normal 70%
-      first_prize_per = 1.0 ? comparer.firstplace.count > 1 : 0.7
+      
+      first_prize_per = (comparer.firstplace.count > 1 ? 1.0 : 0.7)
 
       award_firstplace(comparer, results, @pool, week, season, first_prize_per)
 
