@@ -1,6 +1,6 @@
 <div id="played_games">
   <h3>Previous Games</h3>
-    <table id="weeklygames">
+    <table id="previousgames">
       <tr>
         <th>Opponent</th>
         <th>Line</th>
@@ -10,7 +10,7 @@
         <th>Over/Under Result</th>
       </tr>
       <% @team.played_games.each do |game| %>
-        <tr>
+        <tr class="<%= cycle('odd', 'even') %>">
           <td>
             <% if @team.id == game.away_team.id %>
               <%= "@ #{game.home_team.display_name}" %>

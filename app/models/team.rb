@@ -75,19 +75,19 @@ class Team < ActiveRecord::Base
 
   def favorite_losses
     favorite_games.inject(0) do |acc, game|
-      game.favorite_score + game.line < game.underdog_score ? acc += 1 : acc 
+      game.favorite_score - game.line.abs < game.underdog_score ? acc += 1 : acc 
     end
   end
 
   def favorite_wins 
     favorite_games.inject(0) do |acc, game|
-      game.favorite_score + game.line > game.underdog_score ? acc += 1 : acc 
+      game.favorite_score - game.line.abs > game.underdog_score ? acc += 1 : acc 
     end
   end
 
   def favorite_pushes
     favorite_games.inject(0) do |acc, game|
-      game.favorite_score + game.line == game.underdog_score ? acc += 1 : acc
+      game.favorite_score - game.line.abs == game.underdog_score ? acc += 1 : acc
     end
   end
 

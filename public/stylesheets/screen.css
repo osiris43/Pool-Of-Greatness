@@ -214,21 +214,18 @@ input[type="submit"] {
   border: 1px solid #0b0974;
 }
 
-#weeklygames tr {
-	border-radius:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
+#weeklygames tr, #previousgames tr {
   padding: 3px;
 }
 
-#weeklygames th {
+#weeklygames th, #previousgames th {
   background-color: #0b0974;
   color: #D2B65F;
   padding: 5px;
 
 }
 
-#weeklygames td {
+#weeklygames td, #previousgames td {
   padding: 5px;
 
 }
@@ -718,3 +715,13 @@ article {
  #team_stats td {
   padding: 0 5px;
  }
+
+#previousgames{
+  width: 80%;
+  border: 1px solid #0b0974;
+}
+
+#previousgames tr.odd {
+  background: #ccc;
+}
+

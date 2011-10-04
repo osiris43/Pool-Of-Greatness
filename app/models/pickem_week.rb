@@ -123,7 +123,7 @@ class PickemWeek < ActiveRecord::Base
         award_secondplace(comparer, results, @pool, week, season, second_percent)
       end 
 
-      if comparer.firstplace.count + comparer.firstplace.count < 3
+      if comparer.firstplace.count + comparer.secondplace.count < 3
         award_thirdplace(comparer, results, @pool, week, season, 0.1)
       end
     end
