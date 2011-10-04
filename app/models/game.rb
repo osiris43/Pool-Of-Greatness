@@ -87,4 +87,26 @@ class Game < ActiveRecord::Base
       line
     end
   end
+
+  def scored?
+    homescore > 0 || awayscore > 0
+  end
+
+  def overunder_result
+    if awayscore + homescore == overunder
+      'PUSH'
+    elsif awayscore + homescore < overunder
+      'UNDER'
+    else
+      'OVER'
+    end
+  end
+
+  def underdog_score
+    line < 0 ? awayscore : homescore
+  end
+
+  def favorite_score
+    line <= 0 ? homescore : awayscore
+  end
 end

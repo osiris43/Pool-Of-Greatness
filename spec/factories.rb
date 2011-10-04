@@ -17,6 +17,11 @@ FactoryGirl.define do
       "Team #{n}"
     end
   end
+
+  factory :configuration do
+    key   "CurrentSeason"
+    value "2011-2012"
+  end
 end
 
 Factory.define :user do |user|

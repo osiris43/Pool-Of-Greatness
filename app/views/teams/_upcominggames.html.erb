@@ -1,0 +1,21 @@
+<div id="upcoming_games">
+  <h3>Upcoming Games</h3>
+  <table id="weeklygames">
+    <tr>
+      <th>
+        Opponent
+      </th>
+    </tr>
+    <% @team.upcoming_games.each do |game| %>
+      <tr>
+        <td>
+          <% if @team.id == game.away_team.id %>
+            <%= "@ #{game.home_team.display_name}" %>
+          <% else %>
+            <%= game.away_team.display_name %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

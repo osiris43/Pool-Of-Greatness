@@ -66,6 +66,7 @@ Poolofgreatness::Application.routes.draw do
 
   resources :ncaagames, :controller => "games", :type => 'Ncaagame'
   resources :nflgames, :controller => "games", :type => "Nflgame"
+  resources :teams
 
   resources :survivor_pools do
     member do

@@ -1,0 +1,54 @@
+<div id="played_games">
+  <h3>Previous Games</h3>
+    <table id="weeklygames">
+      <tr>
+        <th>Opponent</th>
+        <th>Line</th>
+        <th>Over/Under</th>
+        <th>Straight Result</th>
+        <th>ATS Result</th>
+        <th>Over/Under Result</th>
+      </tr>
+      <% @team.played_games.each do |game| %>
+        <tr>
+          <td>
+            <% if @team.id == game.away_team.id %>
+              <%= "@ #{game.home_team.display_name}" %>
+            <% else %>
+              <%= game.away_team.display_name %>
+            <% end %>
+          </td>
+          <td>
+            <% if @team == game.home_team %>
+              <%= game.line %>
+            <% else %>
+              <%= game.line * -1 %>
+            <% end %>
+          </td>
+          <td>
+            <%= game.overunder %>
+          </td>
+          <td>
+            <% if game.winning_team == @team %>
+              WIN
+            <% else %>
+              LOSS
+            <% end %>
+          </td>
+          <td>
+            <% if game.winning_team_ats.nil? %>
+              PUSH
+            <% elsif game.winning_team_ats == @team %>
+              WIN
+            <% else %>
+              LOSS
+            <% end %>
+          </td>
+          <td>
+            <%= game.overunder_result %>
+          </td>
+        </tr>
+      <% end %> 
+    </table>
+  </div>
+

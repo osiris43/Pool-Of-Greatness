@@ -710,3 +710,11 @@ article {
   color:#f2f2f5;
   padding-top: 20px;
  } 
+
+ #team_stats {
+  background: #ddd;  
+ }
+
+ #team_stats td {
+  padding: 0 5px;
+ }

@@ -14,14 +14,14 @@
   <tr class="<%= cycle("odd", "even") %> gamerow" id="<%= "gameid_#{weeklygame.game.id}" %>">
     <td>
       <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.favorite.id, checked = @teamids.include?(weeklygame.game.favorite.id)) %>
-      <%= label_tag(:favorite, weeklygame.game.favorite_display_name) %> 
+      <%= link_to(weeklygame.game.favorite_display_name, team_path(weeklygame.game.favorite.id)) %>
     </td>
     <td>
       <%= weeklygame.game.display_line %>
     </td>
     <td>
       <%= radio_button_tag("gameid_#{weeklygame.game.id}", weeklygame.game.underdog.id, checked = @teamids.include?(weeklygame.game.underdog.id)) %>
-      <%= label_tag(:underdog, weeklygame.game.underdog_display_name) %> 
+      <%= link_to(weeklygame.game.underdog_display_name, team_path(weeklygame.game.underdog.id)) %>
     </td>
   </tr>
 <% end %>

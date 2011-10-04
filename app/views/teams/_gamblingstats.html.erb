@@ -1,0 +1,37 @@
+<div class="gambling_info">
+  <table id="team_stats">
+    <tr>
+      <td>ATS Record</td>
+      <td><%="#{@team.ats_wins}-#{@team.ats_losses}-#{@team.ats_pushes}" %></td>
+    </tr>
+    <tr>
+      <td>This Week's Opponent:</td>
+      <td><%= @team.this_weeks_opponent.display_name %></td>
+    </tr>
+    <% if !@team.this_weeks_game.nil? %>
+      <% @line = @team.this_weeks_game.home_team == @team ? @team.this_weeks_game.line : @team.this_weeks_game.line * -1 %>
+      <tr>
+        <td>Line:</td>
+        <td><%= @line %></td>
+      </tr>
+      <tr>
+        <% if @line >= 0 %>
+          <td>
+            Record as Underdog:
+          </td>
+          <td>
+            <%= "#{@team.underdog_wins}-#{@team.underdog_losses}-#{@team.underdog_pushes}" %>
+          </td>
+        <% else %>
+          <td>
+            Record as Favorite:
+          </td>
+          <td>
+            <%= "#{@team.favorite_wins}-#{@team.favorite_losses}-#{@team.favorite_pushes}" %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>
+

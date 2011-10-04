@@ -140,54 +140,56 @@ describe PickemPoolsController do
         response.should_not be_success
       end
     end
-    
+   
     describe "success" do
       before(:each) do
         @controller.stubs(:current_user).returns(@user)
         @pool = Factory(:pickem_pool)
+        @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
       end
 
       it "is successful" do
-        @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
-
         get 'view_games', :id => @pool.id
         response.should be_success
       end
 
       it "displays current week" do
-        @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
-        
         get 'view_games', :id => @pool.id
         response.should have_selector("h2", :content => "Games for Week 1")
       end
 
       it "displays the current season" do
-        @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
-
         get 'view_games', :id => @pool.id
         response.should have_selector("h2", :content => "2011-2012")
       end
 
       it "displays a message for past the deadline" do
-        @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now - 1 )
+        @pickemWeek.deadline = DateTime.now - 1
+        @pickemWeek.save
         get 'view_games', :id => @pool.id
         response.should redirect_to(home_pickem_pool_path(@pool))
-
       end
+
 
       describe 'viewing games' do
         before(:each) do
-          @away = Factory(:team)
-          @home = Factory(:team, :teamname => "New York Jets" ) 
           @game = Factory(:nflgame)
           pick = Factory(:pickem_pick, :game => @game)
+          @pickemWeek.pickem_games.create!(:game_id => @game.id)
         end
   
-        it "has the teams listed" #do
-          #@pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
-          #get 'view_games', :id => @pool.id
-          #response.should have_selector("td", :content => "Dallas Cowboys")
-        #end
+        it "has the teams listed" do
+          @pickemWeek = Factory(:pickem_week, :pickem_pool => @pool, :deadline => DateTime.now + 1)
+          get 'view_games', :id => @pool.id
+          response.should have_selector("td", :content => "Dallas Cowboys")
+        end
+
+        it 'has a link to team pages' do
+          get 'view_games', :id => @pool.id
+          response.should have_selector("a", :content => "at Dallas Cowboys",
+                                             :href => team_path(@game.home_team.id))
+        end
+
       end 
     end
   end

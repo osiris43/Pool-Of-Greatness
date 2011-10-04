@@ -130,7 +130,7 @@ class PickemWeek < ActiveRecord::Base
 
     if @pool.award_jackpot?(results[0].won)
       comparer.firstplace.each do |first|
-        first.pickem_week_entry.user.account.transaction.create!(:pooltype => "Pickem",
+        first.pickem_week_entry.user.account.transactions.create!(:pooltype => "Pickem",
                                                                  :poolname => @pool.name, 
                                                                  :amount => @pool.jackpot.weeklyjackpot / comparer.firstplace.count,
                                                                  :description => "Jackpot for week #{winner.pickem_week.week}, season #{winner.pickem_week.season}")
