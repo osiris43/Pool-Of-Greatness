@@ -7,6 +7,7 @@ gem 'rails', '3.0.5'
 
 gem 'pg'
 gem 'hpricot'
+gem 'will_paginate', '3.0.pre2'
 
 group :development do
   gem 'annotate-models', '1.0.4'

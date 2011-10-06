@@ -75,29 +75,8 @@ class SitesController < ApplicationController
 
   def administer
     @title = "Site Administration"
-  end
-
-  def newtransaction
-    @title = "Add a transaction"
     @site = Site.find(params[:id])
   end
-
-  def create_transaction
-    @site = Site.find(params[:id])
-    @pool = Pool.find(params[:pool][:id])
-    @user = User.find(params[:user][:id])
-    @transaction = @pool.transactions.build(:pooltype => @pool.type,
-                                            :poolname => @pool.name,
-                                            :amount => params[:amount],
-                                            :description => params[:description],
-                                            :account_id => @user.account.id)
-   if @transaction.save
-     flash[:success] = "Transaction created"
-     redirect_to administer_site_path(@site)
-   else
-     render 'newtransaction'
-   end 
-  end 
 
   private 
     def add_configuration(pool)

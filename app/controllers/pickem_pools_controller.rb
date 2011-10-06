@@ -32,6 +32,7 @@ class PickemPoolsController < ApplicationController
   end
 
   def view_games
+    @title = "Weekly Games"
     @pool = PickemPool.find(params[:id])
     @current_week = @pool.current_pickem_week 
     @games = @current_week.pickem_games.joins(:game).order("games.gamedate")
@@ -56,10 +57,6 @@ class PickemPoolsController < ApplicationController
     @pool = PickemPool.find(params[:id])
     @games = get_weekly_games(@pool.id)
     @current_week = @pool.current_pickem_week 
-    #@tiebreakGame = @current_week.pickem_games.find_by_istiebreaker(true)
-    #if @tiebreakGame.nil?
-    #  @tiebreakGame = PickemGame.new 
-    #end
     @tiebreakGameId = -1
     if !@current_week.pickem_games.find_by_istiebreaker(true).nil?
       @tiebreakGameId = @current_week.pickem_games.find_by_istiebreaker(true).game_id
@@ -83,9 +80,16 @@ class PickemPoolsController < ApplicationController
   end
 
   def save_picks
-    selectedGames = params.select {|key,value| key =~ /gameid_/ }
-    logger.debug "Selected Games: #{selectedGames}"
     @pool = PickemPool.find(params[:id])
+
+    selectedGames = params.select {|key,value| key =~ /gameid_/ }
+    @games = get_weekly_games(@pool.id)
+    #if selectedGames.count != @games.count
+    #  flash[:error] = "It looks like you missed a game."
+    #  render 'view_games', :id => params[:id]
+    #end
+
+    logger.debug "Selected Games: #{selectedGames}"
     @current_week = @pool.current_pickem_week 
  
    # save the picks 

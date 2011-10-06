@@ -1,0 +1,20 @@
+<div class="container_12">
+  <%= render 'sites/adminmenu' %>
+
+  <%= link_to "New Transaction", new_site_transaction_path(@site) %>
+  <br />
+  <h1>All Transactions</h1>
+  <% unless @site.transactions.empty? %>
+    <table id="weeklygames">
+      <tr>
+        <th>Pool</th>
+        <th>Player</th>
+        <th>Description</th>
+        <th>Amount</th>
+      </tr>
+      <%= render @transactions %>
+    </table>
+    <%= will_paginate @microposts %>
+  <% end %>
+
+</div>

@@ -36,13 +36,13 @@ Poolofgreatness::Application.routes.draw do
 
   resources :sessions
   resources :sites do
+    resources :transactions, :controller => "transactions"
+
     member do
       get 'join'
       get 'newpool'
       post 'add_pool'
       get 'administer'
-      get 'newtransaction'
-      post 'create_transaction'
     end
 
     collection do

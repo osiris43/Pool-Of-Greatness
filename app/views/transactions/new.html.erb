@@ -1,0 +1,22 @@
+<div class="container_12">
+  <div class="grid_12">
+    <%= render 'sites/adminmenu' %>
+  </div>
+  <div class="grid_12">
+    <%= render 'shared/flashpartial' %>
+    <h1>Add a transaction</h1>
+    <%= form_tag(site_transactions_path, :method => "post") do %>
+      <%= label_tag(:user, "Select user") %>
+      <%= collection_select(:user, :id, @site.users, :id, :name) %><br />
+      <%= label_tag(:pool, "Select pool") %>
+      <%= collection_select(:pool, :id, @site.pools, :id, :name) %><br />
+      <%= label_tag(:amount, "Amount (negative for debits, positive for credits)") %>
+      <%= text_field_tag(:amount) %><br />
+      <%= label_tag(:description, "Description (optional)") %>
+      <%= text_field_tag(:description) %><br /><br />
+      <%= submit_tag("Create") %>
+    
+    <% end %>
+  </div>
+</div>
+
