@@ -3,7 +3,8 @@ require 'date'
 class SurvivorPool < Pool
   attr_accessible :name, :type
 
-  has_many :survivor_entries, :foreign_key => "pool_id"
+  has_many :survivor_sessions, :foreign_key => "pool_id"
+
   validates_presence_of :admin_id, :site_id
 
   def get_weekly_games(week=0)
@@ -11,7 +12,6 @@ class SurvivorPool < Pool
     @games = []
     season = getseason
     if week == 0
-      # TODO manage seasons
       nextgame = Nflgame.where("season = ? AND gamedate > ?", season, DateTime.now).order("gamedate").first
       
       @games = Nflgame.where("season = ? AND week = ?", season, nextgame.week)
@@ -26,8 +26,13 @@ class SurvivorPool < Pool
     Nflgame.where("season = ? AND gamedate > ?", getseason, DateTime.now).order("gamedate").first.week
   end
 
+  def current_session
+    season = getseason
+    nextgame = Nflgame.where("season = ? AND gamedate > ?", season, DateTime.now).order("gamedate").first
+    SurvivorSession.where("season = ? AND starting_week <= ? AND ending_week > ?", season, nextgame.week, nextgame.week + 1).first
+  end
   private 
     def getseason
-      "2011-2012"
+      Configuration.find_by_key("CurrentSeason").value
     end
 end

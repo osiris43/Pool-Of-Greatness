@@ -5,6 +5,6 @@
 <%= stylesheet_link_tag 'screen', :media => 'Screen' %>
 <%= stylesheet_link_tag '960gs/960', :media => 'Screen' %>
 <%= stylesheet_link_tag '960gs/reset', :media => 'Screen' %>
-<link rel="stylesheet" href="/stylesheets/mobile.css" media="only screen and (max-device width:480px)" />
+<%= stylesheet_link_tag 'mobile' if mobile_device? %>
 <link href='http://fonts.googleapis.com/css?family=Marvel' rel='stylesheet' type='text/css'>
 

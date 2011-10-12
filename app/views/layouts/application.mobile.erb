@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title %></title>
+  <%= render 'layouts/stylesheets' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div class="current">
+      <% unless flash.empty? %>
+        <div class="info">
+          <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, :id => "flash_#{name}" %>
+          <% end %>
+          </div>
+      <% end %>
+      <%= yield %>
+      </div>
+</body>
+</html>

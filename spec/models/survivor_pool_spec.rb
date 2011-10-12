@@ -10,7 +10,8 @@ describe SurvivorPool do
     @pool = SurvivorPool.find(@pool.id)
     @awayteam = Factory(:nflawayteam)
     @hometeam = Factory(:nflhometeam)
-    @game = Factory(:nflgame, :away_team => @awayteam, :home_team => @hometeam) 
+    @game = Factory(:nflgame, :away_team => @awayteam, :home_team => @hometeam)
+    Factory(:configuration) 
   end
 
   it "requires an admin_id" do
@@ -39,6 +40,11 @@ describe SurvivorPool do
     game = Factory(:nflgame, :away_team => @awayteam, :home_team => @hometeam, :gamedate => DateTime.now - 1)
     @games = @pool.get_weekly_games
     @games.count.should == 2
+  end
+
+  it "returns currently active session" do
+    session = Factory(:survivor_session)
+    @pool.current_session.should == session 
   end
 end
 

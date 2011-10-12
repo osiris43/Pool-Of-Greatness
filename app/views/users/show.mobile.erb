@@ -1,0 +1,22 @@
+  <div class="toolbar">
+      <%= link_to "Back", nil, :class => 'back'unless current_page? root_path %>
+      <%= render "layouts/header" %>
+      </div> 
+
+<ul>
+<% current_user.sites.each do |site| %>
+  <% site.pools.each do |pool| %>
+    <li class="arrow">
+      <%= poolpath_for(pool) %>
+    </li>
+  <%end %>
+  <% if site.admin_id == current_user.id %>
+    <li class="arrow">
+      <%= link_to "Add Pool", newpool_site_path(site) %>
+    </li>
+    <li class="arrow">
+      <%= link_to "Site Administration", administer_site_path(site) %>
+    </li>
+  <%end %>
+<% end %>
+</ul>

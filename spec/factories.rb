@@ -22,6 +22,13 @@ FactoryGirl.define do
     key   "CurrentSeason"
     value "2011-2012"
   end
+
+  factory :survivor_session do
+    association :pool, :factory => :survivor_pool
+    starting_week   1
+    ending_week     5
+    season          "2011-2012" 
+  end
 end
 
 Factory.define :user do |user|
@@ -48,6 +55,7 @@ def add_standard_config(pool)
 end
 
 Factory.define :survivor_pool do |survivorpool|
+  survivorpool.site_id      1
   survivorpool.name         "My Survivor Pool"
   survivorpool.type         "SurvivorPool"
   survivorpool.admin_id     1

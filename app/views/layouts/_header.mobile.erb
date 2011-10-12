@@ -1,0 +1,11 @@
+        <% if logged_in? %>
+          <h1>TSPH</h1> 
+          
+          <%= link_to "Dashboard", user_path(current_user), :class => "button" %>
+
+    
+        <% else %>
+    <h1>TSPH</h1> 
+
+          <%= link_to "Sign In", login_path, :class => "button" %>
+        <% end %>

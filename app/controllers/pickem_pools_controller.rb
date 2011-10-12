@@ -28,6 +28,11 @@ class PickemPoolsController < ApplicationController
     end
     @transactions = current_user.account.transactions.where(:poolname => @pool.name).all(:limit => 10, :order => "created_at DESC")
     @userstats = Userstat.find_by_season(@pool.current_season)[0..2] 
+
+    respond_to do |format|
+      format.html
+      format.mobile {render :layout => false }
+    end
     
   end
 

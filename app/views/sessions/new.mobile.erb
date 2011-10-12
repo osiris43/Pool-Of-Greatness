@@ -1,0 +1,8 @@
+<%= form_tag sessions_path do %>
+  <ul class="rounded">
+  <li><%= text_field_tag :login, params[:login], :placeholder => "Username or Email" %></li>
+  <li><%= password_field_tag :password  %></li>
+  </ul>
+  <%= link_to "Log In", nil, :class => "whiteButton submit" %>
+<% end %>
+

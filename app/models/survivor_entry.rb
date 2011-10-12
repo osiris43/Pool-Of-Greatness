@@ -1,10 +1,10 @@
 class SurvivorEntry < ActiveRecord::Base
-  attr_accessible :game, :team, :week, :season, :pool_id
+  attr_accessible :game, :team, :week, :season, :survivor_session
 
   belongs_to :user, :counter_cache => true
   belongs_to :game
   belongs_to :team
-  belongs_to :pool
+  belongs_to :survivor_session 
 
   default_scope :order => "survivor_entries.week"
 

@@ -36,5 +36,10 @@ class UsersController < ApplicationController
   def show
     @title = "#{current_user.username}'s profile"
     @moneytimes = current_user.account.transactions.where("description like '%prize%'").count
+
+    respond_to do |format|
+      format.html
+      format.mobile { render :layout => false }
+    end
   end
 end

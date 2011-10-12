@@ -116,4 +116,23 @@ describe User do
     user.balance.should == -12
 
   end
+
+  describe "survivor accounting" do
+    before(:each) do
+      @user = new_user()
+      @user.create_account
+      @user.account.transactions.create(:pooltype => "SurvivorPool",
+                                        :poolname => "Pool",
+                                        :amount => -50,
+                                        :description => "Survivor Pool mid-season 2011-2012 fee")
+    end
+
+    it "is debited for the survivor pool" do
+      @user.debit_for_survivor?("Survivor Pool mid-season").should == false
+    end
+
+    it "is not debited for different survivor pool" do
+      @user.debit_for_survivor?("Survivor Pool 2011-2012").should be_true
+    end
+  end
 end

@@ -7,15 +7,15 @@
     <tr id="survivor_standings_header">
       <th>Entry</th>
       <th>Weeks</th>
-      <% (1..@current_week).to_a.each do |week| %>
+      <% (@pool.current_session.starting_week..@current_week).to_a.each do |week| %>
         <th><%= "Week #{week}" %></th>
       <% end %>
     </tr>
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= user.survivor_entries.count %></td>
-        <% user.survivor_entries.each do |entry| %>
+        <td><%= user.current_survivor_entries(@pool).count %></td>
+        <% user.current_survivor_entries(@pool).each do |entry| %>
           <td class=<%= "#{entry.result}" %>><%= entry.team.abbreviation %></td>
         <% end %>
       </tr>

@@ -73,6 +73,7 @@ Poolofgreatness::Application.routes.draw do
       get "viewpicksheet"
       post "makepick"
       get "standings"
+      get "history"
     end
   end
 

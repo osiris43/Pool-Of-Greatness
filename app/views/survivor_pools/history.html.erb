@@ -1,0 +1,37 @@
+<%= render 'shared/poolbanner' %>
+
+<div class="container_12">
+  <%= render 'navigation' %>
+
+  <h1>Pool History</h1>
+  <div class="grid_6">
+    <p>
+    This pool started in 2010 on an alternative site and moved to The Sports Pool Hub
+    permanently in 2011.  Jon M. and Michelle won the initial running of the pool after
+    chopping the pot around week 9.  
+    </p>
+    <p>
+    All other history is displayed in the table to the right.
+    </p>
+  </div>
+  <div class="grid_6">
+    <div class="yearly_summary">
+      <table id="previousgames">
+        <tr>
+          <th>Year</th>
+          <th>Winners</th>
+        </tr>
+        <% @pool.survivor_sessions.each do |ss| %>
+          <% if ss.winners != "" %>
+          <tr>
+            <td><%= ss.season %></td>
+            <td><%= ss.winners %></td>
+
+          </tr>
+          <% end %>
+        <% end %>
+      </table> 
+    </div>
+  </div>
+</div>
+

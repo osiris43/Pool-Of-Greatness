@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :pickem_week_entries
   has_and_belongs_to_many :sites
   has_many :survivor_entries
+  has_many :survivor_sessions, :through => :survivor_entries
   
   # login can be either username or email address
   def self.authenticate(login, pass)
@@ -66,6 +67,14 @@ class User < ActiveRecord::Base
     underdogs 
   end
 
+  def current_survivor_entries(pool)
+    survivor_entries.where("week >= ?", pool.current_session.starting_week).all
+  end
+ 
+  def debit_for_survivor?(description)
+    account.transactions.where("description LIKE '%#{description}%'").first.nil?
+  end 
+  
   private
 
     def prepare_password
