@@ -74,6 +74,7 @@ Poolofgreatness::Application.routes.draw do
       post "makepick"
       get "standings"
       get "history"
+      get "administer"
     end
   end
 

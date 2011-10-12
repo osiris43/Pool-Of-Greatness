@@ -4,6 +4,10 @@
       <li><%= link_to "Picksheet", viewpicksheet_survivor_pool_path(@pool) %></li>
       <li><%= link_to "Pool Standings", standings_survivor_pool_path(@pool) %></li>
       <li><%= link_to "Pool History", history_survivor_pool_path(@pool) %></li>
+      <% if current_user.pool_admin?(@pool) %>
+        <li><%= link_to "Pool Admin", administer_survivor_pool_path %></li>
+      <% end %>
+
     </ul>
   </nav>
 

@@ -28,7 +28,7 @@ class SurvivorPool < Pool
 
   def current_session
     season = getseason
-    nextgame = Nflgame.where("season = ? AND gamedate > ?", season, DateTime.now).order("gamedate").first
+    nextgame = Nflgame.where("season = ? AND gamedate > ?", season, DateTime.current).order("gamedate").first
     SurvivorSession.where("season = ? AND starting_week <= ? AND ending_week > ?", season, nextgame.week, nextgame.week + 1).first
   end
   private 

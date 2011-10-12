@@ -75,6 +75,11 @@ class SurvivorPoolsController < ApplicationController
     logger.debug "Sessions Count: #{@pool.survivor_sessions.count}"
   end
 
+  def administer
+    @title = "Pool Administration"
+    @pool = SurvivorPool.find(params[:id])
+  end
+
   private 
     def add_initial_transaction(pool)
       current_user.account.transactions.create!(:pooltype => "SurvivorPool", 
