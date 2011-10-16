@@ -78,6 +78,11 @@ class SitesController < ApplicationController
     @site = Site.find(params[:id])
   end
 
+  def viewpools
+    @title = "All Pools"
+    @site = Site.find(params[:id])
+  end
+
   private 
     def add_configuration(pool)
       add_rule(@pool, :number_of_games, "number_of_games")

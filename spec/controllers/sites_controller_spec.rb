@@ -148,4 +148,19 @@ describe SitesController do
       response.should have_selector("td", :content => "my site")
     end
   end
+
+  describe "GET viewpools" do
+    before(:each) do
+      @attr = {:name => "my site", :description => 'site description'}
+      @user = Factory(:user)
+      @controller.stubs(:current_user).returns(@user)
+      @site = Site.create!(@attr)
+    end 
+
+    it "lists all pools in the site" do
+      @site.pools.create!(:name => "Survivor", :admin_id => @user.id, :type => "SurvivorPool")
+      get :viewpools, :id => @site
+      response.should have_selector("td", :content => "Survivor")
+    end
+  end
 end

@@ -1,5 +1,18 @@
 <div id="dashboard_wrapper" class="container_12">
   <div class="grid_12">
+    <nav class="pickem_navigation">
+      <ul>
+        <li><%= link_to "Join Site", find_sites_path %></li>
+        <% if current_user.sites[0].admin_id == current_user.id %>
+          <li>
+            <%= link_to "Add Pool", newpool_site_path(current_user.sites[0]) %>
+          </li>
+          <li>
+            <%= link_to "Site Administration", administer_site_path(current_user.sites[0]) %>
+          </li>
+        <%end %>
+      </ul>
+    </nav>
   <%= image_tag("home_48.png") %>
   <span>Dashboard</span>
     <%= render "shared/flashpartial" %>
@@ -12,7 +25,8 @@
     <%end %>
   </div>
   <div class="grid_6">
-    Survivor Summary Coming Soon 
+    <!-- <div id="pool_summary">
+    </div> -->
   </div>
   <div class="clear"></div>
   <div class="grid_12">

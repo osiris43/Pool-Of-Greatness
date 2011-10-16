@@ -1,0 +1,12 @@
+<div class="container_12">
+  <%= render 'adminmenu' %>
+  <%= render 'shared/flashpartial' %>
+  <table>
+    <tr>
+      <th>Pool Name</th>
+    </tr>
+    <% @site.pools.each do |pool| %>
+      <tr>
+        <td><%= pool.name %></td>
+    <% end %>
+</div>

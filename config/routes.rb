@@ -43,6 +43,7 @@ Poolofgreatness::Application.routes.draw do
       get 'newpool'
       post 'add_pool'
       get 'administer'
+      get 'viewpools'
     end
 
     collection do

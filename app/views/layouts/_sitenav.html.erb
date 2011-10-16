@@ -17,14 +17,6 @@
               <%= poolpath_for(pool) %>
             </li>
           <%end %>
-          <% if site.admin_id == current_user.id %>
-            <li class="site-nav-menu-item">
-              <%= link_to "Add Pool", newpool_site_path(site) %>
-            </li>
-            <li class="site-nav-menu-item">
-              <%= link_to "Site Administration", administer_site_path(site) %>
-            </li>
-          <%end %>
         <% end %>
       </ul>
     </div>
