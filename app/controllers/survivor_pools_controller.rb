@@ -62,7 +62,7 @@ class SurvivorPoolsController < ApplicationController
     @title = "Pool Standings"
     @current_week = @pool.current_week 
 
-    @users = @pool.current_session.users 
+    @users = @pool.current_session.users.group_by(&:id).values.map{|user_array| user_array[0]}
 
     if @users.count == 0
       flash[:notice] = fading_flash_message( "No one has made a pick yet",5)
