@@ -64,6 +64,7 @@ describe UsersController do
         @user = User.first
         @user.create_account
         @controller.stubs(:current_user).returns(@user)
+        @user.stubs(:site_admin?).returns(false)
       end
 
       it "has a 'edit profile link'" do

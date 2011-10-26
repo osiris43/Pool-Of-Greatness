@@ -74,7 +74,11 @@ class User < ActiveRecord::Base
   def debit_for_survivor?(description)
     account.transactions.where("description LIKE '%#{description}%'").first.nil?
   end 
-  
+ 
+  def site_admin?
+    !sites.empty? && sites[0].admin_id == id
+  end 
+
   private
 
     def prepare_password
