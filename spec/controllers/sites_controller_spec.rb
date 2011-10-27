@@ -160,7 +160,7 @@ describe SitesController do
     it "lists all pools in the site" do
       @site.pools.create!(:name => "Survivor", :admin_id => @user.id, :type => "SurvivorPool")
       get :viewpools, :id => @site
-      response.should have_selector("td", :content => "Survivor")
+      response.should have_selector("h2", :content => "Survivor")
     end
   end
 end

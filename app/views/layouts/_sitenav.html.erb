@@ -13,9 +13,11 @@
         <% end %>
         <% current_user.sites.each do |site| %>
           <% site.pools.each do |pool| %>
-            <li class="site-nav-menu-item">
-              <%= poolpath_for(pool) %>
-            </li>
+            <% if pool.active %>
+              <li class="site-nav-menu-item">
+                <%= poolpath_for(pool) %>
+              </li>
+            <% end %>
           <%end %>
         <% end %>
       </ul>

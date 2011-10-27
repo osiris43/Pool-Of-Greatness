@@ -42,6 +42,19 @@ class PoolsController < ApplicationController
       flash[:notice] = "No pools found"
     end
   end
+
+  def changestatus 
+    @site = Site.find(params[:site])
+    @pool = Pool.find(params[:id])
+    if @pool.active
+      @pool.active = false
+    else
+      @pool.active = true
+    end
+
+    @pool.save
+    redirect_to viewpools_site_path(@site)
+  end
   
   private
     def admin_user

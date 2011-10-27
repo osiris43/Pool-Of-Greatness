@@ -725,3 +725,85 @@ article {
   background: #ccc;
 }
 
+/* User site admin styling */
+#site_admin_main {
+  margin: 20px 0 20px;
+  clear: both;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #7a7879;
+  /* -webkit-box-shadow: 0 0 3px red; 
+  -moz-box-shadow: 0 0 3px rgba(0,0,0,0.02);
+  box-shadow: 0 0 3px rgba(0,0,0,0.02); */
+  -border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+}
+
+#site_admin_main h1 {
+  font-size: 24px;
+}
+
+#site_admin_main h3 {
+  font-size: 18px;
+  font-weight: normal;
+  color: #aaa;
+}
+
+#site_admin_pools_table {
+  min-height: 323px;
+  clear: both;
+  overflow: visible;
+  padding-bottom: 10px;
+}
+
+#site_admin_pools_list {
+  padding: 5px 0 20px;
+  margin: 15px auto;
+  clear: both;
+  overflow: visible;
+}
+
+#site_admin_pools_list li.site_admin_pool {
+  display: block;
+  float: left;
+  background: #fff;
+  border: 1px solid #eee;
+  -border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  width: 187px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+#site_admin_pools_list li.site_admin_pool h2 {
+  -webkit-border-top-left-radius: 15px;
+  -webkit-border-top-right-radius: 15px;
+  -moz-border-radius-topleft: 15px;
+  -moz-border-radius-topright: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px; 
+  padding: 13px 13px 0;
+  background: #888;
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+}
+
+#site_admin_pools_list li.site_admin_pool span {
+  padding-left: 13px;
+}
+
+#site_admin_pools_list li.site_admin_pool a {
+  margin: 5px 13px;
+  padding: 2px 5px;
+  text-decoration: none;
+  -border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #020131;
+  color: #b59d52;
+
+}
+

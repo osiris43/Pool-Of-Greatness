@@ -1,12 +1,23 @@
 <div class="container_12">
   <%= render 'adminmenu' %>
   <%= render 'shared/flashpartial' %>
-  <table>
-    <tr>
-      <th>Pool Name</th>
-    </tr>
-    <% @site.pools.each do |pool| %>
-      <tr>
-        <td><%= pool.name %></td>
-    <% end %>
+  <div id="site_admin_main">
+    <h1>Your Pools</h1>
+    <h3>All the pools you've ever run. Manage them from here</h3>
+    <div id="site_admin_pools_table">
+      <ul id="site_admin_pools_list">
+        <% @site.pools.each do |pool| %>
+          <li class="site_admin_pool">
+            <h2><%= pool.name %></h2>
+            <span><strong>STATUS:</strong> <%= pool.status %></span>
+            <% if pool.active %>
+              <%= link_to "Deactivate", changestatus_pool_path(:site => @site.id) %>
+            <% else %>
+              <%= link_to "Activate", changestatus_pool_path(:site => @site.id) %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
