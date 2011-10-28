@@ -163,4 +163,5 @@ describe SitesController do
       response.should have_selector("h2", :content => "Survivor")
     end
   end
+
 end

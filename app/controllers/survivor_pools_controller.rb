@@ -85,6 +85,7 @@ class SurvivorPoolsController < ApplicationController
       current_user.account.transactions.create!(:pooltype => "SurvivorPool", 
                                                 :poolname => pool.name, 
                                                 :amount => -50,
-                                                :description => "#{pool.current_session.description} fee")
+                                                :description => "#{pool.current_session.description} fee",
+                                                :pool_id => pool.id)
     end
 end

@@ -35,7 +35,8 @@ describe TransactionsController do
       @controller.stubs(:current_user).returns(@user)
       @site = Site.create!(@attr)
       @user.sites<<(@site)
-      @site.pools.create!(:name => "My Pool", :type => "PickemPool", :admin_id => @user.id)
+      @site.pools<<(Factory(:pickem_pool))
+      @site.save
       @params = {:user => {:id => @user.id}, 
         :pool => {:id => @site.pools[0].id}, 
         :amount => -12, 
@@ -47,7 +48,7 @@ describe TransactionsController do
     it "saves the transaction" do
       lambda do
         post 'create', :site_id => @site, :pool => {:id => @site.pools[0].id},
-          :user => {:id => @user.id}, :mount => -12, :description => "description"
+          :user => {:id => @user.id}, :amount => -12, :description => "description"
         response.should redirect_to(site_transactions_path(@site))
       end.should change(Transaction, :count).by(1)
     end

@@ -7,4 +7,15 @@ class Site < ActiveRecord::Base
   # Validations
   validates_presence_of :name
 
+  def transactions_by_user
+    userdata = {}
+    accounts = transactions.group_by(&:account)
+    accounts.each do |account, trans|
+      amount = trans.inject(0){|acc, t| acc += t.amount}
+      userdata[account.user.name] = amount
+      
+    end
+
+    return userdata
+  end
 end

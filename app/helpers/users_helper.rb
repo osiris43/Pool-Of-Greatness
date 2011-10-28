@@ -5,7 +5,7 @@ module UsersHelper
     elsif pool.is_a?(SurvivorPool)
       return link_to pool.name, survivor_pool_path(pool)
     else
-      raise TypeError, "#{pool.is_a?(PickemPool)} pool template #{pool.type} unrecognized"
+      raise TypeError, "Pool template #{pool.type} unrecognized"
     end 
   end
 end

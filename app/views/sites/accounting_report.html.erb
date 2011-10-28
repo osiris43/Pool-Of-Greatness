@@ -1,0 +1,13 @@
+<div class="container_12">
+  <div class="grid_12">
+    <%= render 'adminmenu' %>
+  </div>
+<table>
+  <% @site.transactions_by_user.each do |user, amount| %>
+    <tr>
+      <td><%= user %></td>
+      <td><%= number_to_currency(amount) %></td>
+    </tr>
+  <% end %>
+</table>
+</div>

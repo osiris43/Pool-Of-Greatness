@@ -149,7 +149,7 @@ class PickemWeek < ActiveRecord::Base
     def award_firstplace(comparer, results, pool, week, season, percentage)
       first_place_prize = results.count * pool.prize_amount_per_person * percentage
       logger.debug "First Place: #{first_place_prize}"
-      logger.debug "First place count: #{comparer.firstplace.count}"
+
       comparer.firstplace.each do |first|
         add_transaction(first.pickem_week_entry.user, 
                         "Pickem", 

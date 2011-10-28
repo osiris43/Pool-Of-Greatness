@@ -37,7 +37,6 @@ Poolofgreatness::Application.routes.draw do
   resources :sessions
   resources :sites do
     resources :transactions, :controller => "transactions"
-    resources :pools, :controller => "pools"
 
     member do
       get 'join'
@@ -45,6 +44,7 @@ Poolofgreatness::Application.routes.draw do
       post 'add_pool'
       get 'administer'
       get 'viewpools'
+      get 'accounting_report'
     end
 
     collection do
