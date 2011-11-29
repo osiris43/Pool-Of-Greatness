@@ -66,15 +66,29 @@ App.RankingsView = Backbone.View.extend({
   },
 
   updateRankTable: function(e) {
-    console.log(e.srcElement);
+    /* The event passed in has a srcElement of the select tag.  Its value is the 
+    * rank chosen by the end user.  Its parent
+    * node is a TD that has an id with the name of the bowl. Grabbing that and
+    * assigning it to the html in the rank list. */
+    var rankElement = $('#selected_rank_'+e.srcElement.value).eq(0);
+    var bowlGame = e.srcElement.parentNode["id"];
+
+    $('[id^="selected_rank_"]').each(function(index) {
+      if(bowlGame == $(this).text()){
+        $(this).hide();
+      }
+    });
+
+    rankElement.text(bowlGame).show();
+
+    /* console.log(e.srcElement);
     console.log(e.srcElement.value);
     console.log($('#selected_rank_' + e.srcElement.value)[0]);
     console.log(e.srcElement.parentNode["id"]);
 
-    /* $('#selected_rank_' + e.srcElement.value)[0].innerHTML = e.srcElement.parentNode["id"]; */
-    $('#selected_rank_'+e.srcElement.value).eq(0).text(e.srcElement.parentNode["id"]).show();
+    $('#selected_rank_' + e.srcElement.value)[0].innerHTML = e.srcElement.parentNode["id"];
 
-    /*for(var x in e.srcElement){
+    for(var x in e.srcElement){
       console.log(x);
     }*/
   },
