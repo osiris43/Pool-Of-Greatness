@@ -807,3 +807,34 @@ article {
 
 }
 
+#bowlgames {
+  100%
+}
+#bowlgames th{
+  background-color: #0b0974;
+  color: #D2B65F;
+  padding: 5px;
+
+}
+#bowlgames tr.odd {
+  background: #e2e2e2;
+}
+
+#bowlgames td {
+  font-size: 12px;
+}
+
+#bowlgames span.bowlname {
+  font-weight: bold;
+}
+
+#confidence_values {
+  border: 1px solid #000;
+  height: 150px;
+  width: 150px;
+}
+
+tr.duplicateRank{
+  background: red;
+}
+

@@ -1,0 +1,46 @@
+<%= render 'shared/poolbanner' %>
+<div class="container_12">
+  <%= render 'navigation' %>
+  <div class="grid_9">
+    <%= form_tag(save_picks_confidence_pool_path, :method => "post") do %>
+      <table id="bowlgames">
+        <tr>
+          <th>Bowl</th>
+          <th>Teams</th>
+          <th>Pick</th>
+          <th>Rank</th>
+        </tr>
+        <% @bowls.each do |bowl| %>
+          <% @row = cycle('odd', 'even') %>
+          <tr id="<%= "bowlid_row_#{bowl.id}" %>" class="<%= @row %>">
+            <td><span class="bowlname"><%= bowl.name %></span><br /><%= bowl.site %></td>
+            <td><%= bowl.favorite.display_name %> (<%= bowl.line %>)<br /><%= bowl.underdog.display_name %></td>
+            <td><%= radio_button_tag("bowlid_#{bowl.id}", bowl.favorite.id) %><br /><%= radio_button_tag("bowlid_#{bowl.id}", bowl.underdog.id) %></td>
+            <td id="<%= bowl.name %>" ><%= select_tag("bowlid_rank_#{bowl.id}", options_for_select(1..@bowls.count), :class => 'bowlrankselect') %></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= submit_tag("Save Picks", :id => "save_confidence_picks") %>
+
+    <% end %>
+  </div>
+  <div class="grid_3">
+    <table>
+      <tr>
+        <th>Rank</th>
+        <th>Bowl</th>
+      </tr>
+      <% @rank = 1 %>
+      <% @bowls.each do |bowl| %>
+        <tr>
+          <td><%= @rank %></td>
+          <td id="<%= "selected_rank_#{@rank}" %>" style="display: none"><%= "Bowl #{@rank}" %></td>
+          <% @rank += 1 %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function() {App.start(); })
+</script>

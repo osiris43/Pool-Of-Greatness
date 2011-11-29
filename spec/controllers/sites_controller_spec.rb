@@ -120,6 +120,7 @@ describe SitesController do
       @user = Factory(:user)
       @controller.stubs(:current_user).returns(@user)
       @site = Site.create!(@attr)
+      Factory(:configuration)
     end
 
     it "has a include weekly jackpot checkbox" do

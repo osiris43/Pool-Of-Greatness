@@ -44,3 +44,64 @@ $(document).ready(function() {
   });
 });
 
+App = {
+  start: function() {
+    new App.ConfidencePoolRouter();
+  } 
+}
+
+App.ConfidencePoolRouter = Backbone.Router.extend ({
+  initialize: function(){
+    new App.RankingsView();
+  }
+})
+
+
+App.RankingsView = Backbone.View.extend({
+  el: "#rankings",
+
+  initialize: function() {
+    $('#save_confidence_picks').click(this.validatePicks);
+    $('.bowlrankselect').change(this.updateRankTable);
+  },
+
+  updateRankTable: function(e) {
+    console.log(e.srcElement);
+    console.log(e.srcElement.value);
+    console.log($('#selected_rank_' + e.srcElement.value)[0]);
+    console.log(e.srcElement.parentNode["id"]);
+
+    /* $('#selected_rank_' + e.srcElement.value)[0].innerHTML = e.srcElement.parentNode["id"]; */
+    $('#selected_rank_'+e.srcElement.value).eq(0).text(e.srcElement.parentNode["id"]).show();
+
+    /*for(var x in e.srcElement){
+      console.log(x);
+    }*/
+  },
+
+  validatePicks : function() {
+    ranks = {};
+    duplicates = [];
+
+    $('.bowlrankselect').each(function(idx, el){
+      if(ranks[$(el)]){
+        duplicates.push(el);
+        duplicates.push(ranks[$(el)]);
+      }
+      else{
+        ranks[$(el)] = true;
+      }
+    });
+
+    if(duplicates.length > 0){
+      for(var i = 0; i < duplicates.length; i++){
+        selectEl = duplicates[i];
+        bowlId = $(selectEl).attr("id").split('_')[2];
+        $('#bowlid_row_'+bowlId).addClass('duplicateRank');
+      }
+    } 
+
+    return false;
+  }
+})
+

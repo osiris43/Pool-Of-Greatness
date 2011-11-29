@@ -1,0 +1,28 @@
+<div class="container_12">
+  <h1>Bowls</h1>
+    <%= form_tag( update_all_bowls_path, :method => "put") do %>
+
+  <table>
+    <tr>
+      <th>Bowl</th>
+      <th>Location</th>
+      <th>Favorite</th>
+    </tr>
+      <% for bowl in @bowls%>
+        <%= fields_for "bowls[]", bowl do |f| %>
+          <tr>
+            <td><%= bowl.name %></td>
+            <td><%= bowl.site %></td>
+            <td><%= f.collection_select(:favorite_id, @teams, :id, :teamname) %></td>
+            <td><%= f.text_field(:line, :size => 10) %></td>
+            <td><%= f.collection_select(:underdog_id, @teams, :id, :teamname) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+    <br />
+      <p><%= submit_tag "Save" %></p>
+
+    <% end %>
+
+</div>

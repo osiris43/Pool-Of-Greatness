@@ -1,0 +1,11 @@
+  <nav class="pickem_navigation">
+    <ul>
+      <li><%= link_to "Pool Home", confidence_pool_path(@pool) %></li>
+      <li><%= link_to "The Bowls", viewbowls_confidence_pool_path %></li>
+      <% if current_user.pool_admin?(@pool) %>
+        <li><%= link_to "Pool Admin", administer_confidence_pool_path %></li>
+      <% end %>
+
+    </ul>
+  </nav>
+

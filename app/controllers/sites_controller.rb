@@ -45,7 +45,7 @@ class SitesController < ApplicationController
 
   def newpool
     @site = Site.find(params[:id])
-    @season = "2011-2012"
+    @season = Configuration.find_by_key("CurrentSeason").value 
     @week = 1
   end
 
@@ -64,6 +64,10 @@ class SitesController < ApplicationController
 
     when "SurvivorPool"
       @pool = SurvivorPool.new(:name => params[:poolname], :admin_id => current_user.id)
+      @site.pools << @pool
+      @site.save
+    when "ConfidencePool"
+      @pool = ConfidencePool.new(:name => params[:poolname], :admin_id => current_user.id)
       @site.pools << @pool
       @site.save
 

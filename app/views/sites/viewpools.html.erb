@@ -11,9 +11,9 @@
             <h2><%= pool.name %></h2>
             <span><strong>STATUS:</strong> <%= pool.status %></span>
             <% if pool.active %>
-              <%= link_to "Deactivate", changestatus_pool_path(:site => @site.id) %>
+              <%= link_to "Deactivate", changestatus_pool_path(pool, :site => @site.id) %>
             <% else %>
-              <%= link_to "Activate", changestatus_pool_path(:site => @site.id) %>
+              <%= link_to "Activate", changestatus_pool_path(pool, :site => @site.id) %>
             <% end %>
           </li>
         <% end %>

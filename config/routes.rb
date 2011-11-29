@@ -84,7 +84,22 @@ Poolofgreatness::Application.routes.draw do
       get "administer"
     end
   end
+  
+  resources :confidence_pools do
+    member do
+      get "administer"
+      get "viewbowls"
+      post "save_picks"
+    end
+  end
 
+  resources :bowls do
+    collection do
+      put "update_all"
+      get "view"
+    end
+  end 
+  
   match '/pricing', :to => 'pages#pricing'
   match '/features', :to => 'pages#features'
   root :to => 'pages#home'

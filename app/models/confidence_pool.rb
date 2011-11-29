@@ -1,0 +1,2 @@
+class ConfidencePool < Pool 
+end

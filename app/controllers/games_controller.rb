@@ -19,8 +19,6 @@ class GamesController < ApplicationController
     @games = Game.update(params[:games].keys, params[:games].values).reject { |g| g.errors.empty?}
     flash[:notice] = "Games updated"
 
-
-    
     redirect_to user_path(current_user)
   end
 
