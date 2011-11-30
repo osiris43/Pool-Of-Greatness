@@ -2,6 +2,9 @@
 <div class="container_12">
   <%= render 'navigation' %>
   <div class="grid_9">
+    <div><span>As you make your picks, the table at the right will fill in with the ranks.
+        Please make sure all ranks are full before submitting your picks.</span></div>
+    <br />
     <%= form_tag(save_picks_confidence_pool_path, :method => "post") do %>
       <table id="bowlgames">
         <tr>
@@ -16,7 +19,7 @@
             <td><span class="bowlname"><%= bowl.name %></span><br /><%= bowl.site %></td>
             <td><%= bowl.favorite.display_name %> (<%= bowl.line %>)<br /><%= bowl.underdog.display_name %></td>
             <td><%= radio_button_tag("bowlid_#{bowl.id}", bowl.favorite.id) %><br /><%= radio_button_tag("bowlid_#{bowl.id}", bowl.underdog.id) %></td>
-            <td id="<%= bowl.name %>" ><%= select_tag("bowlid_rank_#{bowl.id}", options_for_select(1..@bowls.count), :class => 'bowlrankselect') %></td>
+            <td id="<%= bowl.name %>" ><%= select_tag("bowlid_rank_#{bowl.id}", options_for_select(@ranks), :class => 'bowlrankselect') %></td>
           </tr>
         <% end %>
       </table>

@@ -61,7 +61,7 @@ App.RankingsView = Backbone.View.extend({
   el: "#rankings",
 
   initialize: function() {
-    $('#save_confidence_picks').click(this.validatePicks);
+    /* $('#save_confidence_picks').click(this.validatePicks); */
     $('.bowlrankselect').change(this.updateRankTable);
   },
 
@@ -73,12 +73,14 @@ App.RankingsView = Backbone.View.extend({
     var rankElement = $('#selected_rank_'+e.srcElement.value).eq(0);
     var bowlGame = e.srcElement.parentNode["id"];
 
+    /* if the user is changing a rank, it needs to be removed from the list */
     $('[id^="selected_rank_"]').each(function(index) {
       if(bowlGame == $(this).text()){
         $(this).hide();
       }
     });
 
+    /* set the text and show it */
     rankElement.text(bowlGame).show();
 
     /* console.log(e.srcElement);
