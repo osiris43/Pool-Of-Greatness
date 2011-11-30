@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :sites
   has_many :survivor_entries
   has_many :survivor_sessions, :through => :survivor_entries
+  has_many :confidence_picks
   
   # login can be either username or email address
   def self.authenticate(login, pass)

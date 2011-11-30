@@ -13,6 +13,13 @@ class ConfidencePoolsController < ApplicationController
     @pool = ConfidencePool.find(params[:id])
 
     @bowls = Bowl.where("season = ?", "2010-2011").all
+    @picks = current_user.confidence_picks.joins(:bowl).where(:bowls => {:season => "2010-2011"}).all
+    @teamids = @picks.map{|pick| pick.team.id}
+    @existing_ranks, @existing_bowls = {}, {}
+    @picks.map{|pick| 
+      @existing_ranks[pick.bowl.id] = pick.rank
+      @existing_bowls[pick.rank] = pick.bowl.name
+    }
     @ranks = []
     @ranks.push("Select Rank")
     (1..@bowls.count).each {|num| @ranks.push(num)}

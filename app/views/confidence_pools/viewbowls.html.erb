@@ -18,8 +18,13 @@
           <tr id="<%= "bowlid_row_#{bowl.id}" %>" class="<%= @row %>">
             <td><span class="bowlname"><%= bowl.name %></span><br /><%= bowl.site %></td>
             <td><%= bowl.favorite.display_name %> (<%= bowl.line %>)<br /><%= bowl.underdog.display_name %></td>
-            <td><%= radio_button_tag("bowlid_#{bowl.id}", bowl.favorite.id) %><br /><%= radio_button_tag("bowlid_#{bowl.id}", bowl.underdog.id) %></td>
-            <td id="<%= bowl.name %>" ><%= select_tag("bowlid_rank_#{bowl.id}", options_for_select(@ranks), :class => 'bowlrankselect') %></td>
+            <td>
+              <%= radio_button_tag("bowlid_#{bowl.id}", bowl.favorite.id, checked = @teamids.include?(bowl.favorite.id)) %>
+              <br />
+              <%= radio_button_tag("bowlid_#{bowl.id}", bowl.underdog.id, checked = @teamids.include?(bowl.underdog.id)) %></td>
+            <td id="<%= bowl.name %>" >
+              <%= select_tag("bowlid_rank_#{bowl.id}", options_for_select(@ranks, @existing_ranks[bowl.id]), :class => 'bowlrankselect') %>
+            </td>
           </tr>
         <% end %>
       </table>
@@ -37,7 +42,11 @@
       <% @bowls.each do |bowl| %>
         <tr>
           <td><%= @rank %></td>
-          <td id="<%= "selected_rank_#{@rank}" %>" style="display: none"><%= "Bowl #{@rank}" %></td>
+          <% if(@existing_bowls[@rank]) %>
+            <td id="<%= "selected_rank_#{@rank}" %>"><%= @existing_bowls[@rank] %></td>
+          <% else %>
+            <td id="<%= "selected_rank_#{@rank}" %>" style="display: none"><%= "Bowl #{@rank}" %></td>
+          <% end %>
           <% @rank += 1 %>
         </tr>
       <% end %>
