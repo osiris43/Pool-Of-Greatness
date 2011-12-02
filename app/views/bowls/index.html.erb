@@ -2,11 +2,15 @@
   <h1>Bowls</h1>
     <%= form_tag( update_all_bowls_path, :method => "put") do %>
 
-  <table>
+  <table class="bowlgames">
     <tr>
       <th>Bowl</th>
       <th>Location</th>
       <th>Favorite</th>
+      <th>Line</th>
+      <th>Underdog</th>
+      <th>Favorite Score</th>
+      <th>Underdog Score</th>
     </tr>
       <% for bowl in @bowls%>
         <%= fields_for "bowls[]", bowl do |f| %>
@@ -16,6 +20,8 @@
             <td><%= f.collection_select(:favorite_id, @teams, :id, :teamname) %></td>
             <td><%= f.text_field(:line, :size => 10) %></td>
             <td><%= f.collection_select(:underdog_id, @teams, :id, :teamname) %></td>
+            <td><%= f.text_field(:favorite_score, :size => 10) %></td>
+            <td><%= f.text_field(:underdog_score, :size => 10) %></td>
           </tr>
         <% end %>
       <% end %>

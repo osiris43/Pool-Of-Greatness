@@ -1,12 +1,13 @@
 <%= render 'shared/poolbanner' %>
 <div class="container_12">
   <%= render 'navigation' %>
+  <%= render 'shared/flashpartial' %>
   <div class="grid_9">
-    <div><span>As you make your picks, the table at the right will fill in with the ranks.
+    <div id="ranking_message"><span>As you make your picks, the table at the right will fill in with the ranks.
         Please make sure all ranks are full before submitting your picks.</span></div>
     <br />
     <%= form_tag(save_picks_confidence_pool_path, :method => "post") do %>
-      <table id="bowlgames">
+      <table class="bowlgames">
         <tr>
           <th>Bowl</th>
           <th>Teams</th>
@@ -33,7 +34,7 @@
     <% end %>
   </div>
   <div class="grid_3">
-    <table>
+    <table class="bowlgames">
       <tr>
         <th>Rank</th>
         <th>Bowl</th>

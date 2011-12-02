@@ -49,7 +49,7 @@ describe PickemPool do
     deadline = DateTime.current
 
     @pool.pickem_weeks.create!(:season => '2011-2012', :week => 1, :deadline => deadline)
-    @pool.current_deadline.to_i.should == deadline.to_i
+    @pool.current_deadline.strftime('%d-%m-%Y').should == deadline.strftime('%d-%m-%Y')
   end
 
   it "sets the current week's deadline" do
@@ -57,6 +57,6 @@ describe PickemPool do
     @pool.pickem_weeks.create!(:season => '2011-2012', :week => 1, :deadline => deadline)
 
     @pool.current_deadline = deadline
-    @pool.current_deadline.to_i.should == deadline.to_i 
+    @pool.current_deadline.strftime('%d-%m-%Y').should == deadline.strftime('%d-%m-%Y')
   end
 end

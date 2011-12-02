@@ -807,24 +807,24 @@ article {
 
 }
 
-#bowlgames {
+.bowlgames {
   100%
 }
-#bowlgames th{
+.bowlgames th{
   background-color: #0b0974;
   color: #D2B65F;
   padding: 5px;
 
 }
-#bowlgames tr.odd {
+.bowlgames tr.odd {
   background: #e2e2e2;
 }
 
-#bowlgames td {
+.bowlgames td {
   font-size: 12px;
 }
 
-#bowlgames span.bowlname {
+.bowlgames span.bowlname {
   font-weight: bold;
 }
 
@@ -836,5 +836,10 @@ article {
 
 tr.duplicateRank{
   background: red;
+}
+
+#ranking_message {
+  border: 1px solid black;
+  padding: 4px;
 }
 

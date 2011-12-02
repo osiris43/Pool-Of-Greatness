@@ -1,4 +1,6 @@
 Poolofgreatness::Application.routes.draw do
+  get "leaderboards/show"
+
   get "games/index"
 
   match 'user/edit' => 'users#edit', :as => :edit_current_user
@@ -90,6 +92,7 @@ Poolofgreatness::Application.routes.draw do
       get "administer"
       get "viewbowls"
       post "save_picks"
+      get "show_leaderboard"
     end
   end
 

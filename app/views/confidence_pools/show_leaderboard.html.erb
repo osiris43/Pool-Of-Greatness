@@ -1,0 +1,29 @@
+<%= render 'shared/poolbanner' %>
+<div class="container_12">
+  <%= render 'confidence_pools/navigation' %>
+  <%= render 'shared/flashpartial' %>
+  
+  <table class="bowlgames">
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Won</th>
+      <th>Lost</th>
+      <th>Left</th>
+      <th>Potential</th>
+    </tr>
+    <% @rank = 1 %>
+    <% @leaderboard.entries.sort_by{|e| -e.won}.each do |entry| %>
+      <tr>
+        <td><%= @rank %></td>
+        <td><%= entry.player.name %></td>
+        <td><%= entry.won %></td>
+        <td><%= entry.lost %></td>
+        <td><%= entry.left %></td>
+        <td><%= entry.potential %></td>
+      </tr>
+      <% @rank += 1 %>
+    <% end %>
+  </table> 
+</div>
+

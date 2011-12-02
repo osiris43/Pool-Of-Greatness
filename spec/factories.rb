@@ -8,6 +8,11 @@ FactoryGirl.define do
     after_create { |pickempool| add_standard_config(pickempool)}
   end
 
+  factory :confidence_pool do
+    name    "Confidence"
+    type    "ConfidencePool"
+  end
+
   factory :team do
     teamname  'Dallas Cowboys'
   end
@@ -23,11 +28,35 @@ FactoryGirl.define do
     value "2011-2012"
   end
 
+  factory :bowl_season, :parent => :configuration do
+    key   "CurrentBowlSeason"
+    value "2010"
+  end
+
   factory :survivor_session do
     association :pool, :factory => :survivor_pool
     starting_week   1
     ending_week     5
     season          "2011-2012" 
+  end
+
+  factory :bowl_favorite, :parent => :team do
+    teamname  "TCU Horned Frogs"
+  end
+
+  factory :bowl_underdog, :parent => :team do
+    teamname  "Oklahoma Sooners"
+  end
+
+  factory :bowl do
+    date            DateTime.current + 7
+    season          "2010"
+    name            "Test Bowl"
+    site            "Dallas"
+    line            -7
+    favorite        :factory => :bowl_favorite
+    underdog        :factory => :bowl_underdog
+    after_create{|bowl| Factory(:bowl_season) }
   end
 end
 
