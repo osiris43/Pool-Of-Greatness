@@ -64,6 +64,37 @@ describe LeaderboardEntry do
       entry.score_entry()
       entry.left.should == 3
     end
+
+    it "displays the largest remaining pick that hasn't been played" do
+      bowl = Factory(:bowl, :favorite_score => 0, :underdog_score => 0)
+      bowl2 = Factory(:bowl, :favorite_score => 0, :underdog_score => 0)
+      user = Factory(:user)
+      user.confidence_picks.create!(:bowl => bowl, :team => bowl.underdog, :rank => 1)
+      user.confidence_picks.create!(:bowl => bowl2, :team => bowl2.underdog, :rank => 2)
+      entry = LeaderboardEntry.new(user)
+      entry.largest_left.should == "Oklahoma Sooners (2)" 
+    end
+
+    it "displays the second largest left" do
+      bowl = Factory(:bowl, :favorite_score => 0, :underdog_score => 0)
+      bowl2 = Factory(:bowl, :favorite_score => 0, :underdog_score => 0)
+      user = Factory(:user)
+      user.confidence_picks.create!(:bowl => bowl, :team => bowl.underdog, :rank => 1)
+      user.confidence_picks.create!(:bowl => bowl2, :team => bowl2.underdog, :rank => 2)
+      entry = LeaderboardEntry.new(user)
+      entry.second_largest_left.should == "Oklahoma Sooners (1)" 
+    end
+
+    it "displays a default message if no picks are left" do
+      bowl = Factory(:bowl, :favorite_score => 1, :underdog_score => 0)
+      bowl2 = Factory(:bowl, :favorite_score => 0, :underdog_score => 0)
+      user = Factory(:user)
+      user.confidence_picks.create!(:bowl => bowl, :team => bowl.underdog, :rank => 1)
+      user.confidence_picks.create!(:bowl => bowl2, :team => bowl2.underdog, :rank => 2)
+      entry = LeaderboardEntry.new(user)
+      entry.second_largest_left.should == "None" 
+
+    end
   end
 
   describe "entries before pool has started" do

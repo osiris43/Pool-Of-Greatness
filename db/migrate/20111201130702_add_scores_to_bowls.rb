@@ -1,7 +1,7 @@
 class AddScoresToBowls < ActiveRecord::Migration
   def self.up
-    add_column :bowls, :favorite_score, :int
-    add_column :bowls, :underdog_score, :int
+    add_column :bowls, :favorite_score, :int, :default => 0
+    add_column :bowls, :underdog_score, :int, :default => 0
   end
 
   def self.down

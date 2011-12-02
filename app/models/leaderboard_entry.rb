@@ -22,4 +22,27 @@ class LeaderboardEntry
     @potential = @won + @left
     @percentage = (@won/(@won + @lost)) * 100 unless (@won + @lost) == 0
   end
+
+  def largest_left
+    rank = @player.confidence_picks.joins(:bowl).where("bowls.favorite_score + bowls.underdog_score = 0").maximum("rank")
+    pick = @player.confidence_picks.where("rank = ?", rank).first
+    
+    if(pick.nil?)
+      "None"
+    else
+      "#{pick.team.display_name} (#{pick.rank})"
+    end
+  end
+
+  def second_largest_left
+    rank = @player.confidence_picks.joins(:bowl).where("bowls.favorite_score + bowls.underdog_score = 0").maximum("rank")
+    second = @player.confidence_picks.joins(:bowl).where("bowls.favorite_score + bowls.underdog_score = 0 AND rank < ?", rank).maximum("rank")
+    pick = @player.confidence_picks.where("rank = ?", second).first
+
+    if(pick.nil?)
+      "None"
+    else
+      "#{pick.team.display_name} (#{pick.rank})"
+    end
+  end
 end

@@ -11,6 +11,9 @@
       <th>Lost</th>
       <th>Left</th>
       <th>Potential</th>
+      <th>Percentage</th>
+      <th>Largest Left</th>
+      <th>Second Largest Left</th>
     </tr>
     <% @rank = 1 %>
     <% @leaderboard.entries.sort_by{|e| -e.won}.each do |entry| %>
@@ -21,6 +24,9 @@
         <td><%= entry.lost %></td>
         <td><%= entry.left %></td>
         <td><%= entry.potential %></td>
+        <td><%= entry.percentage %></td>
+        <td><%= entry.largest_left %></td>
+        <td><%= entry.second_largest_left %></td>
       </tr>
       <% @rank += 1 %>
     <% end %>
