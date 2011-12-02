@@ -3,6 +3,7 @@ class Pool < ActiveRecord::Base
   
   has_one :jackpot
   has_many :transactions
+  has_many :pool_configs
   belongs_to :site
   belongs_to :user, :foreign_key => "admin_id"
 

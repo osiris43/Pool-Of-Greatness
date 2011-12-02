@@ -29,7 +29,7 @@
           </tr>
         <% end %>
       </table>
-      <%= submit_tag("Save Picks", :id => "save_confidence_picks") %>
+      <%= submit_tag("Save Picks", :id => "save_confidence_picks", :disabled => @deadline < DateTime.current) %>
 
     <% end %>
   </div>
@@ -41,7 +41,7 @@
       </tr>
       <% @rank = 1 %>
       <% @bowls.each do |bowl| %>
-        <tr>
+        <tr class="<%= cycle('odd', 'even') %>">
           <td><%= @rank %></td>
           <% if(@existing_bowls[@rank]) %>
             <td id="<%= "selected_rank_#{@rank}" %>"><%= @existing_bowls[@rank] %></td>

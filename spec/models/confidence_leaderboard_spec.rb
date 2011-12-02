@@ -21,10 +21,5 @@ describe ConfidenceLeaderboard do
     leaderboard.entries.count.should == 2 
   end
 
-  it "orders the players by scores" do
-    leaderboard = ConfidenceLeaderboard.new(@pool)   
-    leaderboard.build
-    leaderboard.entries[0].player.should == @user2 
-  end
 end
 

@@ -14,7 +14,7 @@
     </tr>
     <% @rank = 1 %>
     <% @leaderboard.entries.sort_by{|e| -e.won}.each do |entry| %>
-      <tr>
+      <tr class="<%= cycle('odd', 'even') %>">
         <td><%= @rank %></td>
         <td><%= entry.player.name %></td>
         <td><%= entry.won %></td>

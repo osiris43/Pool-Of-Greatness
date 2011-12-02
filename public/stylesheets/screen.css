@@ -808,7 +808,6 @@ article {
 }
 
 .bowlgames {
-  100%
 }
 .bowlgames th{
   background-color: #0b0974;
@@ -822,6 +821,7 @@ article {
 
 .bowlgames td {
   font-size: 12px;
+  text-align: center;
 }
 
 .bowlgames span.bowlname {

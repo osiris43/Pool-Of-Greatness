@@ -12,6 +12,10 @@ class ConfidencePoolsController < ApplicationController
   def viewbowls
     @pool = ConfidencePool.find(params[:id])
     season = Configuration.get_value_by_key("CurrentBowlSeason")
+    @deadline = DateTime.parse(PoolConfig.find_by_pool_id_and_config_key(@pool.id, "ConfidencePoolDeadline").config_value)
+    if(@deadline < DateTime.current)
+      flash[:notice] = "The deadline has passed for making or changing picks."
+    end
 
     @bowls = Bowl.where("season = ?", season).all
     initialize_viewbowls()
@@ -54,15 +58,17 @@ class ConfidencePoolsController < ApplicationController
       existingRanks.push(rank)
       existingPick = ConfidencePick.find_by_user_id_and_bowl_id(current_user.id, bowl.id)
       if(existingPick.nil?)
-        picks.push(ConfidencePick.new(:user => current_user, :bowl => bowl, :team => Team.find(pick.to_i), :rank => rank.to_i))
+        picks.push(ConfidencePick.new(:user => current_user, :bowl => bowl, :team => Team.find(pick.to_i), :rank => rank.to_i, :pool => @pool))
       else
-        existingPick.update_attributes(:user => current_user, :bowl => bowl, :team => Team.find(pick.to_i), :rank => rank.to_i)
+        existingPick.update_attributes(:user => current_user, :bowl => bowl, :team => Team.find(pick.to_i), :rank => rank.to_i, :pool => @pool)
       end
     end 
 
     picks.each do |pick|
       pick.save
     end
+
+    verify_accounting(@pool)
 
     flash[:notice] = "Picks saved..."
     redirect_to(confidence_pool_path(@pool))
@@ -74,6 +80,22 @@ class ConfidencePoolsController < ApplicationController
     @leaderboard.build
   end
 
+  def save_config
+    @pool = ConfidencePool.find(params[:id])
+    deadline = DateTime.parse("#{params[:bowldeadline][:year]}-#{params[:bowldeadline][:month]}-#{params[:bowldeadline][:day]} #{params[:bowldeadline][:hour]}:#{params[:bowldeadline][:minute]}")
+
+    deadlineConfig = PoolConfig.find_by_pool_id_and_config_key(@pool.id, "ConfidencePoolDeadline")
+    if(deadlineConfig.nil?)
+      @pool.pool_configs.create!(:config_key => "ConfidencePoolDeadline", :config_value => deadline)
+    else
+      deadlineConfig.config_value = deadline.to_s
+      deadlineConfig.save
+    end
+    flash[:notice] = "Configuration saved"
+    
+    redirect_to(confidence_pool_path(@pool))
+  end
+
   private
     def initialize_viewbowls()
       @existing_ranks, @existing_bowls = {}, {}
@@ -81,5 +103,16 @@ class ConfidencePoolsController < ApplicationController
       @ranks = []
       @ranks.push("Select Rank")
       (1..@bowls.count).each {|num| @ranks.push(num)}
+    end
+
+    def verify_accounting(pool)
+      transaction = Transaction.find_by_account_id_and_description(current_user.account.id, "Confidence Pool Fee")
+
+      if(transaction.nil?)
+        current_user.account.transactions.create!(:pooltype => 'ConfidencePool',
+                                          :poolname => pool.name,
+                                          :amount => -30,
+                                          :description => "Confidence Pool Fee") 
+      end 
     end
 end

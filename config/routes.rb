@@ -93,6 +93,7 @@ Poolofgreatness::Application.routes.draw do
       get "viewbowls"
       post "save_picks"
       get "show_leaderboard"
+      post "save_config"
     end
   end
 
