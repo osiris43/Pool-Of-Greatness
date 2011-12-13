@@ -100,11 +100,15 @@ class ConfidencePoolsController < ApplicationController
 
   private
     def initialize_viewbowls()
+      @pool = ConfidencePool.find(params[:id])
+
       @existing_ranks, @existing_bowls = {}, {}
       @teamids = []
       @ranks = []
       @ranks.push("Select Rank")
       (1..@bowls.count).each {|num| @ranks.push(num)}
+      @deadline = DateTime.parse(PoolConfig.find_by_pool_id_and_config_key(@pool.id, "ConfidencePoolDeadline").config_value)
+
     end
 
     def verify_accounting(pool)
