@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
   has_many :survivor_entries
   has_many :survivor_sessions, :through => :survivor_entries
   has_many :confidence_picks
-  
+  has_many :confidence_entries
+
   # login can be either username or email address
   def self.authenticate(login, pass)
     user = find_by_username(login) || find_by_email(login)

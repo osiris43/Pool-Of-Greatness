@@ -821,9 +821,12 @@ article {
 
 .bowlgames td {
   font-size: 12px;
-  text-align: center;
+  padding: 5px;
 }
 
+.bowlgames td.center_col {
+  text-align: center;
+}
 .bowlgames span.bowlname {
   font-weight: bold;
 }
@@ -841,5 +844,13 @@ tr.duplicateRank{
 #ranking_message {
   border: 1px solid black;
   padding: 4px;
+  font-size: 13px;
 }
+
+#confidence_tie_breaker {
+  border: 1px solid black;
+  padding: 4px;
+  margin-bottom: 15px;
+}
+
 

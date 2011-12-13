@@ -18,13 +18,13 @@
     <% @rank = 1 %>
     <% @leaderboard.entries.sort_by{|e| -e.won}.each do |entry| %>
       <tr class="<%= cycle('odd', 'even') %>">
-        <td><%= @rank %></td>
+        <td class="center_col"><%= @rank %></td>
         <td><%= entry.player.name %></td>
-        <td><%= entry.won %></td>
-        <td><%= entry.lost %></td>
-        <td><%= entry.left %></td>
-        <td><%= entry.potential %></td>
-        <td><%= entry.percentage %></td>
+        <td class="center_col"><%= entry.won %></td>
+        <td class="center_col"><%= entry.lost %></td>
+        <td class="center_col"><%= entry.left %></td>
+        <td class="center_col"><%= entry.potential %></td>
+        <td class="center_col"><%= entry.percentage %></td>
         <td><%= entry.largest_left %></td>
         <td><%= entry.second_largest_left %></td>
       </tr>

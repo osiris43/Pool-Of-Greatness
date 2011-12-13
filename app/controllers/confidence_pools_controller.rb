@@ -27,7 +27,8 @@ class ConfidencePoolsController < ApplicationController
       @existing_ranks[pick.bowl.id] = pick.rank
       @existing_bowls[pick.rank] = pick.bowl.name
     }
-    
+   
+    @entry = current_user.confidence_entries.where(:season => season).first 
   end
 
   def save_picks
@@ -69,6 +70,7 @@ class ConfidencePoolsController < ApplicationController
     end
 
     verify_accounting(@pool)
+    manage_current_entry
 
     flash[:notice] = "Picks saved..."
     redirect_to(confidence_pool_path(@pool))
@@ -113,6 +115,19 @@ class ConfidencePoolsController < ApplicationController
                                           :poolname => pool.name,
                                           :amount => -30,
                                           :description => "Confidence Pool Fee") 
+      end 
+    end
+
+    def manage_current_entry
+      season = Configuration.get_value_by_key("CurrentBowlSeason")
+
+      @entry = current_user.confidence_entries.where(:season => season).first 
+      score = params[:total_score].to_f
+      if(@entry.nil?)
+        @entry = current_user.confidence_entries.create!(:season => season, :tiebreaker => score)
+      else
+        @entry.tiebreaker = score 
+        @entry.save
       end 
     end
 end

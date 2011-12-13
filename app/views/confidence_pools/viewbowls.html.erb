@@ -3,10 +3,13 @@
   <%= render 'navigation' %>
   <%= render 'shared/flashpartial' %>
   <div class="grid_9">
-    <div id="ranking_message"><span>As you make your picks, the table at the right will fill in with the ranks.
+    <div id="ranking_message"><span><b>Instructions:</b> Select the team you think will win straight up.  
+       Rank your picks with 35 as your most confident.  As you make your picks, the table at the right will fill in with the ranked teams.
         Please make sure all ranks are full before submitting your picks.</span></div>
     <br />
     <%= form_tag(save_picks_confidence_pool_path, :method => "post") do %>
+      <%= submit_tag("Save Picks", :id => "save_confidence_picks", :disabled => @deadline < DateTime.current) %>
+      <br /><br />
       <table class="bowlgames">
         <tr>
           <th>Bowl</th>
@@ -29,8 +32,12 @@
           </tr>
         <% end %>
       </table>
-      <%= submit_tag("Save Picks", :id => "save_confidence_picks", :disabled => @deadline < DateTime.current) %>
-
+      <br /> 
+      <div id="confidence_tie_breaker">
+        <p>Enter Tie Breaker Score<br />
+        <%= label_tag(:bcs_champ, "BCS Championship Game Total Score") %>
+        <%= text_field_tag(:total_score, @entry.nil? ? 0 : @entry.tiebreaker, :size=> '5x10') %>
+      </div>
     <% end %>
   </div>
   <div class="grid_3">
@@ -53,6 +60,7 @@
       <% end %>
     </table>
   </div>
+  <br />
 </div>
 <script type="text/javascript">
   $(function() {App.start(); })
