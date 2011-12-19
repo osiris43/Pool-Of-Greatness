@@ -3,8 +3,8 @@ class LeaderboardEntry
   
   def initialize(user)
     @player = user
-    @won = 0
-    @lost = 0
+    @won = 0.0
+    @lost = 0.0
     @left = 0
   end
 
@@ -20,7 +20,7 @@ class LeaderboardEntry
     end
 
     @potential = @won + @left
-    @percentage = (@won/(@won + @lost)) * 100 unless (@won + @lost) == 0
+    @percentage = ((@won/(@won + @lost)) * 100).round(2) unless (@won + @lost) == 0
   end
 
   def largest_left

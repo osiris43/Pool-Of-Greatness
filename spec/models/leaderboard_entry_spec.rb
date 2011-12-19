@@ -48,10 +48,22 @@ describe LeaderboardEntry do
     it "has a percentage right" do
       # the bowl is scored underdog = 1, favorite = 0
       @user.confidence_picks.create!(:bowl => @bowl, :team => @bowl.underdog, :rank => 1)
-     
+    
       entry = LeaderboardEntry.new(@user)
       entry.score_entry()
       entry.percentage.should == 100
+    end
+
+    it "has a percentage right with a loss" do
+      @bowl2 = Factory(:bowl, :favorite_score => 1, :underdog_score => 0)
+      @user.confidence_picks.create!(:bowl => @bowl2, :team => @bowl2.underdog, :rank => 2) 
+      # the bowl is scored underdog = 1, favorite = 0
+      @user.confidence_picks.create!(:bowl => @bowl, :team => @bowl.underdog, :rank => 1)
+      
+      entry = LeaderboardEntry.new(@user)
+      entry.score_entry()
+      entry.percentage.should == 33.33 
+
     end
 
     it "correctly calculates remaining points for multiple bowls" do
