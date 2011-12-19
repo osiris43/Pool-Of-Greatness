@@ -20,7 +20,7 @@ class LeaderboardEntry
     end
 
     @potential = @won + @left
-    @percentage = ((@won.to_f/(@won + @lost)) * 100).to_f.round(2) unless (@won + @lost) == 0
+    @percentage = ((@won.to_f/(@won + @lost)) * 100).round(2) unless (@won + @lost) == 0
   end
 
   def largest_left

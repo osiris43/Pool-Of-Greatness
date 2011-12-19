@@ -42,4 +42,8 @@ class UsersController < ApplicationController
       format.mobile { render :layout => false }
     end
   end
+
+  def accounting
+
+  end
 end

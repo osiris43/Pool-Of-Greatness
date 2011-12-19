@@ -329,6 +329,10 @@ tr.tableheader th {
   background: #eee;
 }
 
+.results_table td.negative {
+  color: red;
+}
+
 #notice {
   border: 5px solid green;
   margin: 5px;

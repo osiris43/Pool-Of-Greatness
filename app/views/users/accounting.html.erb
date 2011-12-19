@@ -1,0 +1,37 @@
+<div id="dashboard_wrapper" class="container_12">
+  <div class="grid_12">
+    <nav class="pickem_navigation">
+      <ul>
+        <li><%= link_to "Join Site", find_sites_path %></li>
+        <% if current_user.site_admin? %>
+          <li>
+            <%= link_to "Add Pool", newpool_site_path(current_user.sites[0]) %>
+          </li>
+          <li>
+            <%= link_to "Site Administration", administer_site_path(current_user.sites[0]) %>
+          </li>
+        <%end %>
+      </ul>
+      </nav>
+  <label>Current Balance: </label><span><%= number_to_currency(current_user.balance) %></span>
+      
+    <table class="results_table">
+      <tr class="header">
+        <th>Date</th>
+        <th>Pool Name</th>
+        <th>Transaction Amount</th>
+        <th>Description</th>
+      </tr>
+      <% current_user.account.transactions.each do |trans| %>
+        <tr class="<%= cycle("even", "odd") %>">
+          <% @amountClass = trans.amount < 0 ? "negative" : "none" %>
+          <td><%= trans.created_at.strftime("%m-%d-%Y") %></td>
+          <td><%= trans.poolname %></td>
+          <td class="<%= @amountClass %>" ><%= number_to_currency(trans.amount) %></td>
+          <td><%= trans.description %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+

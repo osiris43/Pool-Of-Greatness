@@ -21,5 +21,6 @@ describe ConfidenceLeaderboard do
     leaderboard.entries.count.should == 2 
   end
 
+  
 end
 

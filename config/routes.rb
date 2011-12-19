@@ -62,7 +62,12 @@ Poolofgreatness::Application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users do
+    member do
+      get 'accounting'
+    end
+  end
+
   resources :games do
     collection do
       get'find'

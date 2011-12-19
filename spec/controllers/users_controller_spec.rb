@@ -128,6 +128,29 @@ describe UsersController do
 
       end
 
+      describe "accounting report" do
+        before(:each) do
+          @user.account.transactions.create!(:pooltype => "Pickem", 
+                                             :poolname => "Pool of Greatness",
+                                             :amount => -12,
+                                             :description => "Fee for week 1")
+        end
+
+        it "is successful" do
+          get :accounting, :id => @user
+          response.should be_success
+        end
+
+        it "has an accounting table" do
+          get :accounting, :id => @user
+          response.should have_selector("th", :content => "Your Accounting Report") 
+        end
+
+        it "lists the transaction" do
+          get :accounting, :id => @user
+          response.should have_selector("td", :content => "-$12.00") 
+        end
+      end
     end
   end
 end

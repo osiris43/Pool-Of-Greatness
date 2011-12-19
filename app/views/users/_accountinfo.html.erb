@@ -1,6 +1,7 @@
 <div id="account_activity">
   <h2>Your Account Activity</h2> 
   <div id="account_activity_data">
+    <%= link_to "View Full Report", accounting_user_path(current_user) %><br />
   <label>Current Balance: </label><span><%= number_to_currency(current_user.balance) %></span>
   <br /><br />
   <span>Last 10 transactions</span> 
