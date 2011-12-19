@@ -5,5 +5,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :pool
   
   validates_presence_of :amount
+  
+  default_scope :order => 'transactions.created_at' 
 
 end
