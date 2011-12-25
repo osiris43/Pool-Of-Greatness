@@ -98,6 +98,11 @@ class ConfidencePoolsController < ApplicationController
     redirect_to(confidence_pool_path(@pool))
   end
 
+  def currentgames
+    @pool = ConfidencePool.find(params[:id])
+    @title = "Current Games"
+  end
+
   private
     def initialize_viewbowls()
       @pool = ConfidencePool.find(params[:id])

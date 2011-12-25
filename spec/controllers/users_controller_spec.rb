@@ -141,9 +141,9 @@ describe UsersController do
           response.should be_success
         end
 
-        it "has an accounting table" do
+        it "has current balance" do
           get :accounting, :id => @user
-          response.should have_selector("th", :content => "Your Accounting Report") 
+          response.should have_selector("label", :content => "Current Balance:") 
         end
 
         it "lists the transaction" do

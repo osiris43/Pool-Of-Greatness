@@ -4,8 +4,9 @@ Poolofgreatness::Application.routes.draw do
   get "games/index"
 
   match 'user/edit' => 'users#edit', :as => :edit_current_user
-
+  
   match 'signup' => 'users#new', :as => :signup
+  match "forgot_password" => 'users#forgot_password', :as => :forgot_password
 
   match 'logout' => 'sessions#destroy', :as => :logout
 
@@ -66,6 +67,10 @@ Poolofgreatness::Application.routes.draw do
     member do
       get 'accounting'
     end
+
+    collection do
+      post 'send_password'
+    end
   end
 
   resources :games do
@@ -99,6 +104,7 @@ Poolofgreatness::Application.routes.draw do
       post "save_picks"
       get "show_leaderboard"
       post "save_config"
+      get "currentgames"
     end
   end
 

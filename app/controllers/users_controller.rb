@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :login_required, :except => [:new, :create]
+  before_filter :login_required, :except => [:new, :create, :forgot_password, :send_password]
 
   def new
     @title = "Sign up"
@@ -44,6 +44,23 @@ class UsersController < ApplicationController
   end
 
   def accounting
+
+  end
+
+  def forgot_password
+
+  end
+
+  def send_password
+    @user = User.find_by_email(params[:user_email])
+    if(@user.nil?)
+      flash[:notice] = "No user exists with that email"
+    else
+      UserMailer.send_password(@user)
+      flash[:notice] = "Your password has been sent."
+    end
+
+    redirect_to login_path 
 
   end
 end

@@ -1,8 +1,9 @@
 <div class="container_12">
   <div id="login-wrapper">
 <% title "Log in" %>
-
+<%= render "shared/flashpartial" %>
 <p>Don't have an account? <%= link_to "Sign up!", signup_path %></p>
+<p>Forgot your password? <%= link_to "Forgot my password", forgot_password_path %></p> 
 
 <%= form_tag sessions_path do %>
   <p>
