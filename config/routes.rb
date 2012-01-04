@@ -105,6 +105,8 @@ Poolofgreatness::Application.routes.draw do
       get "show_leaderboard"
       post "save_config"
       get "currentgames"
+      get "allpicks"
+      get "possible_outcomes"
     end
   end
 

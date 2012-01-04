@@ -3,4 +3,18 @@
   <%= render 'navigation' %>
   <%= render 'shared/flashpartial' %>
 
+  <% @pool.get_currentgames.each do |game| %>
+    <%= link_to game.name, "#" %>
+  <% end %>
+
+  <table id="current_con_games">
+    <% (1..35).each do |rank| %>
+      <tr>
+        <td class="current_game_rank"><%= rank %></td>
+        <% @pool.get_picks_by_rank(@pool.get_currentgames.first.id, rank).each do |pick| %>
+          <td class="current_game_pick"><%= pick.user.name %> (<%= pick.team.abbreviation %>)</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
 </div>

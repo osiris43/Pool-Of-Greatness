@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111213112106) do
+ActiveRecord::Schema.define(:version => 20111227185025) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20111213112106) do
     t.integer  "underdog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "favorite_score"
-    t.integer  "underdog_score"
+    t.integer  "favorite_score", :default => 0
+    t.integer  "underdog_score", :default => 0
   end
 
   create_table "confidence_entries", :force => true do |t|
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20111213112106) do
     t.float    "tiebreaker"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "pool_id"
   end
 
   create_table "confidence_picks", :force => true do |t|
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20111213112106) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "pool_id"
+    t.integer  "confidence_entry_id"
   end
 
   create_table "configurations", :force => true do |t|

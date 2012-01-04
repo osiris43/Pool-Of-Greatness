@@ -103,6 +103,49 @@ class ConfidencePoolsController < ApplicationController
     @title = "Current Games"
   end
 
+  def allpicks
+    @pool = ConfidencePool.find(params[:id])
+    @title = "All Picks"
+    @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
+  end
+
+  def possible_outcomes
+    @pool = ConfidencePool.find(params[:id])
+    @firsts, @seconds, @thirds, @fourths, @dals = Hash.new(0), Hash.new(0), Hash.new(0), Hash.new(0), Hash.new(0)
+    possibles = []
+    winnersHash = {}
+    possibles_col = []
+    @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
+    bowlsLeft = Bowl.bowls_left
+    @possibleCount = 2**bowlsLeft - 1
+    @bowls.each do |bowl|
+      if(!bowl.winning_team.nil?)
+        winnersHash[bowl.id] = bowl.winning_team.id
+      else
+        possibles_col.push([bowl.favorite.id, bowl.underdog.id, bowl.id])
+      end
+    end 
+
+    (0..@possibleCount).each do |num|
+      binary_poss = ("%b" % num).rjust(bowlsLeft, '0')
+      binary_poss.each_char.with_index{|char, idx|
+        winnersHash[possibles_col[idx][2]] = possibles_col[idx][char.to_i]
+      }
+      logger.debug winnersHash
+      possibles.push(PossibleOutcome.new(winnersHash.clone))
+    end
+
+    possibles.each do |possible|
+      possible.score(@pool.confidence_picks)
+      @firsts[possible.user_by_place(1)] += 1
+      @seconds[possible.user_by_place(2)] += 1
+      @thirds[possible.user_by_place(3)] += 1
+      @fourths[possible.user_by_place(4)] += 1
+      @dals[possible.user_by_place(0)] += 1
+
+    end
+  end
+
   private
     def initialize_viewbowls()
       @pool = ConfidencePool.find(params[:id])

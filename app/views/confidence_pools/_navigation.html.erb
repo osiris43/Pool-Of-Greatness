@@ -4,6 +4,7 @@
       <li><%= link_to "The Bowls", viewbowls_confidence_pool_path(@pool) %></li>
       <li><%= link_to "Leaderboard", show_leaderboard_confidence_pool_path(@pool) %></li>
       <li><%= link_to "Current Games", currentgames_confidence_pool_path(@pool) %></li>
+      <li><%= link_to "Possible Outcomes", possible_outcomes_confidence_pool_path(@pool) %></li>
       <% if current_user.pool_admin?(@pool) %>
         <li><%= link_to "Pool Admin", administer_confidence_pool_path %></li>
       <% end %>

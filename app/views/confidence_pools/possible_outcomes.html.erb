@@ -1,0 +1,59 @@
+<%= render 'shared/poolbanner' %>
+<div class="container_12">
+  <%= render 'confidence_pools/navigation' %>
+  <%= render 'shared/flashpartial' %>
+  <%= label(:possibleCount, "#{@possibleCount+1} possible results remaining") %>
+  <br />
+  <%= label(:firsts, "Firsts") %>
+  <table>
+    <% @firsts.each do |key, value| %>
+      <tr>
+        <td><%= key %></td>
+        <td><%= value %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <%= label(:seconds, "Seconds") %>
+  <table>
+    <% @seconds.each do |key, value| %>
+      <tr>
+        <td><%= key %></td>
+        <td><%= value %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <%= label(:thirds, "Thirds") %>
+  <table>
+    <% @thirds.each do |key, value| %>
+      <tr>
+        <td><%= key %></td>
+        <td><%= value %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <%= label(:fourths, "Fourths") %>
+  <table>
+    <% @fourths.each do |key, value| %>
+      <tr>
+        <td><%= key %></td>
+        <td><%= value %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+  <%= label(:dals, "DAL") %>
+  <table>
+    <% @dals.each do |key, value| %>
+      <tr>
+        <td><%= key %></td>
+        <td><%= value %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br />
+
+</div>
+

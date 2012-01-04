@@ -857,4 +857,21 @@ tr.duplicateRank{
   margin-bottom: 15px;
 }
 
+td.bowl_pool_cell {
+  text-align: right;
+}
+
+#current_con_games {
+
+}
+
+#current_con_games td.current_game_rank{
+  background: black;
+  color: white;
+  padding: 4px;
+}
+
+#current_con_games td.current_game_pick{
+  padding: 4px;
+}
 

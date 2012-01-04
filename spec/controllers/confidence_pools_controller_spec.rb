@@ -4,7 +4,8 @@ describe ConfidencePoolsController do
   render_views
   
   before(:each) do
-    @controller.stubs(:current_user).returns(User.first)
+    @user = Factory(:user, :admin => true)
+    @controller.stubs(:current_user).returns(@user)
     @pool = Factory(:confidence_pool)
   end
   it "is successful" do
@@ -20,6 +21,8 @@ describe ConfidencePoolsController do
 
   describe 'current games' do
     it "has the correct title" do
+      @bowl = Factory(:bowl, :date => DateTime.current)
+      @pool.stubs(:get_currentgames).returns([@bow])
       get "currentgames", :id => @pool
       response.should have_selector("title", :content => "Current Games")
     end
