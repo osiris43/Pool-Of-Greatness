@@ -1,11 +1,17 @@
+== The Sports Pool Hub
+
+=== Information
+
 This project is a website that allows managers of multiple office pools to run them all
 from one location.  There are currently three types of pool built: pick 'em leagues, 
 suicide/survivor pools and confidence pools.
 
-I built this application for two reasons:
+=== Rationale for Existence
 
 1. To learn Ruby and Rails. 
 2. Because I was tired of hosting all my office pools from multiple locations and spreadsheets.
+
+=== Why I'm Proud Of It
 
 I'm proud of this application because I achieved both those goals in at least some fashion.
 I built, tested and deployed an application using Ruby on Rails that allowed me to spend more time
