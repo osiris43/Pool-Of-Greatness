@@ -1,1 +1,17 @@
-Website to host multiple types of office pools in a single location. 
+This project is a website that allows managers of multiple office pools to run them all
+from one location.  There are currently three types of pool built: pick 'em leagues, 
+suicide/survivor pools and confidence pools.
+
+I built this application for two reasons:
+
+1. To learn Ruby and Rails. 
+2. Because I was tired of hosting all my office pools from multiple locations and spreadsheets.
+
+I'm proud of this application because I achieved both those goals in at least some fashion.
+I built, tested and deployed an application using Ruby on Rails that allowed me to spend more time
+watching football and less time managing the pools.  This project also taught me about git and Heroku.
+
+As my first major Rails project, I'm thrilled with the end result.  It's the first application I've built
+for myself that can feasibly be used by other people as well and I'm very proud of that.
+
+
