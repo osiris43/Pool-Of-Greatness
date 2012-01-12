@@ -1,5 +1,14 @@
 require 'date'
 FactoryGirl.define do
+  factory :nba_conference do
+    name "my conference"
+  end 
+
+  factory :nba_division do
+    name            "my division"
+    nba_conference  :factory => :nba_conference
+  end 
+
   factory :pickem_pool do
     sequence :name do |n|
       "My Pool #{n}"

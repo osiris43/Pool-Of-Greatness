@@ -1,0 +1,19 @@
+<div class="container_12">
+  <%= render 'shared/flashpartial' %>
+
+  <%= form_for(@division) do |f| %>
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :nba_conference %><br />
+      <%= f.select(:nba_conference_id, NbaConference.all.collect {|c| [c.name, c.id]},{ :prompt => true}) %><br /> 
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+</div>
+

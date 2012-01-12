@@ -1,4 +1,8 @@
 Poolofgreatness::Application.routes.draw do
+  resources :nba_conferences
+  resources :nba_divisions
+  resources :nba_teams
+
   get "leaderboards/show"
 
   get "games/index"

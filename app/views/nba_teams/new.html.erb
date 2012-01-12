@@ -1,0 +1,29 @@
+<div class="container_12">
+  <%= render 'shared/flashpartial' %>
+
+  <%= form_for(@team) do |f| %>
+    <div class="field">
+      <%= f.label :city %><br />
+      <%= f.text_field :city, :autofocus => true %>
+    </div>
+    <div class="field">
+      <%= f.label :mascot %><br />
+      <%= f.text_field :mascot %>
+    </div>
+    <div class="field">
+      <%= f.label :abbreviation %><br />
+      <%= f.text_field :abbreviation %>
+    </div>
+
+    <div class="field">
+      <%= f.label :nba_division %><br />
+      <%= f.select(:nba_division_id, NbaDivision.all.collect {|c| [c.name, c.id]},{ :prompt => true}) %><br /> 
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+</div>
+
