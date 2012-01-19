@@ -8,6 +8,11 @@ FactoryGirl.define do
     name            "my division"
     nba_conference  :factory => :nba_conference
   end 
+  
+  factory :nba_team do
+    city      :Boston
+    mascot    :Celtics
+  end 
 
   factory :pickem_pool do
     sequence :name do |n|

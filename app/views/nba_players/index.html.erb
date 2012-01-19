@@ -1,0 +1,9 @@
+<div class="container_12">
+  <%= render 'shared/flashpartial' %>
+
+  <%= form_tag(scrape_all_nba_players_path, :method => "get") do %>
+    <div class="actions">
+      <%= submit_tag("Scrape") %>
+    </div>
+  <% end %>
+</div>

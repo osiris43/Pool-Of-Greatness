@@ -2,6 +2,11 @@ Poolofgreatness::Application.routes.draw do
   resources :nba_conferences
   resources :nba_divisions
   resources :nba_teams
+  resources :nba_players do
+    collection do
+      get 'scrape_all'
+    end
+  end
 
   get "leaderboards/show"
 

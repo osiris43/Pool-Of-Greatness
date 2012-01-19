@@ -1,0 +1,38 @@
+class NbaPlayer < ActiveRecord::Base
+  belongs_to :nba_team
+
+  validates :lastname, :presence => true
+  validates :position, :presence => true
+
+  def self.parse_from_html(html)
+    player_elements = (html/"#playerInfoPos").search("li")
+    name_data = player_elements[0].inner_html.split(' ')
+    position = player_elements[-1].inner_html
+    mascot = (html/'#sideNavLinks').at('a')['href'][1..-2].capitalize
+    lastname = get_lastname(name_data)
+    firstname = get_firstname(name_data)
+    logger.debug "Mascot #{mascot}"
+    team = NbaTeam.find_by_mascot(mascot)
+    p = NbaPlayer.new(:firstname => firstname, :lastname => lastname, :position => position, :nba_team => team)
+    p
+  end
+
+  private
+    def self.get_lastname(data)
+      if( data.length == 2)
+        data[1]
+      elsif(data.length > 2)
+        data[1..-1].join(' ')
+      else 
+        data[0]
+      end
+    end
+
+    def self.get_firstname(data)
+      if(data.length == 1)
+        ''
+      else
+        data[0]
+      end
+    end
+end
