@@ -7,6 +7,12 @@ Poolofgreatness::Application.routes.draw do
       get 'scrape_all'
     end
   end
+  
+  resources :nba_games do
+    collection do
+      post 'scrape_all'
+    end
+  end
 
   get "leaderboards/show"
 

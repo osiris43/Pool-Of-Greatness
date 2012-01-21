@@ -1,5 +1,22 @@
 require 'date'
 FactoryGirl.define do
+  factory :nba_team do
+    city      :Boston
+    mascot    :Celtics
+  end 
+
+  factory :nbahome, :parent => :nba_team do
+    city          'Boston'
+    mascot        'Celtics'
+    abbreviation  'BOS'
+  end 
+  
+  factory :nbaaway, :parent => :nba_team do
+    city          'Dallas'
+    mascot        'Mavericks'
+    abbreviation  'DAL'
+  end 
+  
   factory :nba_conference do
     name "my conference"
   end 
@@ -9,10 +26,6 @@ FactoryGirl.define do
     nba_conference  :factory => :nba_conference
   end 
   
-  factory :nba_team do
-    city      :Boston
-    mascot    :Celtics
-  end 
 
   factory :pickem_pool do
     sequence :name do |n|
