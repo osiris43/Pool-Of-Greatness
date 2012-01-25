@@ -29,6 +29,11 @@ describe NbaGame do
     NbaGame.new(@attr.merge(:season => "")).should_not be_valid
   end
 
+  it "creates url location" do
+    game = NbaGame.new(@attr)
+    game.url.should == "http://www.nba.com/games/20111225/DALBOS/gameinfo.html"
+  end
+
   describe "parsing functionality" do
     before(:each) do
       @html = open('spec/models/gameline.html') { |f| Hpricot(f)} 

@@ -3,7 +3,8 @@ require 'hpricot'
 
 describe NbaPlayer do
   before(:each) do
-    @attr = {:firstname => 'Dirk', :lastname => 'Allen', :position => 'Guard'}
+    @attr = {:firstname => 'Dirk', :lastname => 'Allen', :position => 'Guard', :player_url => 'test'}
+    @url = '3'
   end
 
   it "requires a lastname" do
@@ -23,22 +24,22 @@ describe NbaPlayer do
 
 
     it "can parse player firstname from html" do
-      p = NbaPlayer.parse_from_html(@html)
+      p = NbaPlayer.parse_from_html(@html, @url)
       p.firstname.should == "Ray"
     end
 
     it "can parse player lastname from html" do
-      p = NbaPlayer.parse_from_html(@html)
+      p = NbaPlayer.parse_from_html(@html, @url)
       p.lastname.should == "Allen"
     end
 
     it "can parse player position" do
-      p = NbaPlayer.parse_from_html(@html)
+      p = NbaPlayer.parse_from_html(@html, @url)
       p.position.should == "Guard"
     end
 
     it "can parse the player's team" do
-      p = NbaPlayer.parse_from_html(@html)
+      p = NbaPlayer.parse_from_html(@html, @url)
       p.nba_team.city.should == @team.city
     end
 
@@ -49,13 +50,13 @@ describe NbaPlayer do
       end
 
       it "parses single name players as last name only" do
-        p = NbaPlayer.parse_from_html(@single_name_html)
+        p = NbaPlayer.parse_from_html(@single_name_html, @url)
         p.lastname.should == 'Nene'
         p.firstname.should == ''
       end
 
       it "parses ridiculous names" do
-        p = NbaPlayer.parse_from_html(@long_name)
+        p = NbaPlayer.parse_from_html(@long_name, @url)
         p.lastname.should == 'Mbah a Moute'
         p.firstname.should == 'Luc'
       end

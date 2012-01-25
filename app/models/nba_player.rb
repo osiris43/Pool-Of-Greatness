@@ -1,10 +1,11 @@
 class NbaPlayer < ActiveRecord::Base
   belongs_to :nba_team
-
+  has_many :nba_game_player_stats
+  
   validates :lastname, :presence => true
   validates :position, :presence => true
 
-  def self.parse_from_html(html)
+  def self.parse_from_html(html, href)
     player_elements = (html/"#playerInfoPos").search("li")
     name_data = player_elements[0].inner_html.split(' ')
     position = player_elements[-1].inner_html
@@ -13,7 +14,7 @@ class NbaPlayer < ActiveRecord::Base
     firstname = get_firstname(name_data)
     logger.debug "Mascot #{mascot}"
     team = NbaTeam.find_by_mascot(mascot)
-    p = NbaPlayer.new(:firstname => firstname, :lastname => lastname, :position => position, :nba_team => team)
+    p = NbaPlayer.new(:firstname => firstname, :lastname => lastname, :position => position, :nba_team => team, :player_url => href)
     p
   end
 

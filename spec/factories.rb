@@ -25,7 +25,21 @@ FactoryGirl.define do
     name            "my division"
     nba_conference  :factory => :nba_conference
   end 
-  
+ 
+  factory :nba_player do
+    firstname   "Ray"
+    lastname    "Allen"
+    nba_team    :factory => :nbahome
+    position    "Guard"
+  end 
+
+  factory :nba_game do
+    home_team     :factory => :nbahome
+    away_team     :factory => :nbaaway
+    gamedate      '2011-12-25'
+    gametime      '12:00:00 PM ET'
+    season        '2011-2012' 
+  end
 
   factory :pickem_pool do
     sequence :name do |n|

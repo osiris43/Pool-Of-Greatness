@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119204147) do
+ActiveRecord::Schema.define(:version => 20120124212325) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -97,6 +97,29 @@ ActiveRecord::Schema.define(:version => 20120119204147) do
     t.datetime "updated_at"
   end
 
+  create_table "nba_game_player_stats", :force => true do |t|
+    t.integer  "nba_game_id"
+    t.integer  "nba_player_id"
+    t.integer  "minutes"
+    t.integer  "seconds"
+    t.integer  "FGM"
+    t.integer  "FGA"
+    t.integer  "threePM"
+    t.integer  "threePA"
+    t.integer  "FTM"
+    t.integer  "FTA"
+    t.integer  "ORB"
+    t.integer  "DRB"
+    t.integer  "assists"
+    t.integer  "fouls"
+    t.integer  "steals"
+    t.integer  "turnovers"
+    t.integer  "blocks"
+    t.integer  "points"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nba_games", :force => true do |t|
     t.integer  "home_team_id"
     t.integer  "away_team_id"
@@ -114,6 +137,16 @@ ActiveRecord::Schema.define(:version => 20120119204147) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "position"
+    t.string   "player_url"
+  end
+
+  create_table "nba_stat_import_errors", :force => true do |t|
+    t.string   "href"
+    t.integer  "nba_team_id"
+    t.string   "player_name"
+    t.integer  "nba_game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "nba_teams", :force => true do |t|

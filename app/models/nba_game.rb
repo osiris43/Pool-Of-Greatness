@@ -18,4 +18,8 @@ class NbaGame < ActiveRecord::Base
     NbaGame.new(:away_team => away, :home_team => home, :gamedate => game_date, :gametime => Time.parse(gt), :season => "2011-2012")
 
   end
+
+  def url
+    "http://www.nba.com/games/#{gamedate.strftime('%Y%m%d')}/#{away_team.abbreviation}#{home_team.abbreviation}/gameinfo.html"
+  end
 end

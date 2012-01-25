@@ -9,10 +9,12 @@ class NbaPlayerScraper
          next
       end
 
-      player_file = open("http://www.nba.com/" + player['href']) { |f| Hpricot(f)}
+      if(NbaPlayer.find_by_player_url(player['href']).nil?)
+        player_file = open("http://www.nba.com/" + player['href']) { |f| Hpricot(f)}
 
-      p = NbaPlayer.parse_from_html(player_file)
-      p.save
+        p = NbaPlayer.parse_from_html(player_file, player['href'])
+        p.save
+      end
 
     end 
   end
