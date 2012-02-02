@@ -875,3 +875,18 @@ td.bowl_pool_cell {
   padding: 4px;
 }
 
+.nbaGamePreview{
+  border: 1px solid black;
+  padding: 5px;
+  
+}
+
+.nbaGamePreviewTeam{
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.nbaScoreboard{
+  background: #E3DEE0;
+  margin: 5px 0;
+}

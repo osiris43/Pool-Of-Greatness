@@ -36,9 +36,23 @@ FactoryGirl.define do
   factory :nba_game do
     home_team     :factory => :nbahome
     away_team     :factory => :nbaaway
-    gamedate      '2011-12-25'
-    gametime      '12:00:00 PM ET'
-    season        '2011-2012' 
+    score         :factory => :nba_game_score 
+    season       "2011-2012"
+    gamedate      Date.current
+    gametime      Time.current
+  end
+
+  factory :nba_game_score do
+    away_first_q    1
+    away_second_q   2
+    away_third_q    3
+    away_fourth_q   4
+    away_overtime   5
+    home_first_q    6
+    home_second_q   7
+    home_third_q    8
+    home_fourth_q   9
+    home_overtime   10
   end
 
   factory :pickem_pool do

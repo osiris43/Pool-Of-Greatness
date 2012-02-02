@@ -57,4 +57,27 @@ describe NbaGame do
       game.gametime.should == Time.parse("12:00:00 PM ET")
     end
   end
+
+  describe "scoring" do
+    before(:each) do
+      @game = Factory(:nba_game)
+    end
+
+    it "responds to away score" do
+      @game.should respond_to(:away_score)
+    end
+
+    it "has an away score" do
+      @game.away_score.should == 15 
+    end
+
+    it "responds to home score" do
+      @game.should respond_to(:home_score)
+    end
+
+    it "has an home score" do
+      @game.home_score.should == 40 
+    end
+
+  end
 end

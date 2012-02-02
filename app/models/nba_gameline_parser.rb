@@ -33,6 +33,7 @@ class NbaGamelineParser
     Date.parse(get_game_href(game).split('/')[2])
   end
 
+
   private 
     def get_location
       schedule_date = Date.current - 1

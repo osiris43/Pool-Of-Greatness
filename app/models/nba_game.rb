@@ -3,10 +3,32 @@ class NbaGame < ActiveRecord::Base
 
   belongs_to :away_team, :foreign_key => 'away_team_id', :class_name => 'NbaTeam'
   belongs_to :home_team, :foreign_key => 'home_team_id', :class_name => 'NbaTeam'
+  has_one :score, :class_name => 'NbaGameScore'
 
   validates :gamedate, :presence => true
   validates :gametime, :presence => true
   validates :season, :presence => true
+
+  def away_score
+    score.away_total
+  end
+
+  def home_score
+    score.home_total
+  end
+
+  def team_score(team)
+    if(team.id == away_team.id)
+      puts "#{team.display_name}\t#{away_team.display_name}\t#{home_team.display_name}" 
+      return away_score
+    elsif(team.id == home_team.id)
+      puts home_score 
+      return home_score
+    else
+      return nil
+    end
+  end
+
 
   def self.parse_from_html(html, game_date)
     away_abbv = (html/'.nbaModTopTeamAw').first.search(".nbaModTopTeamName").inner_html

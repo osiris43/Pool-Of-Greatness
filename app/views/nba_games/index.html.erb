@@ -1,18 +1,23 @@
 <div class="container_12">
   <%= render "shared/flashpartial" %>
 
-  <%= form_tag(scrape_all_nba_games_path, :method => "post") do %>
-    <div class="field">
-      <%= label_tag :begin_date %><br />
-      <%= text_field_tag :begin_date %>
+  <div class="nbaScoreboard grid_12">
+    <div class="grid_4"> 
+      <h1>Scoreboard</h1>
+      <div><%= "Scores for #{@date.strftime("%A %B %d, %Y")}" %></div>
     </div>
-    <div class="field">
-      <%= label_tag :end_date %><br />
-      <%= text_field_tag :end_date %>
+    <div class="grid_4 nbaScoreboard">
+      afe 
     </div>
-    <div class="actions">
-      <%= submit_tag("Scrape") %>
-    </div>
-
-  <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="grid_12">
+    <% @games.each do |game| %>
+      <div class="nbaGamePreview">
+        <div class="nbaGamePreviewTeam"><%= game.away_team.display_name %></div>
+        <div class="nbaGamePreviewTeam"><%= game.home_team.display_name %></div>
+        <%= link_to "Preview", nba_game_path(game) %> 
+      </div>
+    <% end %>
+  </div>
 </div>

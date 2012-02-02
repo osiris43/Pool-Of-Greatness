@@ -19,6 +19,7 @@ class NbaGameline
       local_game = NbaGame.where('home_team_id = ? AND gamedate = ?', home_team.id, schedule_date).first
 
       page = NbaGamePage.new("http://www.nba.com/#{@gl_parser.get_game_href(game)}")
+      add_scores(local_game, page)
       page.boxscore.home_stats.each do |stat|
         if(stat.minutes == 0 and stat.seconds == 0)
           next
@@ -36,6 +37,38 @@ class NbaGameline
       end
 
     end
+  end
+
+  def add_scores(game, page)
+    if(game.score.nil?)
+      game.score = NbaGameScore.new
+    end
+
+    away_scores = page.scores_by_team('away')
+    home_scores = page.scores_by_team('home')
+
+    game.score.away_first_q = away_scores[0]
+    game.score.away_second_q = away_scores[1]
+    game.score.away_third_q = away_scores[2]
+    game.score.away_fourth_q = away_scores[3]
+    game.score.home_first_q = home_scores[0]
+    game.score.home_second_q = home_scores[1]
+    game.score.home_third_q = home_scores[2]
+    game.score.home_fourth_q = home_scores[3]
+     
+    if(away_scores.length > 4)
+      game.score.away_overtime = away_scores[4..-1].inject{|sum,x| sum+x}
+    else
+      game.score.away_overtime = 0
+    end 
+    
+    if(home_scores.length > 4)
+      game.score.home_overtime = home_scores[4..-1].inject{|sum,x| sum+x}
+    else
+      game.score.home_overtime = 0
+    end 
+
+    game.score.save
   end
 
   def process_stat(stat, team, game_element, nbagame)

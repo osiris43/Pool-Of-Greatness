@@ -10,6 +10,7 @@ Poolofgreatness::Application.routes.draw do
   
   resources :nba_games do
     collection do
+      get 'scrape'
       post 'scrape_all'
     end
   end

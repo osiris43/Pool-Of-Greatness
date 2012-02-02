@@ -23,4 +23,37 @@ describe NbaTeam do
     NbaTeam.new(@attr).should respond_to(:abbreviation)
   end
 
+  it "shows full team name" do
+    team = NbaTeam.new(@attr)
+    team.display_name.should == "Dallas Mavericks"
+  end
+
+  describe "statistics" do
+    before(:each) do
+      @team = NbaTeam.new(@attr)
+      @game = Factory(:nba_game, :gametime => Time.current, :gamedate => Date.current)
+    end
+
+    it "has a points per game attribute" do
+      @team.should respond_to(:points_per_game)
+    end
+
+    it "calculates points per game" do
+      @game.home_team.id.should_not == @game.away_team.id
+      @game.home_team.points_per_game(@game.gamedate + 1).should == 40.0 
+    end
+
+    it "calculates current defensive points modifier" do
+      @game1 = Factory(:nba_game, :gamedate => Date.current - 2, :gametime => Time.current, 
+                                        :season => '2011-2012', :away_team => @game.away_team,
+                                        :home_team => @game.home_team)
+      @game2 = Factory(:nba_game, :gamedate => Date.current - 1, :gametime => Time.current, 
+                                        :season => '2011-2012', :away_team => @game.away_team,
+                                        :home_team => @game.home_team)
+      @game1.score.create!(:away_first_q => 10, :home_first_q => 20) 
+      @game2.score.create!(:away_first_q => 20, :home_first_q => 20) 
+
+      #@game.home_team.defensive_points_mod.should == 1.5
+    end
+  end
 end

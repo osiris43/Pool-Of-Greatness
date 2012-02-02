@@ -1,5 +1,22 @@
 class NbaGamesController < ApplicationController
   def index
+    @title = "Schedule"
+    if(!params[:schedule_date].nil?)
+      @date = Date.parse(params[:schedule_date])
+    else
+      @date = Date.current
+    end
+
+    @games = NbaGame.where("gamedate = ?", @date).all
+  end
+
+  def show
+    @game = NbaGame.find(params[:id])
+    @title = "#{@game.away_team.abbreviation} v. #{@game.home_team.abbreviation}"
+  end
+
+  def scrape
+
   end
 
   def scrape_all

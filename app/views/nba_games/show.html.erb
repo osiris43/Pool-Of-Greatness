@@ -1,0 +1,19 @@
+<div class="container_12">
+  <%= render "shared/flashpartial" %>
+  <h1><%= page_header %></h1>
+
+  <div class="grid_6">
+    <ul>
+      <li><%= "#{@game.away_team.abbreviation} PPG: #{@game.away_team.points_per_game}" %></li>
+      <li><%= "#{@game.away_team.abbreviation} Defensive Modifier: #{@game.away_team.defensive_points_mod}" %></li>
+    </ul>
+  </div>
+  <div class="grid_6">
+    <ul>
+      <li><%= "#{@game.home_team.abbreviation} PPG: #{@game.home_team.points_per_game}" %></li>
+      <li><%= "#{@game.home_team.abbreviation} Defensive Modifier: #{@game.home_team.defensive_points_mod}" %></li>
+    </ul>
+  </div>
+
+</div>
+

@@ -1,0 +1,27 @@
+<div class="container_12">
+  <%= render 'shared/flashpartial' %>
+
+  <%= form_for(@player) do |f| %>
+    <div class="field">
+      <%= f.label :firstname %><br />
+      <%= f.text_field :firstname %>
+    </div>
+    <div class="field">
+      <%= f.label :lastname %><br />
+      <%= f.text_field :lastname %>
+    </div>
+    <div class="field">
+      <%= f.label :nba_team %><br />
+      <%= f.select(:nba_team_id, NbaTeam.all.collect {|c| [[c.city, c.mascot].join(' '), c.id]},{ :prompt => true}) %><br /> 
+    </div>
+    <div class="field">
+      <%= f.label :position %><br />
+      <%= f.text_field :position %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+</div>
+
