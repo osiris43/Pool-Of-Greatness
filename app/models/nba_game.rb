@@ -10,11 +10,11 @@ class NbaGame < ActiveRecord::Base
   validates :season, :presence => true
 
   def away_score
-    score.away_total
+    score.nil? ? 0 : score.away_total
   end
 
   def home_score
-    score.home_total
+    score.nil? ? 0 : score.home_total
   end
 
   def team_score(team)

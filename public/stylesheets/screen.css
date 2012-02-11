@@ -890,3 +890,78 @@ td.bowl_pool_cell {
   background: #E3DEE0;
   margin: 5px 0;
 }
+
+.prev {
+  text-decoration: none;
+  line-height: 50px;
+  background: url('/images/previous_arrow.png') 0 50% repeat-x;
+}
+
+div.calendar {
+  width: 100%;
+}
+
+span.daynumber-text{
+  color:#3b3b3b;
+}
+
+span.gamescount-text {
+  line-height: 10px;
+  color:#3b3b3b;
+  font:400 9px/11px verdana,helvetica,sans-serif;
+}
+
+span.dayname-text{
+  color:#225db7;
+  font:700 12px/24px verdana,helvetica,sans-serif;
+  line-height: 12px;
+}
+
+div.calendar_container{
+  float:left;
+  overflow:hidden;
+  position: relative;
+
+}
+
+div.calendar_container ul{
+  float:left;
+  white-space:nowrap;
+  padding-left:1px
+} 
+
+div.calendar_container ul li {
+  display:inline;
+  float:left;
+  padding-top:10px
+}
+
+div.calendar_container ul li a {
+  position:relative;
+  border:1px solid #a5a5a5;
+  margin-left:-1px;
+  text-align:center;
+  display:block;
+  width:42px;
+  height:50px;
+  text-decoration:none;
+  background:#fff 
+}
+
+div.calendar_container ul li a.visited {
+  
+}
+div.calendar_container ul li a span {
+  display:block
+}
+
+div.calendar_container ul li.key {
+  position:relative;
+  z-index:5
+}
+
+div.calendar_container ul li.current {
+  background: red;
+  padding-top: 0px;
+  height: 60px;
+}

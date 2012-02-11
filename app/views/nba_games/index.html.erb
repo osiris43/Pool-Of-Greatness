@@ -1,23 +1,47 @@
 <div class="container_12">
   <%= render "shared/flashpartial" %>
 
-  <div class="nbaScoreboard grid_12">
+  <div class="nbaScoreboard">
     <div class="grid_4"> 
       <h1>Scoreboard</h1>
       <div><%= "Scores for #{@date.strftime("%A %B %d, %Y")}" %></div>
     </div>
-    <div class="grid_4 nbaScoreboard">
-      afe 
+    <div class="grid_8">
+      <div class="calendar_container" >
+        <div id="calendar">
+          <a href="#"><%= image_tag('/images/previous_arrow.png') %></a>
+          <ul></ul>
+        </div>
+      </div>
     </div>
   </div>
   <div class="clear"></div>
   <div class="grid_12">
     <% @games.each do |game| %>
-      <div class="nbaGamePreview">
-        <div class="nbaGamePreviewTeam"><%= game.away_team.display_name %></div>
-        <div class="nbaGamePreviewTeam"><%= game.home_team.display_name %></div>
-        <%= link_to "Preview", nba_game_path(game) %> 
-      </div>
+      <table>
+        <div class="nbaGamePreview">
+          <tr>
+            <td><div class="nbaGamePreviewTeam"><%= game.away_team.mascot %></div></td>
+            <td class="nba_team_score"><span><%= team_score(game.away_team, game) %></span></td>
+          </tr>
+          <tr>
+            <td><div class="nbaGamePreviewTeam"><%= game.home_team.mascot %></div></td>
+            <td class="nba_team_score"><span><%= team_score(game.home_team, game) %></span></td>
+          </tr>
+          <%= link_to "Preview", nba_game_path(game) %> 
+        </div>
+      </table>
     <% end %>
   </div>
 </div>
+<script type="text/template" id="gamedate-template">
+  <a href="#">
+    <span class="dayname-text"></span>
+    <span class="daynumber-text"></span>
+    <span class="gamescount-text"></span>
+  </a>
+</script>
+<script type="text/javascript">
+  $(function() {CalendarApp.start(); })
+</script>
+
