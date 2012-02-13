@@ -891,12 +891,6 @@ td.bowl_pool_cell {
   margin: 5px 0;
 }
 
-.prev {
-  text-decoration: none;
-  line-height: 50px;
-  background: url('/images/previous_arrow.png') 0 50% repeat-x;
-}
-
 div.calendar {
   width: 100%;
 }
@@ -961,7 +955,22 @@ div.calendar_container ul li.key {
 }
 
 div.calendar_container ul li.current {
-  background: red;
-  padding-top: 0px;
+  padding-top: 0;
+}
+
+div.calendar_container ul li.current a {
   height: 60px;
+}
+
+div.calendar_container ul li.current a span.day{padding-top:10px}
+
+div.calendar_container ul li.current a span.date{color:#6d6d6d}
+
+div.calendar_container a.prev {
+  text-decoration:none;
+  width:20px;
+  margin:0 5px;
+  float:left;
+  line-height:70px;
+  background: transparent url('/images/previous_arrow.png') 0 50% no-repeat;
 }
