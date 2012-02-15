@@ -21,8 +21,8 @@ describe NbaGamesController do
 
     it "shows today's games" do
       get 'index'
-      response.should have_selector("div", :content => "Dallas Mavericks")
-      response.should have_selector("div", :content => "Boston Celtics")
+      response.should have_selector("div", :content => "Mavericks")
+      response.should have_selector("div", :content => "Celtics")
     end
 
     it "has a preview button" do
