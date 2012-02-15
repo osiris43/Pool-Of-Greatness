@@ -28,7 +28,11 @@
             <td><div class="nbaGamePreviewTeam"><%= game.home_team.mascot %></div></td>
             <td class="nba_team_score"><span><%= team_score(game.home_team, game) %></span></td>
           </tr>
-          <%= link_to "Preview", nba_game_path(game) %> 
+          <% if(team_score(game.home_team, game) > 0) %>
+            <%= link_to "Recap", nba_game_path(game) %> 
+          <% else %>
+            <%= link_to "Preview", nba_game_path(game) %> 
+          <% end %>
         </div>
       </table>
     <% end %>

@@ -974,3 +974,15 @@ div.calendar_container a.prev {
   line-height:70px;
   background: transparent url('/images/previous_arrow.png') 0 50% no-repeat;
 }
+
+div.game-scoreboard {
+
+}
+
+div.game-scoreboard tr.scoreboard-header {
+  background: #C7C3C5;
+}
+
+div.game-scoreboard td, div.game-scoreboard th {
+  padding: 2px 5px;
+}

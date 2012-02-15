@@ -5,6 +5,10 @@ class NbaPlayer < ActiveRecord::Base
   validates :lastname, :presence => true
   validates :position, :presence => true
 
+  def display_name
+    "#{firstname} #{lastname}"
+  end
+
   def self.parse_from_html(html, href)
     player_elements = (html/"#playerInfoPos").search("li")
     name_data = player_elements[0].inner_html.split(' ')

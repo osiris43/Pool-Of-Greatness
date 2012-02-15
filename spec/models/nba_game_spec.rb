@@ -79,5 +79,20 @@ describe NbaGame do
       @game.home_score.should == 40 
     end
 
+    it "responds to overtime attribute" do
+      @game.should respond_to(:overtime?)
+    end
+
+    it "returns true for an overtime game" do
+      @game.overtime?.should be_true
+    end
+
+    it "responds to played attribute" do
+      @game.should respond_to(:played?)
+    end
+
+    it "returns true for a played game" do
+      @game.played?.should be_true
+    end
   end
 end

@@ -1,0 +1,9 @@
+<div class="container_12">
+  <ul>
+    <li><%= "Player: #{@player.display_name}" %></li>
+    <li><%= "Team: #{@player.nba_team.display_name}" %></li>
+    <li><%= "Position: #{@player.position}" %></li> 
+    <li><%= "URL: #{@player.player_url}" %></li> 
+  </ul>
+  <%= link_to "Edit", edit_nba_player_path(@player) %>
+</div>

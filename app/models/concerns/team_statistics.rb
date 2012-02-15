@@ -4,7 +4,7 @@ module TeamStatistics
     points = 0
 
     games.each do |g|
-      puts "Away: #{g.away_team.display_name}\tHome: #{g.home_team.display_name}"
+      # puts "Away: #{g.away_team.display_name}\tHome: #{g.home_team.display_name}"
       points += g.team_score(team)
       scored_games += 1
     end

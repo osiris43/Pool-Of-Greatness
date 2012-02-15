@@ -81,7 +81,6 @@ CalendarApp.ScheduleView = Backbone.View.extend({
   },
 
   render: function(){
-    console.log("inside ScheduleView.render");
     var today = new Date();
     var sunday = today.getDate() - today.getDay();
     var beginWeek = new Date(today.getFullYear(), today.getMonth(), sunday);

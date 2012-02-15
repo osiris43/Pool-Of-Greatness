@@ -1,7 +1,8 @@
 <div class="container_12">
-  <%= render 'shared/flashpartial' %>
+  <h1>Edit player</h1>
 
   <%= form_for(@player) do |f| %>
+    <%= render 'shared/flashpartial', :object => f.object %>
     <div class="field">
       <%= f.label :firstname %><br />
       <%= f.text_field :firstname %>
@@ -23,9 +24,7 @@
       <%= f.text_field :player_url %>
     </div>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit "Update" %>
     </div>
   <% end %>
-
 </div>
-

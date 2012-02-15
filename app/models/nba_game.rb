@@ -17,6 +17,20 @@ class NbaGame < ActiveRecord::Base
     score.nil? ? 0 : score.home_total
   end
 
+  def overtime?
+    if(score.nil?)
+      false
+    elsif(score.away_overtime > 0 || score.home_overtime > 0)
+      true
+    else
+      false
+    end
+  end
+
+  def played?
+    !score.nil?
+  end
+
   def team_score(team)
     if(team.id == away_team.id)
       puts "#{team.display_name}\t#{away_team.display_name}\t#{home_team.display_name}" 

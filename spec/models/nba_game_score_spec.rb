@@ -22,4 +22,8 @@ describe NbaGameScore do
     score.home_total.should == 40 
   end
 
+  it "has an away first quarter score" do
+    score = NbaGameScore.new(@attr)
+    score.away_first_q.should == 1 
+  end
 end
