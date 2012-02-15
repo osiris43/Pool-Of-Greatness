@@ -1,0 +1,41 @@
+<div class="grid_12 game-scoreboard">
+  <table>
+    <tr class="scoreboard-header">
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <% if(@game.overtime?) %>
+        <th>OT</th>
+      <% end %>
+      <th>T</th>
+    </tr>
+    <tr>
+      <td><%= @game.away_team.abbreviation %></td>
+      <td><%= @game.score.away_first_q %></td>
+      <td><%= @game.score.away_second_q %></td>
+      <td><%= @game.score.away_third_q %></td>
+      <td><%= @game.score.away_fourth_q %></td>
+      <% if(@game.overtime?) %>
+        <td><%= @game.score.away_overtime %></td>
+      <% end %>
+      <td><%= @game.score.away_total %></td>
+    </tr>
+    <tr>
+      <td><%= @game.home_team.abbreviation %></td>
+      <td><%= @game.score.home_first_q %></td>
+      <td><%= @game.score.home_second_q %></td>
+      <td><%= @game.score.home_third_q %></td>
+      <td><%= @game.score.home_fourth_q %></td>
+      <% if(@game.overtime?) %>
+        <td><%= @game.score.home_overtime %></td>
+      <% end %>
+
+      <td><%= @game.score.home_total %></td>
+    </tr>
+
+  </table>
+
+</div>
+

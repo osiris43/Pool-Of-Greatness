@@ -2,16 +2,30 @@
   <%= render "shared/flashpartial" %>
   <h1><%= page_header %></h1>
 
+  <% if(@game.played?) %>
+    <%= render "scoreboard" %>
+  <% end %>
+  <div class="clear"></div>
   <div class="grid_6">
+    <% away_ppg = @game.away_team.points_per_game(@game.gamedate, 'away') %>
+    <% home_def = @game.home_team.defensive_points_mod(@game.gamedate, 'home') %>
+    <% home_ppg = @game.home_team.points_per_game(@game.gamedate, 'home') %>
+    <% away_def = @game.away_team.defensive_points_mod(@game.gamedate, 'away') %>
     <ul>
-      <li><%= "#{@game.away_team.abbreviation} PPG: #{@game.away_team.points_per_game}" %></li>
-      <li><%= "#{@game.away_team.abbreviation} Defensive Modifier: #{@game.away_team.defensive_points_mod}" %></li>
+      <li><%= "#{@game.away_team.abbreviation} PPG: #{'%.4f' % @game.away_team.points_per_game(@game.gamedate)}" %></li>
+      <li><%= "#{@game.away_team.abbreviation} Away PPG: #{'%.4f' % away_ppg}" %></li> 
+      <li><%= "#{@game.away_team.abbreviation} Defensive Modifier: #{'%.4f' % @game.away_team.defensive_points_mod(@game.gamedate)}" %></li>
+      <li><%= "#{@game.away_team.abbreviation} Away Def Modifier: #{'%.4f' % @game.away_team.defensive_points_mod(@game.gamedate, 'away')}" %></li>
+      <li><%= "#{@game.away_team.abbreviation} Projected Points: #{'%.4f' % (away_ppg * home_def)}" %></li>
     </ul>
   </div>
   <div class="grid_6">
     <ul>
-      <li><%= "#{@game.home_team.abbreviation} PPG: #{@game.home_team.points_per_game}" %></li>
-      <li><%= "#{@game.home_team.abbreviation} Defensive Modifier: #{@game.home_team.defensive_points_mod}" %></li>
+      <li><%= "#{@game.home_team.abbreviation} PPG: #{'%.4f' % @game.home_team.points_per_game(@game.gamedate)}" %></li>
+      <li><%= "#{@game.home_team.abbreviation} Home PPG: #{'%.4f' % @game.home_team.points_per_game(@game.gamedate, 'home')}" %></li>
+      <li><%= "#{@game.home_team.abbreviation} Defensive Modifier: #{'%.4f' % @game.home_team.defensive_points_mod(@game.gamedate)}" %></li>
+      <li><%= "#{@game.home_team.abbreviation} Home Def Modifier: #{'%.4f' % home_def}" %></li> 
+      <li><%= "#{@game.home_team.abbreviation} Projected Points: #{'%.4f' % (home_ppg * away_def)}" %></li>
     </ul>
   </div>
 

@@ -18,7 +18,28 @@ class NbaPlayersController < ApplicationController
                       :notice => "Player save failed"}
       end
     end
+  end
 
+  def edit
+    @title = "Edit player"
+    @player = NbaPlayer.find(params[:id])
+  end
+
+  def update
+    @player = NbaPlayer.find(params[:id])
+    if @player.update_attributes(params[:nba_player])
+      flash[:success] = "Player updated."
+      redirect_to @player
+    else
+      @title = "Edit player"
+      render 'edit'
+    end
+  end
+
+  def show
+    @player= NbaPlayer.find(params[:id])
+    @title = @player.display_name
+    
   end
 
   def scrape_all

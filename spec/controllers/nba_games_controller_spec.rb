@@ -25,9 +25,9 @@ describe NbaGamesController do
       response.should have_selector("div", :content => "Celtics")
     end
 
-    it "has a preview button" do
+    it "has a recap button" do
       get 'index'
-      response.should have_selector("a", :content => "Preview", 
+      response.should have_selector("a", :content => "Recap", 
                                     :href => nba_game_path(@game.id))
     end
   end
