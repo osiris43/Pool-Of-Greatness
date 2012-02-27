@@ -1,5 +1,6 @@
 class NbaTeam < ActiveRecord::Base
   include TeamStatistics
+  include LeagueStatistics
 
   belongs_to :nba_division
   has_many :nba_players
@@ -16,7 +17,7 @@ class NbaTeam < ActiveRecord::Base
 
     if(loc=='all')
       games = away_games.clone
-      games.concat(home_games)
+      games.concat(home_games.clone)
       ppg = PPG(games.select{|g| g.gamedate < game_date}, self)
     elsif(loc=='home')
       ppg = PPG(home_games.select{|g| g.gamedate < game_date}, self)
@@ -41,6 +42,14 @@ class NbaTeam < ActiveRecord::Base
     
     points_allowed.inject{|sum,x| sum+x} / points_allowed.length
     
+  end
+
+  def lp(season=nil, date=nil)
+    league_pace(season, date)
+  end
+
+  def tp(season=nil, date=nil)
+    team_pace(self.id, season, date)
   end
 
   private

@@ -14,6 +14,28 @@ module TeamStatistics
     else
       points / scored_games
     end
+  end
 
+  def team_pace(team_id, season=nil, gamedate=nil)
+    if(season.nil?)
+      season = Configuration.find_by_key('CurrentNbaSeason').value
+    end
+
+    if(gamedate.nil?)
+      gamedate = Date.current
+    end
+    
+    query = NbaGamePlayerStat.joins(:nba_game, :nba_player => :nba_team).where('nba_games.season = ? AND nba_games.gamedate < ? AND nba_teams.id = ?', season, gamedate,team_id )
+    fga = query.sum('FGA')
+    to = query.sum('turnovers')
+    orebs = query.sum('ORB')
+    fta = query.sum('FTA') 
+
+    games = NbaGame.where('gamedate < ? and (away_team_id = ? or home_team_id = ?)', gamedate, team_id, team_id).count 
+    puts "games: #{games}"
+
+    possessions = fga + to - orebs + (fta * 0.44)
+
+    possessions / games 
   end
 end

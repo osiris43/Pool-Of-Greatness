@@ -4,6 +4,7 @@ class NbaGame < ActiveRecord::Base
   belongs_to :away_team, :foreign_key => 'away_team_id', :class_name => 'NbaTeam'
   belongs_to :home_team, :foreign_key => 'home_team_id', :class_name => 'NbaTeam'
   has_one :score, :class_name => 'NbaGameScore'
+  has_many :nba_game_team_stats
 
   validates :gamedate, :presence => true
   validates :gametime, :presence => true
@@ -15,20 +16,6 @@ class NbaGame < ActiveRecord::Base
 
   def home_score
     score.nil? ? 0 : score.home_total
-  end
-
-  def overtime?
-    if(score.nil?)
-      false
-    elsif(score.away_overtime > 0 || score.home_overtime > 0)
-      true
-    else
-      false
-    end
-  end
-
-  def played?
-    !score.nil?
   end
 
   def team_score(team)
@@ -43,6 +30,13 @@ class NbaGame < ActiveRecord::Base
     end
   end
 
+  def overtime?
+    score.nil? ? false : (score.away_overtime + score.home_overtime > 0)
+  end
+
+  def played?
+    score.nil? ? false : (score.away_total + score.home_total > 0)
+  end
 
   def self.parse_from_html(html, game_date)
     away_abbv = (html/'.nbaModTopTeamAw').first.search(".nbaModTopTeamName").inner_html

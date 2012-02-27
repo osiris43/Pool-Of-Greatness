@@ -986,3 +986,18 @@ div.game-scoreboard tr.scoreboard-header {
 div.game-scoreboard td, div.game-scoreboard th {
   padding: 2px 5px;
 }
+
+div.team-defensive-stats{
+
+}
+
+div#team-defensive-stats th {
+  background: #3c39ba;
+  font: 700 12px/24px verdana,helvetica,sans-serif;
+  color: #fff;
+  padding: 0 5px;
+}
+
+div#team-defensive-stats td {
+  padding: 0 5px;
+}

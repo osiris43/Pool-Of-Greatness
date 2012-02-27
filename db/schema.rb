@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125232354) do
+ActiveRecord::Schema.define(:version => 20120224181115) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -132,6 +132,27 @@ ActiveRecord::Schema.define(:version => 20120125232354) do
     t.integer  "home_third_q"
     t.integer  "home_fourth_q"
     t.integer  "home_overtime"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "nba_game_team_stats", :force => true do |t|
+    t.integer  "nba_game_id"
+    t.integer  "nba_team_id"
+    t.integer  "FGM"
+    t.integer  "FGA"
+    t.integer  "threePM"
+    t.integer  "threePA"
+    t.integer  "FTM"
+    t.integer  "FTA"
+    t.integer  "ORB"
+    t.integer  "TRB"
+    t.integer  "assists"
+    t.integer  "turnovers"
+    t.integer  "steals"
+    t.integer  "blocks"
+    t.integer  "fast_break_points"
+    t.integer  "fouls"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
