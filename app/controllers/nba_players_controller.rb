@@ -1,4 +1,7 @@
 class NbaPlayersController < ApplicationController
+  before_filter :login_required, :except => [:index, :show]
+  before_filter :admin_user, :except => [:index, :show]
+  
   def index
   end
 
@@ -52,5 +55,11 @@ class NbaPlayersController < ApplicationController
     end 
 
   end
+
+  private
+    def admin_user
+      redirect_to(current_user) unless current_user.admin?
+    end
+
 
 end
