@@ -1,4 +1,6 @@
 class NbaPlayer < ActiveRecord::Base
+  include NbaPlayerStatistics
+
   belongs_to :nba_team
   has_many :nba_game_player_stats
   
@@ -7,6 +9,10 @@ class NbaPlayer < ActiveRecord::Base
 
   def display_name
     "#{firstname} #{lastname}"
+  end
+
+  def per(season=nil, gamedate=nil)
+    efficiency(self.id,season, gamedate) 
   end
 
   def self.parse_from_html(html, href)

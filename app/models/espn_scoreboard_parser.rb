@@ -32,7 +32,8 @@ class EspnScoreboardParser
                               :steals => parser.game_stats["away steals"],
                               :blocks => parser.game_stats["away blocks"],
                               :fast_break_points => parser.game_stats["away fast break points"],
-                              :fouls => parser.game_stats["away fouls (tech/flagrant)"])
+                              :fouls => parser.game_stats["away fouls"],
+                              :minutes => parser.game_stats["minutes"])
         home_stat = nba_game.nba_game_team_stats.find_by_nba_team_id(home_team.id)
         home_stat.update_attributes(:nba_game => nba_game, :nba_team => home_team, 
                                 :FGM => parser.game_stats["home_fg_made"],
@@ -48,7 +49,8 @@ class EspnScoreboardParser
                                 :steals => parser.game_stats["home steals"],
                                 :blocks => parser.game_stats["home blocks"],
                                 :fast_break_points => parser.game_stats["home fast break points"],
-                                :fouls => parser.game_stats["home fouls (tech/flagrant)"])
+                                :fouls => parser.game_stats["home fouls"],
+                                :minutes => parser.game_stats["minutes"])
 
       else
         NbaGameTeamStat.create!(:nba_game => nba_game, :nba_team => away_team, 
@@ -65,7 +67,8 @@ class EspnScoreboardParser
                                 :steals => parser.game_stats["away steals"],
                                 :blocks => parser.game_stats["away blocks"],
                                 :fast_break_points => parser.game_stats["away fast break points"],
-                                :fouls => parser.game_stats["away fouls (tech/flagrant)"])
+                                :fouls => parser.game_stats["away fouls"],
+                                :minutes => parser.game_stats["minutes"])
         
         NbaGameTeamStat.create!(:nba_game => nba_game, :nba_team => home_team, 
                                 :FGM => parser.game_stats["home_fg_made"],
@@ -81,7 +84,8 @@ class EspnScoreboardParser
                                 :steals => parser.game_stats["home steals"],
                                 :blocks => parser.game_stats["home blocks"],
                                 :fast_break_points => parser.game_stats["home fast break points"],
-                                :fouls => parser.game_stats["home fouls (tech/flagrant)"])
+                                :fouls => parser.game_stats["home fouls"],
+                                :minutes => parser.game_stats["minutes"])
         
       end
 
@@ -90,7 +94,7 @@ class EspnScoreboardParser
   end
   
   def games
-    @scoreboard.search("//div[@class='recap-headline']")
+    @scoreboard.search("//div[@class='expand-gameLinks']")
   end
 
   private 

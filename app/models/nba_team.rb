@@ -6,7 +6,8 @@ class NbaTeam < ActiveRecord::Base
   has_many :nba_players
   has_many :home_games, :foreign_key => "home_team_id", :class_name => "NbaGame"
   has_many :away_games, :foreign_key => "away_team_id", :class_name => "NbaGame"
-  
+  has_many :nba_game_team_stats
+
   def display_name
     "#{city.capitalize} #{mascot.capitalize}"
   end
@@ -49,7 +50,7 @@ class NbaTeam < ActiveRecord::Base
   end
 
   def tp(season=nil, date=nil)
-    team_pace(self.id, season, date)
+    tm_pace(self.id, season, date)
   end
 
   private

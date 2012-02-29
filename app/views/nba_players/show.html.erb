@@ -4,6 +4,7 @@
     <li><%= "Team: #{@player.nba_team.display_name}" %></li>
     <li><%= "Position: #{@player.position}" %></li> 
     <li><%= "URL: #{@player.player_url}" %></li> 
+    <li><%= "PER: #{'%.4f' % @player.per}" %></li>
   </ul>
   <%= link_to "Edit", edit_nba_player_path(@player) %>
 </div>

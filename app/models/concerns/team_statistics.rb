@@ -16,26 +16,65 @@ module TeamStatistics
     end
   end
 
-  def team_pace(team_id, season=nil, gamedate=nil)
-    if(season.nil?)
-      season = Configuration.find_by_key('CurrentNbaSeason').value
-    end
-
-    if(gamedate.nil?)
-      gamedate = Date.current
-    end
-    
-    query = NbaGamePlayerStat.joins(:nba_game, :nba_player => :nba_team).where('nba_games.season = ? AND nba_games.gamedate < ? AND nba_teams.id = ?', season, gamedate,team_id )
+  def tm_pace(team_id, season=nil, gamedate=nil)
+    query = build_team_query(team_id, season, gamedate) 
+    season = season_default(season)
+    gamedate = gamedate_default(gamedate)
     fga = query.sum('FGA')
+    threepa = query.sum("threePA")
     to = query.sum('turnovers')
     orebs = query.sum('ORB')
     fta = query.sum('FTA') 
-
-    games = NbaGame.where('gamedate < ? and (away_team_id = ? or home_team_id = ?)', gamedate, team_id, team_id).count 
+    puts "team: #{team_id}"
+    games = NbaGame.where('season = ? AND gamedate < ? and (away_team_id = ? or home_team_id = ?)', season, gamedate, team_id, team_id).count 
     puts "games: #{games}"
 
-    possessions = fga + to - orebs + (fta * 0.44)
+    possessions = fga + threepa + to - orebs + (fta * 0.44)
 
+    puts "possessions: #{possessions}"
+    puts "turnovers: #{to}"
+    puts "ORB: #{orebs}"
+    puts "FGA: #{fga}"
+    puts "TPA: #{threepa}"
     possessions / games 
   end
+
+  def team_assists(team_id, season=nil, gamedate=nil)
+    query = build_team_query(team_id, season, gamedate)
+    
+    query.sum("assists")
+  end
+  
+  def team_field_goals(team_id, season=nil, gamedate=nil)
+    query = build_team_query(team_id, season, gamedate)
+    
+    query.sum("FGM") + query.sum("threePM")
+  end
+
+  private 
+    def build_team_query(team_id, season, gamedate)
+      season = season_default(season)
+      gamedate = gamedate_default(gamedate)
+
+      NbaGameTeamStat.joins(:nba_game, :nba_team).where("nba_games.season = ? AND nba_games.gamedate < ? AND nba_teams.id = ?", season, gamedate, team_id)
+      
+    end
+
+    def season_default(season)
+      if(season.nil?)
+        season = Configuration.find_by_key('CurrentNbaSeason').value
+      end
+
+      season
+    end
+
+    def gamedate_default(gamedate)
+      if(gamedate.nil?)
+        gamedate = Date.current
+      end
+
+      gamedate
+    end
+    
+
 end
