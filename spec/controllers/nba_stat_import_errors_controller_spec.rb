@@ -9,13 +9,13 @@ describe NbaStatImportErrorsController do
     end
 
     it "requires logged in user" do
-      delete :destroy_all
+      get :destroy_all
       response.should redirect_to(login_path)
     end
 
     it "requires admin user" do
       @controller.stubs(:current_user).returns(@user)
-      delete :destroy_all
+      get :destroy_all
       flash[:alert].should =~ /You are not authorized/i
     end
 
@@ -28,7 +28,7 @@ describe NbaStatImportErrorsController do
 
       it "destroys all import errors" do
         lambda do
-          delete :destroy_all
+          get :destroy_all
         end.should change(NbaStatImportError, :count).by(-1)
       end
     end

@@ -3,7 +3,7 @@ Poolofgreatness::Application.routes.draw do
 
   resources :nba_stat_import_errors do
     collection do
-      delete 'destroy_all'
+      get 'destroy_all'
     end
   end
 
