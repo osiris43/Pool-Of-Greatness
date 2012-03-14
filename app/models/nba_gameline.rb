@@ -106,7 +106,8 @@ class NbaGameline
                                          :steals => stat.steals,
                                          :turnovers => stat.turnovers,
                                          :blocks => stat.blocked_shots,
-                                         :points => stat.points)
+                                         :points => stat.points,
+                                         :nba_team_id => player.nba_team.id)
     else
       puts "updating a stat"
       player_stat.update_attributes(:minutes => stat.minutes,
@@ -124,7 +125,8 @@ class NbaGameline
                                          :steals => stat.steals,
                                          :turnovers => stat.turnovers,
                                          :blocks => stat.blocked_shots,
-                                         :points => stat.points)
+                                         :points => stat.points,
+                                         :nba_team_id => player.nba_team.id)
     end
   end
 
