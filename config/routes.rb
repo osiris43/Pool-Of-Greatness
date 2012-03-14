@@ -1,4 +1,12 @@
 Poolofgreatness::Application.routes.draw do
+  get "nba_stat_import_errors/show"
+
+  resources :nba_stat_import_errors do
+    collection do
+      delete 'destroy_all'
+    end
+  end
+
   resources :nba_conferences
   resources :nba_divisions
   resources :nba_teams

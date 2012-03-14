@@ -23,6 +23,13 @@ module ControllerAuthentication
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+  
+  def admin_user_required
+    unless current_user.admin?
+      store_target_location
+      redirect_to login_url, :alert => "You are not authorized for this page"
+    end
+  end
 
   def logged_in?
     current_user

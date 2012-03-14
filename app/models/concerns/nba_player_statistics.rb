@@ -26,6 +26,9 @@ module NbaPlayerStatistics
     steals = query.sum("steals")
     blocks = query.sum("blocks")
     fouls = query.sum("fouls")
+    if fouls == 0
+      fouls = 1
+    end
 
     uPer = (1/minutes.to_f) * 
       (threePM + 

@@ -113,6 +113,11 @@ FactoryGirl.define do
     underdog        :factory => :bowl_underdog
     after_create{|bowl| Factory(:bowl_season) }
   end
+
+  factory :nba_stat_import_error do
+    player_name     "Mo Cheeks" 
+    href            "/player_file/mo_cheeks.html"
+  end
 end
 
 Factory.define :user do |user|

@@ -52,4 +52,17 @@ class NbaGame < ActiveRecord::Base
   def url
     "http://www.nba.com/games/#{gamedate.strftime('%Y%m%d')}/#{away_team.abbreviation}#{home_team.abbreviation}/gameinfo.html"
   end
+
+  def possessions(team)
+    team_stat = nba_game_team_stats.where("nba_team_id = ?", team.id).first
+    opp_stat = nba_game_team_stats.where("nba_team_id != ?", team.id).first
+
+    0.5 * ((team_stat.FGA + 0.4 * team_stat.FTA - 1.07 * (team_stat.ORB / (team_stat.ORB + (opp_stat.TRB - opp_stat.ORB))) * (team_stat.FGA - team_stat.FGM) + team_stat.turnovers) + 
+            (opp_stat.FGA + 0.4 * opp_stat.FTA - 1.07 * (opp_stat.ORB / (opp_stat.ORB + (team_stat.TRB - team_stat.ORB))) * (opp_stat.FGA - opp_stat.FGM) + opp_stat.turnovers))
+  end
+
+  def stat_by_team_and_stattype(team, attr)
+    stat = nba_game_team_stats.where("nba_team_id = ?", team.id).first
+    stat[attr]
+  end
 end

@@ -95,4 +95,31 @@ describe NbaGame do
       @game.played?.should be_true
     end
   end
+
+  describe "games statistics" do
+    before(:each) do 
+      @game = Factory(:nba_game)
+      @game.nba_game_team_stats.create(:nba_team => @game.away_team, :FGM => 1, :threePM => 2, :assists => 3, :FTM => 4,
+                                      :FGA => 5, :ORB => 6, :turnovers => 7, :FTA => 8, :TRB => 9, :threePA => 10)
+      @game.nba_game_team_stats.create(:nba_team => @game.home_team, :FGM => 1, :threePM => 2, :assists => 3, :FTM => 4,
+                                      :FGA => 5, :ORB => 6, :turnovers => 7, :FTA => 8, :TRB => 9, :threePA => 10)
+
+    end
+
+    it "responds to possessions" do
+      @game.should respond_to(:possessions)
+    end
+
+    it "calculates possessions" do
+      @game.possessions(@game.away_team).round(2).should == 15.2 
+    end
+
+    it "responds to stat_by_team_and_stattype" do
+      @game.should respond_to(:stat_by_team_and_stattype)
+    end
+
+    it "returns FGA" do
+      @game.stat_by_team_and_stattype(@game.away_team, 'FGA').should == 5
+    end
+  end
 end

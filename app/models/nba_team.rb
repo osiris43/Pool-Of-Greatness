@@ -1,6 +1,7 @@
 class NbaTeam < ActiveRecord::Base
   include TeamStatistics
   include LeagueStatistics
+  include NbaHelpers
 
   belongs_to :nba_division
   has_many :nba_players
@@ -53,7 +54,38 @@ class NbaTeam < ActiveRecord::Base
     tm_pace(self.id, season, date)
   end
 
+  def possessions(season=nil, gamedate=nil)
+    season = season_default(season)
+    gamedate = gamedate_default(gamedate) 
+    tm_fga = team_fga(season, gamedate)
+    opp_fga = opponent_fga(season, gamedate)
+  end
+
   private
+    def team_fga(season, gamedate)
+      fga = 0
+      home_games.select{|hg| hg.gamedate < gamedate}.each do |g|
+        fga += g.stat_by_team_and_stattype(self, "FGA")
+      end
+      away_games.select{|ag| ag.gamedate < gamedate}.each do |g|
+        fga += g.stat_by_team_and_stattype(self, "FGA")
+      end
+
+      fga
+    end
+
+    def opponent_fga(season, gamedate)
+      fga = 0
+      home_games.select{|hg| hg.gamedate < gamedate}.each do |g|
+        fga += g.stat_by_team_and_stattype(g.away_team, "FGA")
+      end
+      away_games.select{|ag| ag.gamedate < gamedate}.each do |g|
+        fga += g.stat_by_team_and_stattype(g.home_team, "FGA")
+      end
+
+      fga
+    end
+
     def home_defensive_mod(game_date)
       points_allowed = []
       home_games.select{|hg| hg.gamedate < game_date }.each do |g|

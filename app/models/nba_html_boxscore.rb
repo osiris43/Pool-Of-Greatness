@@ -18,7 +18,7 @@ class NbaHtmlBoxscore
       e = Enumerator.new do |y|
         table.search('//tr').each do |row|
           cells = row.search('//td')
-          if(!cells.length.eql?(17) || cells[0].inner_html == "" || cells[0].inner_html == "&nbsp;" || cells[0].inner_html == 'Total')
+          if(!cells.length.eql?(17) || cells[0].inner_html == "" || cells[0].inner_html == "&nbsp;" || cells[0].inner_html == 'Total' || cells[0].inner_html == 'Totals')
             next
           end
           
