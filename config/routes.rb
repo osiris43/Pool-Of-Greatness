@@ -13,6 +13,8 @@ Poolofgreatness::Application.routes.draw do
   resources :nba_players do
     collection do
       get 'scrape_all'
+      get 'find'
+      get 'search'
     end
   end
   

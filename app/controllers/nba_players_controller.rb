@@ -1,6 +1,6 @@
 class NbaPlayersController < ApplicationController
-  before_filter :login_required, :except => [:index, :show]
-  before_filter :admin_user, :except => [:index, :show]
+  before_filter :login_required, :except => [:index, :show, :find]
+  before_filter :admin_user, :except => [:index, :show, :find]
   
   def index
   end
@@ -54,6 +54,13 @@ class NbaPlayersController < ApplicationController
                     :notice => "Players imported"}
     end 
 
+  end
+
+  def find
+  end
+
+  def search
+    @players = NbaPlayer.where("lastname = ?", params[:player_name]).all
   end
 
   private

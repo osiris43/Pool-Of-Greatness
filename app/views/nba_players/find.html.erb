@@ -1,0 +1,7 @@
+<div class="container_12">
+  <%= form_tag(search_nba_players_path, :method => 'get') do %>
+    <%= label_tag(:player_name, "Player Name") %>
+    <%= text_field_tag(:player_name) %><br /><br />
+    <%= submit_tag("Search", :id => "search_nba_players") %>
+  <% end %>
+</div>

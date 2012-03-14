@@ -1,0 +1,7 @@
+<div class="container_12">
+  <ul>
+    <% @players.each do |player| %>
+      <li><%= link_to player.display_name, nba_player_path(player) %></li>
+    <% end %>
+  </ul>
+</div>
