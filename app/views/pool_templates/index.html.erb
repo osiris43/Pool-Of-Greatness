@@ -1,0 +1,16 @@
+<div id="pool_template_list" class="container_12">
+  <table>
+    <tr>
+      <th>Template Name</th>
+      <th>Description</th>
+    </tr>
+    <% @templates.each do |template| %>
+      <tr>
+        <td><%= template.name %></td>
+        <td><%= template.description %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= link_to "Add Template", new_pool_template_path %>
+</div>

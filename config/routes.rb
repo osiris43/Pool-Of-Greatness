@@ -1,6 +1,8 @@
 Poolofgreatness::Application.routes.draw do
   get "nba_stat_import_errors/show"
 
+  resources :pool_templates
+
   resources :nba_stat_import_errors do
     collection do
       get 'destroy_all'
