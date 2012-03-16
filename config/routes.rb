@@ -35,8 +35,8 @@ Poolofgreatness::Application.routes.draw do
   match "forgot_password" => 'users#forgot_password', :as => :forgot_password
 
   match 'logout' => 'sessions#destroy', :as => :logout
-
   match 'login' => 'sessions#new', :as => :login
+  match 'appadmin' => 'administration#index', :as => :appadmin
 
   match 'pools/join' => 'pools#join', :as => :joinpool
   match 'pools/find' => 'pools#find', :as => :findpools
