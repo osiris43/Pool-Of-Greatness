@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :survivor_sessions, :through => :survivor_entries
   has_many :confidence_picks
   has_many :confidence_entries
+  has_many :masters_pool_entries
 
   # login can be either username or email address
   def self.authenticate(login, pass)
@@ -80,6 +81,18 @@ class User < ActiveRecord::Base
   def site_admin?
     !sites.empty? && sites[0].admin_id == id
   end 
+
+  def find_masters_pool_entry_by_year(year=nil)
+    if(year.nil?)
+      year = DateTime.current.year.to_s
+    end
+   
+    tourney = MastersTournament.find_by_year(year)
+    pool = MastersPool.find_by_masters_tournament_id(tourney.id)
+
+    masters_pool_entries.where("masters_pool_id = ?", pool.id).first
+    #MastersPoolEntry.joins(:masters_pool => :masters_tournament).where('masters_tournaments.year = ? AND masters_pool_entries.user_id = ?', year, id).first
+  end
 
   private
 

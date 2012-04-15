@@ -1,0 +1,11 @@
+<%= render 'shared/poolbanner' %>
+<div class="container_12">
+  <%= render 'navigation' %>
+  <%= render 'shared/flashpartial' %>
+
+  <% if(@pool.current_window.nil?) %>
+    <div class="grid_12">
+      <span>Unfortunately, the betting window is not currently open.</span>
+    </div>
+  <% end %>
+</div>

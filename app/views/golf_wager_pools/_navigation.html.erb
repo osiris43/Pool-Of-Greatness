@@ -1,0 +1,11 @@
+  <nav class="pickem_navigation">
+    <ul>
+      <li><%= link_to "Pool Home", golf_wager_pool_path(@pool) %></li>
+      <li><%= link_to "Your Team", show_team_golf_wager_pool_path(@pool) %></li>
+      <li><%= link_to "Leaderboard", "#" %></li>
+      <% if current_user.pool_admin?(@pool) %>
+        <li><%= link_to "Pool Admin", "#" %></li>
+      <% end %>
+    </ul>
+  </nav>
+

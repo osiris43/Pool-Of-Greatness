@@ -9,7 +9,7 @@
           <%= link_to "Edit Profile", edit_user_path(current_user) %>
           </li>
         <% if current_user.admin? %>
-          <li class="site-nav-menu-item"><%= link_to "Site Admin", games_path %> </li>
+          <li class="site-nav-menu-item"><%= link_to "Site Admin", appadmin_path %> </li>
         <% end %>
         <% current_user.sites.each do |site| %>
           <% site.pools.each do |pool| %>

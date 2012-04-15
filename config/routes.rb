@@ -1,5 +1,14 @@
 Poolofgreatness::Application.routes.draw do
+  get "masters_qualifiers/index"
+
   get "nba_stat_import_errors/show"
+
+  resources :kentucky_derby_pools do
+    member do 
+      get 'show_window'
+    end
+  end
+
 
   resources :pool_templates
 
@@ -46,6 +55,19 @@ Poolofgreatness::Application.routes.draw do
 
   match 'games/find' => "games#find", :as => :find_games
 
+  resources :golf_wager_pools do
+    member do
+      get 'administer'
+      get 'show_team'
+    end
+  end
+
+  resources :administration do
+    collection do
+      post 'create_masters_tournament'
+      post 'upload_qualifiers'
+    end
+  end
   resources :pickem_pools do
     member do
       get 'configure'

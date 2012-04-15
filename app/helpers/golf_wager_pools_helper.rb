@@ -1,0 +1,2 @@
+module GolfWagerPoolsHelper
+end

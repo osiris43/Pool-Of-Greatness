@@ -68,6 +68,38 @@ FactoryGirl.define do
     type    "ConfidencePool"
   end
 
+  factory :kentucky_derby_pool do
+    name "All The Pretty Horsies"
+    type "KentuckyDerbyPool"
+  end
+  
+  factory :golf_wager_pool do
+    name    "Masters Pool"
+    type    "GolfWagerPool"
+  end
+
+  factory :masters_pool do
+    association :golf_wager_pool, :factory => :golf_wager_pool
+    association :masters_tournament, :factory => :masters_tournament
+  end
+
+  factory :masters_pool_entry do
+    association :masters_pool, :factory => :masters_pool
+  end
+
+  factory :pga_player do
+    name  "Tiger Woods"
+  end
+
+  factory :masters_qualifier do
+    association :pga_player , :factory => :pga_player
+    association :masters_tournament, :factory => :masters_tournament
+  end
+
+  factory :masters_tournament do
+    year  "2012"  
+  end
+
   factory :team do
     teamname  'Dallas Cowboys'
   end

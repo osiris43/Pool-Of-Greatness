@@ -70,9 +70,15 @@ class SitesController < ApplicationController
       @pool = ConfidencePool.new(:name => params[:poolname], :admin_id => current_user.id)
       @site.pools << @pool
       @site.save
-
+    when "GolfWagerPool"
+      @pool = GolfWagerPool.new(:name => params[:poolname], :admin_id => current_user.id)
+      @site.pools << @pool
+      @site.save
+    when "KentuckyDerbyPool"
+      @pool = KentuckyDerbyPool.new(:name => params[:poolname], :admin_id => current_user.id)
+      @site.pools << @pool
+      @site.save
     end
-      
 
     redirect_to user_path(current_user)
   end

@@ -10,10 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120314162222) do
+ActiveRecord::Schema.define(:version => 20120415191531) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "betting_windows", :force => true do |t|
+    t.integer  "kentucky_derby_pool_id"
+    t.datetime "open"
+    t.datetime "close"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -74,6 +82,19 @@ ActiveRecord::Schema.define(:version => 20120314162222) do
     t.integer  "homescore",    :default => 0
   end
 
+  create_table "golf_wager_pools_users", :id => false, :force => true do |t|
+    t.integer "golf_wager_pool_id"
+    t.integer "user_id"
+  end
+
+  add_index "golf_wager_pools_users", ["golf_wager_pool_id", "user_id"], :name => "index_golf_wager_pools_users_on_golf_wager_pool_id_and_user_id"
+
+  create_table "horses", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "jackpots", :force => true do |t|
     t.integer  "pool_id"
     t.integer  "weeklyjackpot"
@@ -82,6 +103,50 @@ ActiveRecord::Schema.define(:version => 20120314162222) do
     t.datetime "updated_at"
     t.integer  "weeklyamount"
     t.integer  "seasonamount"
+  end
+
+  create_table "kentucky_derbies", :force => true do |t|
+    t.string   "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "masters_entry_players", :force => true do |t|
+    t.integer  "masters_pool_entry_id"
+    t.integer  "masters_qualifiers_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "masters_pool_entries", :force => true do |t|
+    t.integer  "masters_pool_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "masters_pools", :force => true do |t|
+    t.integer  "golf_wager_pool_id"
+    t.integer  "masters_tournament_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "masters_qualifiers", :force => true do |t|
+    t.integer  "pga_player_id"
+    t.integer  "masters_tournament_id"
+    t.integer  "wager_group"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "masters_tournaments", :force => true do |t|
+    t.string   "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "importfile_file_name"
+    t.string   "importfile_content_type"
+    t.string   "importfile_file_size"
   end
 
   create_table "nba_conferences", :force => true do |t|
@@ -193,6 +258,12 @@ ActiveRecord::Schema.define(:version => 20120314162222) do
     t.string   "mascot"
     t.string   "abbreviation"
     t.integer  "nba_division_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pga_players", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

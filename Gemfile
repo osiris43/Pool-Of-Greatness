@@ -11,12 +11,12 @@ gem 'will_paginate', '3.0.pre2'
 
 group :development do
   gem 'annotate-models', '1.0.4'
-  gem 'rspec-rails', '2.6.1'
+  gem 'rspec-rails'
   gem 'nifty-generators'
 end
 
 group :test do
-  gem 'rspec-rails', '2.6.1'
+  gem 'rspec-rails'
   gem 'webrat', '0.7.1'
   gem 'mocha', '0.9.8'
   gem 'factory_girl_rails', '~> 1.2'

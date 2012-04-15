@@ -135,4 +135,27 @@ describe User do
       @user.debit_for_survivor?("Survivor Pool 2011-2012").should be_true
     end
   end
+
+  describe "pool associations" do
+    before(:each) do
+      @user = Factory(:user)
+      @tourney = Factory(:masters_tournament)
+      @pool = Factory(:masters_pool, :masters_tournament => @tourney) 
+      @user.masters_pool_entries << MastersPoolEntry.new(:masters_pool => @pool)
+    end
+
+    it "responds to golf_wager_pools" do
+      @user.should respond_to(:masters_pool_entries)
+    end
+
+    it "responds to find_master_pool_entry_by_year" do
+      @user.should respond_to(:find_masters_pool_entry_by_year)
+    end
+
+    it "returns the current masters pool" do
+      MastersTournament.expects(:find_by_year).with('2012').returns(@tourney)
+      MastersPool.expects(:find_by_masters_tournament_id).returns(@pool)
+      @user.find_masters_pool_entry_by_year.should == @user.masters_pool_entries[0]
+    end
+  end
 end

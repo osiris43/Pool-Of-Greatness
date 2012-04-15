@@ -1,0 +1,3 @@
+class GolfWagerPool < Pool
+
+end

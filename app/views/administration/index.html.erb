@@ -1,5 +1,21 @@
 <div class="container_12">
+  <%= render 'shared/flashpartial' %>
+
   <%= link_to "Games Admin", games_path %> 
   <%= link_to "Pool Templates", pool_templates_path %>
+  <div id="new_masters_tournament">
+    <%= form_tag(:action => "create_masters_tournament", :method => 'post') do %>
+      <%= label_tag(:tournament_year, "Tournament Year") %>
+      <%= text_field_tag(:tournament_year) %><br />
+      <%= submit_tag("Create") %> 
+    <% end %>
+    <%= form_tag(:action => "upload_qualifiers", :html => {:multipart => true}) do %>
+      <%= label_tag(:year, "Tournament Year") %>
+      <%= text_field_tag :year %>
+      <%= file_field_tag :importfile %><br /><br />
+      <%= submit_tag "Process file" %>
+    <% end %>
+  </div>
+
 </div>
 
