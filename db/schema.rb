@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120415191531) do
+ActiveRecord::Schema.define(:version => 20120422005357) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -93,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20120415191531) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "kentucky_derby_id"
+    t.integer  "opening_odds"
   end
 
   create_table "jackpots", :force => true do |t|
@@ -110,6 +112,13 @@ ActiveRecord::Schema.define(:version => 20120415191531) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "kentucky_derbies_kentucky_derby_pools", :id => false, :force => true do |t|
+    t.integer "kentucky_derby_id"
+    t.integer "kentucky_derby_pool_id"
+  end
+
+  add_index "kentucky_derbies_kentucky_derby_pools", ["kentucky_derby_id", "kentucky_derby_pool_id"], :name => "index_on_derby_derby_pool"
 
   create_table "masters_entry_players", :force => true do |t|
     t.integer  "masters_pool_entry_id"
@@ -184,22 +193,6 @@ ActiveRecord::Schema.define(:version => 20120415191531) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "nba_team_id"
-  end
-
-  create_table "nba_game_scores", :force => true do |t|
-    t.integer  "nba_game_id"
-    t.integer  "away_first_q"
-    t.integer  "away_second_q"
-    t.integer  "away_third_q"
-    t.integer  "away_fourth_q"
-    t.integer  "away_overtime"
-    t.integer  "home_first_q"
-    t.integer  "home_second_q"
-    t.integer  "home_third_q"
-    t.integer  "home_fourth_q"
-    t.integer  "home_overtime"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "nba_game_team_stats", :force => true do |t|
@@ -296,8 +289,8 @@ ActiveRecord::Schema.define(:version => 20120415191531) do
   end
 
   create_table "pickem_pools", :force => true do |t|
-    t.string   "name"
     t.integer  "admin_id"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

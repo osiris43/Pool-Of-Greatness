@@ -52,5 +52,7 @@ describe KentuckyDerbyPoolsController do
         message.should contain(/betting window is not currently open/i)
       end
     end
+
+    
   end
 end

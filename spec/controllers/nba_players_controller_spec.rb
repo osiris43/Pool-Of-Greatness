@@ -4,6 +4,10 @@ describe NbaPlayersController do
   render_views
 
   describe "GET 'index'" do
+    before(:each) do
+      @user = Factory(:user, :admin => true)
+      @controller.stubs(:current_user).returns(@user)
+    end
     it "should be successful" do
       get 'index'
       response.should be_success

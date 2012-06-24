@@ -1,6 +1,6 @@
 class NbaPlayersController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :find]
-  before_filter :admin_user, :except => [:index, :show, :find]
+  before_filter :login_required, :except => [:show, :find]
+  before_filter :admin_user, :except => [:show, :find]
   
   def index
   end
