@@ -195,6 +195,22 @@ ActiveRecord::Schema.define(:version => 20120422005357) do
     t.integer  "nba_team_id"
   end
 
+  create_table "nba_game_scores", :force => true do |t|
+    t.integer  "nba_game_id"
+    t.integer  "away_first_q"
+    t.integer  "away_second_q"
+    t.integer  "away_third_q"
+    t.integer  "away_fourth_q"
+    t.integer  "away_overtime"
+    t.integer  "home_first_q"
+    t.integer  "home_second_q"
+    t.integer  "home_third_q"
+    t.integer  "home_fourth_q"
+    t.integer  "home_overtime"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nba_game_team_stats", :force => true do |t|
     t.integer  "nba_game_id"
     t.integer  "nba_team_id"
