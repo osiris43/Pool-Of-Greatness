@@ -6,16 +6,16 @@ describe NbaGamelineParser do
   end
 
   it "is created" do
-    NbaGamelineParser.new.should_not be_nil
+    NbaGamelineParser.new(@location).should_not be_nil
   end
 
   it "responds to gameline_doc" do
-    gameline = NbaGamelineParser.new
+    gameline = NbaGamelineParser.new(@location)
     gameline.should respond_to(:gameline_doc)
   end
 
   it "creates a gameline doc if nil" do
-    gameline = NbaGamelineParser.new
+    gameline = NbaGamelineParser.new(@location)
     gameline.gameline_doc.should_not be_nil
   end
 

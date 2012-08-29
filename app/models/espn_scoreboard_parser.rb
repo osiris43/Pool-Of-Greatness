@@ -3,7 +3,7 @@ class EspnScoreboardParser
     if(sb_filelocation.nil?)
       sb_filelocation = get_location
     end
-
+    
     @scoreboard = open(sb_filelocation) {|f| Hpricot(f)}
   end
   

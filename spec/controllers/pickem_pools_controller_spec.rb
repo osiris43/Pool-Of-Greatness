@@ -92,6 +92,10 @@ describe PickemPoolsController do
                                            :content => 'Pool Admin')
       end
 
+      it "has an upgrade pool to current year for admin with last year" do
+
+      end
+
       it "has a weekly games link" do
         get 'home', :id => @pool.id
         response.should have_selector("a", :href => view_games_pickem_pool_path(@pool),

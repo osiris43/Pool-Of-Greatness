@@ -38,6 +38,8 @@ class NbaGamelineParser
     def get_location
       schedule_date = Date.current - 1
 
-      "http://www.nba.com/gameline/#{schedule_date.strftime('%Y%m%d')}"
+      a = "http://www.nba.com/gameline/#{schedule_date.strftime('%Y%m%d')}"
+      puts a
+      a
     end
 end
