@@ -84,6 +84,7 @@ Poolofgreatness::Application.routes.draw do
       get 'modify_accounting'
       get 'view_transactions'
       put 'update_transactions'
+      get 'updatepool'
     end
   end
 

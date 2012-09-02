@@ -1,5 +1,5 @@
 class PickemWeek < ActiveRecord::Base
-  attr_accessible :season, :week, :deadline
+  attr_accessible :season, :week, :deadline, :pickem_pool_id
 
   belongs_to :pickem_pool
   has_many :pickem_games
@@ -17,7 +17,8 @@ class PickemWeek < ActiveRecord::Base
       current_user.account.transactions.create!(:pooltype => 'Pickem', :poolname => pickem_pool.name, 
                                                :amount => pickem_pool.weeklyfee * -1, 
                                                :description => "Fee for week #{week}, season #{season}",
-                                               :pool_id => pickem_pool.id)
+                                               :pool_id => pickem_pool.id, 
+                                               :season => season)
 
       pickem_pool.incrementjackpots
 
@@ -103,7 +104,8 @@ class PickemWeek < ActiveRecord::Base
         first.pickem_week_entry.user.account.transactions.create!(:pooltype => "Pickem",
                                                                  :poolname => @pool.name, 
                                                                  :amount => @pool.jackpot.weeklyjackpot / comparer.firstplace.count,
-                                                                 :description => "Jackpot for week #{winner.pickem_week.week}, season #{winner.pickem_week.season}")
+                                                                 :description => "Jackpot for week #{winner.pickem_week.week}, season #{winner.pickem_week.season}",
+                                                                 :season => winner.pickem_week.season)
       end
 
       @pool.jackpot.weeklyjackpot = 0;

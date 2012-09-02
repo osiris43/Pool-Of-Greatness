@@ -7,7 +7,45 @@ class PickemPool < Pool
   validates_uniqueness_of :name
 
   # END validations
-  
+ 
+  def needs_upgrade?
+    artificialDeadline = Date.new(Date.today.year, 3, 1)
+    if Date.today < artificialDeadline
+      return false 
+    else
+      season = "#{Date.today.year}-#{Date.today.year + 1}"
+      needs_upgrade = season == current_season ? false : true 
+    end
+
+    needs_upgrade
+  end 
+ 
+  def update_config
+    if !needs_upgrade?
+      return
+    end
+
+    newseason = "#{Date.today.year}-#{Date.today.year + 1}"
+    season_rule = pickem_rules.find_by_config_key("current_season")
+    season_rule.config_value = newseason
+    season_rule.save
+
+
+    week_rule = pickem_rules.find_by_config_key("current_week")
+    week_rule.config_value = "1" 
+    week_rule.save
+
+    jackpot.weeklyjackpot = 0
+    jackpot.seasonjackpot = 0
+    jackpot.save
+
+    if current_pickem_week.nil?
+      week = PickemWeek.create!(:pickem_pool_id => id, :season => current_season, 
+                     :week => current_week, :deadline => '2012-09-08')
+      week.save
+    end
+  end 
+
   def incrementjackpots 
     if jackpot.nil?
       return

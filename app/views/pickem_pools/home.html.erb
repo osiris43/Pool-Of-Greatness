@@ -2,6 +2,15 @@
 <div class="pickem_container container_12">
   <%= render 'navigation' %>
   <%= render 'shared/flashpartial' %>
+    <% if @display_upgrade %>
+      <div id="upgrade_pool">
+        <span>This is the <%= "#{@pool.current_season}" %> pool.  Update settings to the current season.
+          This will set all totals for the new season to zero while retaining your transaction history.
+        </span>
+        <%= link_to "Update Config", updatepool_pickem_pool_path(@pool) %>
+      </div>
+    <% end %>
+
     <h1>Welcome to <%= @pool.name %></h1> 
     <div class="grid_9">
       <span>

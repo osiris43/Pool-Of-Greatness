@@ -16,7 +16,7 @@ class PlaceStrategy
       add_transaction(first.pickem_week_entry.user, 
                       "Pickem", 
                       first_place_prize * (1 / @comparer.firstplace.count.to_f),
-                      "First place prize for week #{@week}, #{@season}")
+                      "First place prize for week #{@week}, #{@season}", @season)
     end
   end
 
@@ -27,7 +27,7 @@ class PlaceStrategy
       add_transaction(second.pickem_week_entry.user, 
                       "Pickem", 
                       second_place_prize * (1 / @comparer.secondplace.count.to_f),
-                      "Second place prize for week #{@week}, #{@season}")
+                      "Second place prize for week #{@week}, #{@season}", @season)
 
     end
   end
@@ -39,15 +39,16 @@ class PlaceStrategy
       add_transaction(third.pickem_week_entry.user, 
                       "Pickem", 
                       third_place_prize * (1 / @comparer.thirdplace.count.to_f),
-                      "Third place prize for week #{@week}, #{@season}")
+                      "Third place prize for week #{@week}, #{@season}", @season)
     end
   end
 
-  def add_transaction(user, pooltype, amount, description)
+  def add_transaction(user, pooltype, amount, description, season)
     user.account.transactions.create!(:pooltype => pooltype,
                                       :poolname => @pool.name,
                                       :amount => amount,
-                                      :description => description) 
+                                      :description => description,
+                                      :season => season) 
   end
 
   

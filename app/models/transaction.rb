@@ -1,5 +1,5 @@
 class Transaction < ActiveRecord::Base
-  attr_accessible :pool_id, :amount, :description, :pooltype, :poolname, :account_id
+  attr_accessible :pool_id, :amount, :description, :pooltype, :poolname, :account_id, :season
 
   belongs_to :account
   belongs_to :pool

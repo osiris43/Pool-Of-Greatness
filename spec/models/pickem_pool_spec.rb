@@ -11,6 +11,50 @@ describe PickemPool do
 
   end 
 
+  it "responds to needs_upgrade" do
+    @pool.should respond_to(:needs_upgrade?)
+  end
+
+  it "needs an upgrade when current_season is last season" do
+    @pool.needs_upgrade?.should be_true
+  end
+
+  it "responds to update_config" do
+    @pool.should respond_to(:update_config)
+  end
+
+  describe "config resets" do
+    before(:each) do
+      @pool.create_jackpot(:weeklyjackpot => 20, :seasonjackpot => 20, :weeklyamount => 1, :seasonamount => 1)
+    end
+
+    it "increments the season when config updated" do
+      @pool.update_config
+      @pool.current_season.should == "2012-2013"
+    end
+   
+    it "resets the current_week to 1" do
+      @pool.increment_current_week
+      @pool.update_config
+      @pool.current_week.should == 1
+    end
+
+    it "resets the weekly jackpot" do
+      @pool.update_config
+      @pool.jackpot.weeklyjackpot.should == 0.0 
+    end
+
+    it "resets the season jackpot" do
+      @pool.update_config
+      @pool.jackpot.seasonjackpot.should == 0.0 
+    end
+
+    it "inserts a current pickem week" do
+      @pool.update_config
+      @pool.current_pickem_week.should_not be_nil
+    end
+  end
+
   it "responds to rules" do
     @pool.should respond_to(:pickem_rules) 
   end

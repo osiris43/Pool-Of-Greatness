@@ -26,14 +26,26 @@ class PickemPoolsController < ApplicationController
     if current_user.account.nil?
       current_user.create_account
     end
-    @transactions = current_user.account.transactions.where(:poolname => @pool.name).all(:limit => 10, :order => "created_at DESC")
+    @transactions = current_user.account.transactions.where(:poolname => @pool.name, :season => @pool.current_season).all(:limit => 10, :order => "created_at DESC")
     @userstats = Userstat.find_by_season(@pool.current_season)[0..2] 
+    @display_upgrade = false
+    
+    if @pool.needs_upgrade? && current_user.pool_admin?(@pool)
+      @display_upgrade = true
+    end 
 
     respond_to do |format|
       format.html
       format.mobile {render :layout => false }
     end
     
+  end
+
+  def updatepool
+    @pool = PickemPool.find(params[:id])
+    @pool.update_config
+
+    redirect_to(home_pickem_pool_path(PickemPool.find(params[:id])))
   end
 
   def view_games

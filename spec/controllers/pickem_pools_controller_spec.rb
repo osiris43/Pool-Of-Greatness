@@ -82,19 +82,26 @@ describe PickemPoolsController do
                                            :content => "Pool Home")
       end
 
-      it "has an admin link for the correct user" do
-        @admin = Factory(:user, :username => "adminuser", :email => "test1@test.com", :admin => true)
-        @pool1 = Factory(:pickem_pool, :admin_id => @admin.id)
-        
-        @controller.stubs(:current_user).returns(@admin)
-        get 'home', :id => @pool1.id
-        response.should have_selector("a", :href => administer_pickem_pool_path(@pool1),
-                                           :content => 'Pool Admin')
+      describe "admin functions" do
+        before(:each) do
+          @admin = Factory(:user, :username => "adminuser", :email => "test1@test.com", :admin => true)
+          @pool1 = Factory(:pickem_pool, :admin_id => @admin.id)
+          
+          @controller.stubs(:current_user).returns(@admin)
+        end
+
+        it "has an admin link for the correct user" do
+          get 'home', :id => @pool1.id
+          response.should have_selector("a", :href => administer_pickem_pool_path(@pool1),
+                                             :content => 'Pool Admin')
+        end
+
+        it "has an upgrade pool to current year for admin with last year" do
+          get 'home', :id => @pool1.id
+          response.should have_selector("div", :id => "upgrade_pool")
+        end
       end
 
-      it "has an upgrade pool to current year for admin with last year" do
-
-      end
 
       it "has a weekly games link" do
         get 'home', :id => @pool.id
@@ -128,13 +135,26 @@ describe PickemPoolsController do
         it "displays a record for recent activity" do
           @user.account.transactions.create!(:pooltype => 'Pickem', :poolname => @pool.name, 
                                              :amount => 12, 
-                                             :description => "Fee for week 1")
+                                             :description => "Fee for week 1",
+                                             :season => @pool.current_season)
           get "home", :id => @pool.id
           response.should have_selector("td", :content => "Fee for week 1")
         end
       end
 
     end
+  end
+
+  describe "POST 'updatepool'" do
+    before(:each) do
+      @controller.stubs(:current_user).returns(@user)
+      @pool = Factory(:pickem_pool)
+    end
+
+    #it "should be successful" do
+    #  post 'updatepool', :id => @pool.id
+    #  response.should be_success
+    #end
   end
 
   describe "GET 'view_games'" do
