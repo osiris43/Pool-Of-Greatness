@@ -7,10 +7,21 @@ class SurvivorPoolsController < ApplicationController
   
   def show
     @pool = SurvivorPool.find(params[:id])
+    season = Configuration.get_value_by_key("CurrentSeason")
     @title = "#{@pool.name} Home"
     @current_week = @pool.current_week
-    @current_pick = current_user.survivor_entries.where(:week => @current_week, :season => "2011-2012").first
-    @teamscount = @pool.current_session.survivor_entries.where(:week => @current_week).all.group_by{|entry| entry.team.teamname}
+    @current_pick = current_user.survivor_entries.where(:week => @current_week, :season => season).first
+    cur_session = @pool.current_session
+    if cur_session.nil?
+      SurvivorSession.create!(:pool_id => @pool.id, 
+                              :starting_week => 1, 
+                              :ending_week => 17, 
+                              :season => season, 
+                              :description => "Survivor Pool #{season}")
+      @teamscount = 0
+    else
+      @teamscount = cur_session.survivor_entries.where(:week => @current_week).all.group_by{|entry| entry.team.teamname}
+    end
   end
 
   def viewpicksheet
