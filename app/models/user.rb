@@ -44,9 +44,14 @@ class User < ActiveRecord::Base
     id == pool.admin_id
   end
 
+  def current_season_pickem_entries
+    cur_season = Configuration.get_value_by_key('CurrentSeason')
+    pickem_week_entries.joins(:pickem_week).where("pickem_weeks.season = '#{cur_season}'").all 
+  end
+
   def favorites_picked
     favorites = 0
-    pickem_week_entries.each do |entry|
+    current_season_pickem_entries.each do |entry|
       entry.pickem_picks.each do |pick|
         if pick.picked_favorite?
           favorites += 1
@@ -59,7 +64,7 @@ class User < ActiveRecord::Base
 
   def underdogs_picked
     underdogs = 0
-    pickem_week_entries.each do |entry|
+    current_season_pickem_entries.each do |entry|
       entry.pickem_picks.each do |pick|
         if pick.picked_underdog?
           underdogs += 1

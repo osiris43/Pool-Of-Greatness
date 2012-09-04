@@ -1,9 +1,13 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe UsersController do
+   
   fixtures :all
   render_views
-
+  before(:each) do
+    Factory(:configuration) 
+  end
+  
   it "new action should render new template" do
     get :new
     response.should render_template(:new)
@@ -91,7 +95,8 @@ describe UsersController do
           @user.account.transactions.create!(:pooltype => "Pickem", 
                                              :poolname => "Pool of Greatness",
                                              :amount => -12,
-                                             :description => "Fee for week 1")
+                                             :description => "Fee for week 1",
+                                             :season => '2011-2012')
         end
         it "has account activity section" do
           get :show, :id => @user

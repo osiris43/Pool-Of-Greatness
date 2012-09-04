@@ -14,6 +14,9 @@ describe "Users" do
     end
 
     describe "success" do
+      before(:each) do
+        Factory(:configuration)
+      end
       it "creates a user" do
         lambda do
           visit signup_path

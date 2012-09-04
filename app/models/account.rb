@@ -3,6 +3,7 @@ class Account < ActiveRecord::Base
   has_many :transactions
 
   def last_transactions(n)
-    transactions.find(:all, :limit => n, :order => 'created_at DESC')
+    cur_season = Configuration.get_value_by_key('CurrentSeason')
+    transactions.where(:season => cur_season).find(:all, :limit => n, :order => 'created_at DESC')
   end
 end

@@ -35,7 +35,8 @@ class UsersController < ApplicationController
 
   def show
     @title = "#{current_user.username}'s profile"
-    @moneytimes = current_user.account.transactions.where("description like '%prize%'").count
+    cur_season = Configuration.get_value_by_key("CurrentSeason")
+    @moneytimes = current_user.account.transactions.where("season = '#{cur_season}' AND description like '%prize%'").count
 
     respond_to do |format|
       format.html
