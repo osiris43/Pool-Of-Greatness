@@ -6,7 +6,7 @@ class Userstat
     @userstats = []
     users.each do |user|
       won = lost = tied = 0
-      user.pickem_week_entries.each do |entry|
+      user.current_season_pickem_entries.each do |entry|
         if entry.pickem_entry_result.nil?
           next
         end 

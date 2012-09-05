@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   end
 
   def current_survivor_entries(pool)
-    survivor_entries.where("week >= ?", pool.current_session.starting_week).all
+    survivor_entries.where("survivor_session_id = ? AND week >= ?", pool.current_session.id, pool.current_session.starting_week).all
   end
  
   def debit_for_survivor?(description)
