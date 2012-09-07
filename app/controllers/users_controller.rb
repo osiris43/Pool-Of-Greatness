@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     if(@user.nil?)
       flash[:notice] = "No user exists with that email"
     else
-      UserMailer.send_password(@user)
+      UserMailer.deliver_send_password(@user)
       flash[:notice] = "Your password has been sent."
     end
 
