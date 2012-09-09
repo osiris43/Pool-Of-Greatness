@@ -36,7 +36,7 @@ class SurvivorPoolsController < ApplicationController
     @picked_teams = @pool.current_session.survivor_entries.where("user_id = ? AND week < ?", current_user.id, 
                                                                  @games[0].week).all.map{|entry| entry.team.id}
 
-    @pastgames = @games.where("gamedate < ?", DateTime.current.advance(:hours => -6)).all.map{|game| game.id}
+    @pastgames = @games.where("gamedate < ?", DateTime.current.advance(:hours => -4)).all.map{|game| game.id}
     if @pastgames.include?(@entry.game_id)
       flash[:notice] = "You picked a game this week that has already started.  You cannot change picks."
     end
