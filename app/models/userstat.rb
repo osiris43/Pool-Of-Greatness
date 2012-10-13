@@ -14,7 +14,7 @@ class Userstat
         lost += entry.pickem_entry_result.lost
         tied += entry.pickem_entry_result.tied
       end
-      @userstats << new(user.name, won, lost, tied, user.pickem_week_entries.count)
+      @userstats << new(user.name, won, lost, tied, user.pickem_week_entries.select{|e| e.pickem_week.season == season}.count)
     end
 
     @userstats.sort_by{ |obj| obj.win_percentage }.reverse
