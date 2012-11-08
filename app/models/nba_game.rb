@@ -20,10 +20,8 @@ class NbaGame < ActiveRecord::Base
 
   def team_score(team)
     if(team.id == away_team.id)
-      puts "#{team.display_name}\t#{away_team.display_name}\t#{home_team.display_name}" 
       return away_score
     elsif(team.id == home_team.id)
-      puts home_score 
       return home_score
     else
       return nil
@@ -45,7 +43,7 @@ class NbaGame < ActiveRecord::Base
     home = NbaTeam.find_by_abbreviation(home_abbv.upcase)
     gt = (html/'.nbaFnlStatTxSm').first.inner_html.upcase
     logger.debug "GameTime #{gt}"
-    NbaGame.new(:away_team => away, :home_team => home, :gamedate => game_date, :gametime => Time.parse(gt), :season => "2011-2012")
+    NbaGame.new(:away_team => away, :home_team => home, :gamedate => game_date, :gametime => Time.parse(gt), :season => "2012-2013")
 
   end
 
