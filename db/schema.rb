@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120902202849) do
+ActiveRecord::Schema.define(:version => 20121017024541) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -434,6 +434,7 @@ ActiveRecord::Schema.define(:version => 20120902202849) do
     t.boolean  "admin"
     t.string   "name"
     t.integer  "survivor_entries_count", :default => 0
+    t.string   "lowered_username"
   end
 
 end
