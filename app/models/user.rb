@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :name, :lowered_username
   attr_accessor :password
-  before_save :prepare_password
+  before_save :prepare_password, :lower_username
   
   validates_presence_of :username
   validates_uniqueness_of :username, :email, :allow_blank => true
@@ -108,6 +108,10 @@ class User < ActiveRecord::Base
         self.password_salt = BCrypt::Engine.generate_salt
         self.password_hash = encrypt_password(password)
       end
+    end
+
+    def lower_username
+      self.lowered_username = username.downcase
     end
 
 end
