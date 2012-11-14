@@ -37,13 +37,14 @@ class NbaGame < ActiveRecord::Base
   end
 
   def self.parse_from_html(html, game_date)
+    season = Configuration.get_value_by_key("CurrentNbaSeason")
     away_abbv = (html/'.nbaModTopTeamAw').first.search(".nbaModTopTeamName").inner_html
     away = NbaTeam.find_by_abbreviation(away_abbv.upcase)
     home_abbv = (html/'.nbaModTopTeamHm').first.search(".nbaModTopTeamName").inner_html
     home = NbaTeam.find_by_abbreviation(home_abbv.upcase)
     gt = (html/'.nbaFnlStatTxSm').first.inner_html.upcase
     logger.debug "GameTime #{gt}"
-    NbaGame.new(:away_team => away, :home_team => home, :gamedate => game_date, :gametime => Time.parse(gt), :season => "2012-2013")
+    NbaGame.new(:away_team => away, :home_team => home, :gamedate => game_date, :gametime => Time.parse(gt), :season => season)
 
   end
 

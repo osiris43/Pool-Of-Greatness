@@ -113,4 +113,8 @@ describe HtmlNbaPlayerStat do
     stat = HtmlNbaPlayerStat.new(@paul_pierce)
     stat.player_url.should == '/playerfile/paul_pierce/index.html'
   end
+
+  it "responds to position" do
+
+  end
 end

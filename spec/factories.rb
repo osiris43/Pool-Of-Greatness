@@ -120,6 +120,11 @@ FactoryGirl.define do
     value "2010"
   end
 
+  factory :nba_season, :parent => :configuration do
+    key "CurrentNbaSeason"
+    value "2011-2012"
+  end
+
   factory :survivor_session do
     association :pool, :factory => :survivor_pool
     starting_week   1

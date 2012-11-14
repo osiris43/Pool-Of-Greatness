@@ -111,7 +111,9 @@ class User < ActiveRecord::Base
     end
 
     def lower_username
-      self.lowered_username = username.downcase
+      unless username.blank?
+        self.lowered_username = username.downcase
+      end
     end
 
 end

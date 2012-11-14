@@ -40,6 +40,7 @@ describe NbaGame do
       @game_html = (@html/'.nbaModOuterBox').first
       @nyk = Factory(:nbaaway, :city => "New York", :mascot => "Knicks", :abbreviation => "NYK")
       @game_date = "2011-12-25"
+      Factory(:nba_season)
     end
 
     it "parses the awayteam" do

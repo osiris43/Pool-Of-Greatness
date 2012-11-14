@@ -379,7 +379,7 @@ describe PickemPoolsController do
     entry2.create_pickem_entry_result(:won => 1, :lost => 2, :tied => 0, :pickem_week_id => @pickemWeek.id)
     entry3 = @pickemWeek.pickem_week_entries.create!(:user => user3, :mondaynighttotal => 44)
     entry3.create_pickem_entry_result(:won => 0, :lost => 3, :tied => 0, :pickem_week_id => @pickemWeek.id)
-
+    Factory(:configuration)
 
   end
 end
