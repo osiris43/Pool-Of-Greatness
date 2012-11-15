@@ -85,7 +85,8 @@ class NbaGameline
 
     if(player.nil?)
       NbaStatImportError.create!(:href => @gl_parser.get_game_href(game_element), :nba_team => team, 
-                                 :player_name => stat.player_name, :nba_game => nbagame)
+                                 :player_name => stat.player_name, :nba_game => nbagame,
+                                :playerurl => player_url)
       return 
     end
 

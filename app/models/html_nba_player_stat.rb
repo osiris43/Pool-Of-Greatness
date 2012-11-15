@@ -98,4 +98,5 @@ class HtmlNbaPlayerStat
 
     @stat.at('a')['href']
   end
+
 end

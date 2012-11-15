@@ -114,7 +114,4 @@ describe HtmlNbaPlayerStat do
     stat.player_url.should == '/playerfile/paul_pierce/index.html'
   end
 
-  it "responds to position" do
-
-  end
 end
