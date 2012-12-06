@@ -1,0 +1,27 @@
+<%= render 'shared/poolbanner' %>
+<div class="container_12">
+  <%= render 'navigation' %>
+  <%= render 'shared/flashpartial' %>
+</div>
+
+<%= javascript_include_tag "knockout.mapping" %>
+<%= javascript_include_tag "confidencepool_thelab" %>
+<script type="text/javascript">
+  $().ready(function(){
+    var request = $.ajax({
+      url: '/bowls',
+      type: 'GET',
+      dataType: 'json',
+      success: function(response, textStatus, jqXHR){
+        ConfidencePoolLab.Start(response);
+
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+        console.log(
+                "The following error occured: "+
+                textStatus, errorThrown
+            );
+      }
+    });
+  })
+</script>
