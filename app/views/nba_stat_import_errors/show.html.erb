@@ -1,17 +1,22 @@
 <div class="container_12">
   <%= render "shared/flashpartial" %> 
-  <%= link_to "Delete All", destroy_all_nba_stat_import_errors_path %> 
-  <table>
-    <tr>
-      <th>Player</th>
-      <th>HREF</th>
-    </tr>
-    <% @errors.each do |error| %>
-      <tr>
-        <td><%= error.player_name %></td>
-        <td><%= link_to "Game Link", "http://www.nba.com#{error.href}" %></td>
-      </tr>
+  <%= link_to "Delete All", destroy_all_nba_stat_import_errors_path %>
+
+  <%= will_paginate %>
+  <ul>
+    <% @nba_stat_import_errors.each do |error| %>
+      <li>
+      <%= error.player_name %>  
+      <%= link_to "Add Player", "", :id => "import-player-link" %>
+      </li>
+  </ul>
+  <!-- <td><%= link_to "Game Link", "http://www.nba.com#{error.href}" %></td> -->
     <% end %>
-  </table>
+  </ul>
+
 </div>
 
+<%= javascript_include_tag "nba_import_errors" %> 
+<script type="text/javascript">
+  $(function() {ImportErrorApp.start(); })
+</script>

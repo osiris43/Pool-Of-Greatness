@@ -27,4 +27,13 @@ describe ConfidencePoolsController do
       response.should have_selector("title", :content => "Current Games")
     end
   end
+
+  describe 'the lab' do
+    it "has the correct title" do
+      @bowl = Factory(:bowl, :date => DateTime.current)
+      #@pool.stubs(:get_currentgames).returns([@bowl])
+      get "thelab", :id => @pool
+      response.should have_selector("title", :content => "The Lab")
+    end
+  end
 end

@@ -146,6 +146,11 @@ class ConfidencePoolsController < ApplicationController
     end
   end
 
+  def thelab
+    @title = "The Lab"
+    @pool = ConfidencePool.find(params[:id])
+  end
+
   private
     def initialize_viewbowls()
       @pool = ConfidencePool.find(params[:id])

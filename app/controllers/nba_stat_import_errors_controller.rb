@@ -4,7 +4,7 @@ class NbaStatImportErrorsController < ApplicationController
 
   def show
     @title = "Import Errors"
-    @errors = NbaStatImportError.all
+    @nba_stat_import_errors = NbaStatImportError.paginate(page: params[:page])
   end
 
   def destroy_all

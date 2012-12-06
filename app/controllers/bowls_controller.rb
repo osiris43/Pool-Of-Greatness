@@ -6,6 +6,27 @@ class BowlsController < ApplicationController
     @title = "Bowls"
     @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
     @teams = Team.all.sort_by {|t| t.teamname}
+
+    respond_to do |format|
+      format.html
+      format.json {render :json => @bowls}
+    end
+  end
+
+  def new
+    @title = "Create a new bowl"
+    @bowl = Bowl.new
+  end
+
+  def create
+    @bowl = Bowl.new(params[:bowl])
+
+    if @bowl.save
+      redirect_to bowls_path, :notice => "Bowl created"
+    else
+      render :action => 'new'
+    end
+
   end
 
   def update_all

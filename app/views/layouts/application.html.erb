@@ -4,10 +4,12 @@
   <title><%= page_title %></title>
   <%= render 'layouts/stylesheets' %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" %>
+  <%= javascript_include_tag "jquery-1.4.2" %>
   <%= javascript_include_tag 'underscore', 'backbone' %>
   <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js", "application" %>
   <%= javascript_include_tag "nba_calendar" %> 
   <%= javascript_include_tag "collections/masters_qualifiers", "models/masters_qualifier", "views/masters_team" %> 
+  <%= javascript_include_tag "knockout" %>
   <%= csrf_meta_tag %>
 
 </head>

@@ -158,6 +158,7 @@ Poolofgreatness::Application.routes.draw do
       get "currentgames"
       get "allpicks"
       get "possible_outcomes"
+      get "thelab"
     end
   end
 
