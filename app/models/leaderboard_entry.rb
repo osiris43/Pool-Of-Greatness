@@ -8,8 +8,8 @@ class LeaderboardEntry
     @left = 0
   end
 
-  def score_entry()
-    @player.confidence_picks.each do |pick|
+  def score_entry(season)
+    @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}'").each do |pick|
       if(pick.bowl.winning_team.nil?)
         @left += pick.rank
       elsif(pick.team == pick.bowl.winning_team)
@@ -24,8 +24,9 @@ class LeaderboardEntry
   end
 
   def largest_left
-    rank = @player.confidence_picks.joins(:bowl).where("bowls.favorite_score + bowls.underdog_score = 0").maximum("rank")
-    pick = @player.confidence_picks.where("rank = ?", rank).first
+    season = Configuration.get_value_by_key("CurrentBowlSeason")
+    rank = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and bowls.favorite_score + bowls.underdog_score = 0").maximum("rank")
+    pick = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and rank = ?", rank).first
     
     if(pick.nil?)
       "None"
@@ -35,9 +36,10 @@ class LeaderboardEntry
   end
 
   def second_largest_left
-    rank = @player.confidence_picks.joins(:bowl).where("bowls.favorite_score + bowls.underdog_score = 0").maximum("rank")
-    second = @player.confidence_picks.joins(:bowl).where("bowls.favorite_score + bowls.underdog_score = 0 AND rank < ?", rank).maximum("rank")
-    pick = @player.confidence_picks.where("rank = ?", second).first
+    season = Configuration.get_value_by_key("CurrentBowlSeason")
+    rank = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and bowls.favorite_score + bowls.underdog_score = 0").maximum("rank")
+    second = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and bowls.favorite_score + bowls.underdog_score = 0 AND rank < ?", rank).maximum("rank")
+    pick = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and rank = ?", second).first
 
     if(pick.nil?)
       "None"

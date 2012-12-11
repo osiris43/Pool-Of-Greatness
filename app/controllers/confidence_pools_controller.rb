@@ -17,7 +17,7 @@ class ConfidencePoolsController < ApplicationController
       flash[:notice] = "The deadline has passed for making or changing picks."
     end
 
-    @bowls = Bowl.where("season = ?", season).all
+    @bowls = Bowl.order("date").where("season = ?", season).all
     initialize_viewbowls()
 
     @picks = current_user.confidence_picks.joins(:bowl).where(:bowls => {:season => season}).all
@@ -118,6 +118,8 @@ class ConfidencePoolsController < ApplicationController
     @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
     bowlsLeft = Bowl.bowls_left
     @possibleCount = 2**bowlsLeft - 1
+    # comment out return once enough bowls have been played.
+=begin
     @bowls.each do |bowl|
       if(!bowl.winning_team.nil?)
         winnersHash[bowl.id] = bowl.winning_team.id
@@ -144,6 +146,7 @@ class ConfidencePoolsController < ApplicationController
       @dals[possible.user_by_place(0)] += 1
 
     end
+=end
   end
 
   def thelab

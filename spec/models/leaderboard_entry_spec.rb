@@ -23,7 +23,7 @@ describe LeaderboardEntry do
       @user.confidence_picks.create!(:bowl => @bowl, :team => @bowl.underdog, :rank => 1)
 
       entry = LeaderboardEntry.new(@user)
-      entry.score_entry()
+      entry.score_entry(@bowl.season)
       entry.won.should == 1
     end
 
@@ -32,7 +32,7 @@ describe LeaderboardEntry do
       @user.confidence_picks.create!(:bowl => @bowl, :team => @bowl.favorite, :rank => 1)
      
       entry = LeaderboardEntry.new(@user)
-      entry.score_entry()
+      entry.score_entry(@bowl.season)
       entry.lost.should == 1
     end
    
@@ -41,7 +41,7 @@ describe LeaderboardEntry do
       @user.confidence_picks.create!(:bowl => @bowl, :team => @bowl.favorite, :rank => 1)
      
       entry = LeaderboardEntry.new(@user)
-      entry.score_entry()
+      entry.score_entry(@bowl.season)
       entry.potential.should == 0 
     end 
 
@@ -50,7 +50,7 @@ describe LeaderboardEntry do
       @user.confidence_picks.create!(:bowl => @bowl, :team => @bowl.underdog, :rank => 1)
     
       entry = LeaderboardEntry.new(@user)
-      entry.score_entry()
+      entry.score_entry(@bowl.season)
       entry.percentage.should == 100
     end
 
@@ -61,7 +61,7 @@ describe LeaderboardEntry do
       @user.confidence_picks.create!(:bowl => @bowl, :team => @bowl.underdog, :rank => 1)
       
       entry = LeaderboardEntry.new(@user)
-      entry.score_entry()
+      entry.score_entry(@bowl.season)
       entry.percentage.should == 33.33 
 
     end
@@ -73,7 +73,7 @@ describe LeaderboardEntry do
       user.confidence_picks.create!(:bowl => bowl, :team => bowl.underdog, :rank => 1)
       user.confidence_picks.create!(:bowl => bowl2, :team => bowl2.underdog, :rank => 2)
       entry = LeaderboardEntry.new(user)
-      entry.score_entry()
+      entry.score_entry(@bowl.season)
       entry.left.should == 3
     end
 
@@ -120,7 +120,7 @@ describe LeaderboardEntry do
       @user.confidence_picks.create!(:bowl => @bowl, :team => @bowl.favorite, :rank => 1)
       
       entry = LeaderboardEntry.new(@user)
-      entry.score_entry()
+      entry.score_entry(@bowl.season)
       entry.left.should == 1
     end
   end 

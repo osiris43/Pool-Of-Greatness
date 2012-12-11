@@ -11,7 +11,7 @@ class ConfidenceLeaderboard
     @players = User.where("users.id IN (SELECT confidence_picks.user_id from confidence_picks INNER JOIN bowls on bowls.id = confidence_picks.bowl_id where bowls.season = ?)", season).all
     @players.each do |player|
       entry = LeaderboardEntry.new(player)
-      entry.score_entry()
+      entry.score_entry(season)
       @entries.push(entry)
     end 
 
