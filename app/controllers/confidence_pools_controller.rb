@@ -56,12 +56,13 @@ class ConfidencePoolsController < ApplicationController
         return
       end
 
+      entry = manage_current_entry(@pool)
       existingRanks.push(rank)
       existingPick = ConfidencePick.find_by_user_id_and_bowl_id(current_user.id, bowl.id)
       if(existingPick.nil?)
-        picks.push(ConfidencePick.new(:user => current_user, :bowl => bowl, :team => Team.find(pick.to_i), :rank => rank.to_i, :pool => @pool))
+        picks.push(ConfidencePick.new(:user => current_user, :bowl => bowl, :team => Team.find(pick.to_i), :rank => rank.to_i, :pool => @pool, :confidence_entry => @entry ))
       else
-        existingPick.update_attributes(:user => current_user, :bowl => bowl, :team => Team.find(pick.to_i), :rank => rank.to_i, :pool => @pool)
+        existingPick.update_attributes(:user => current_user, :bowl => bowl, :team => Team.find(pick.to_i), :rank => rank.to_i, :pool => @pool, :confidence_entry => @entry)
       end
     end 
 
@@ -70,7 +71,6 @@ class ConfidencePoolsController < ApplicationController
     end
 
     verify_accounting(@pool)
-    manage_current_entry
 
     flash[:notice] = "Picks saved..."
     redirect_to(confidence_pool_path(@pool))
@@ -178,16 +178,18 @@ class ConfidencePoolsController < ApplicationController
       end 
     end
 
-    def manage_current_entry
+    def manage_current_entry(pool)
       season = Configuration.get_value_by_key("CurrentBowlSeason")
 
       @entry = current_user.confidence_entries.where(:season => season).first 
       score = params[:total_score].to_f
       if(@entry.nil?)
-        @entry = current_user.confidence_entries.create!(:season => season, :tiebreaker => score)
+        @entry = current_user.confidence_entries.create!(:season => season, :tiebreaker => score, :confidence_pool => pool )
       else
         @entry.tiebreaker = score 
         @entry.save
       end 
+
+      return @entry
     end
 end
