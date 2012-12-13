@@ -24,8 +24,24 @@ App.RankingsView = Backbone.View.extend({
     * rank chosen by the end user.  Its parent
     * node is a TD that has an id with the name of the bowl. Grabbing that and
     * assigning it to the html in the rank list. */
-    var rankElement = $('#selected_rank_'+e.srcElement.value).eq(0);
-    var bowlGame = e.srcElement.parentNode["id"];
+   console.log(e);
+   console.log('aefoiajef');
+   var chosenRank = 0;
+   var bowlGame = '';
+
+   if(e.srcElement){
+       chosenRank = e.srcElement.value;
+       bowlGame = e.srcElement.parentNode["id"];
+   }else{
+       console.log(e.target.value);
+       chosenRank = e.target.value;
+       bowlGame = e.target.parentElement["id"];
+   }
+
+
+   console.log(e.target.value);
+    var rankElement = $('#selected_rank_'+chosenRank).eq(0);
+    //var bowlGame = e.srcElement.parentNode["id"];
 
     /* if the user is changing a rank, it needs to be removed from the list */
     $('[id^="selected_rank_"]').each(function(index) {
