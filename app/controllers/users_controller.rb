@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update_attributes(params[:user])
-      redirect_to root_url, :notice => "Your profile has been updated."
+      redirect_to user_path(@user), :notice => "Your profile has been updated."
     else
       render :action => 'edit'
     end
@@ -56,12 +56,15 @@ class UsersController < ApplicationController
     @user = User.find_by_email(params[:user_email])
     if(@user.nil?)
       flash[:notice] = "No user exists with that email"
+      redirect_to forgot_password_path
     else
-      UserMailer.deliver_send_password(@user)
+      random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+      @user.password = random_password
+      @user.save!
+      UserMailer.send_password(@user, random_password).deliver
       flash[:notice] = "Your password has been sent."
+
+      redirect_to login_path 
     end
-
-    redirect_to login_path 
-
   end
 end
