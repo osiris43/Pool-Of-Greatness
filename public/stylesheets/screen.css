@@ -1001,3 +1001,11 @@ div#team-defensive-stats th {
 div#team-defensive-stats td {
   padding: 0 5px;
 }
+
+.winner{
+    color: green;
+}
+
+.loser{
+    color: red;
+}

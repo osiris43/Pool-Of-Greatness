@@ -19,7 +19,7 @@
         </tr>
         <% @bowls.each do |bowl| %>
           <% @row = cycle('odd', 'even') %>
-          <tr id="<%= "bowlid_row_#{bowl.id}" %>" class="<%= @row %>">
+          <tr id="<%= "bowlid_row_#{bowl.id}" %>" class="<%= @row %> <%= !bowl.winning_team.nil? ? (@teamids.include?(bowl.winning_team.id) ? 'winner' : 'loser') : '' %>">
             <td><span class="bowlname"><%= bowl.name %></span><br /><%= bowl.site %></td>
             <td><%= bowl.favorite.display_name %> (<%= bowl.line %>)<br /><%= bowl.underdog.display_name %></td>
             <td>
