@@ -119,7 +119,6 @@ class ConfidencePoolsController < ApplicationController
     bowlsLeft = Bowl.bowls_left
     @possibleCount = 2**bowlsLeft - 1
     # comment out return once enough bowls have been played.
-=begin
     @bowls.each do |bowl|
       if(!bowl.winning_team.nil?)
         winnersHash[bowl.id] = bowl.winning_team.id
@@ -146,7 +145,6 @@ class ConfidencePoolsController < ApplicationController
       @dals[possible.user_by_place(0)] += 1
 
     end
-=end
   end
 
   def thelab
