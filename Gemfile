@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '3.1.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,7 +10,6 @@ gem 'hpricot'
 gem 'will_paginate', '3.0.pre2'
 
 group :development do
-  gem 'annotate-models', '1.0.4'
   gem 'rspec-rails'
   gem 'nifty-generators'
 end
