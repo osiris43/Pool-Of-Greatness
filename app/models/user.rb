@@ -98,7 +98,6 @@ class User < ActiveRecord::Base
     pool = MastersPool.find_by_masters_tournament_id(tourney.id)
 
     masters_pool_entries.where("masters_pool_id = ?", pool.id).first
-    #MastersPoolEntry.joins(:masters_pool => :masters_tournament).where('masters_tournaments.year = ? AND masters_pool_entries.user_id = ?', year, id).first
   end
 
   private
