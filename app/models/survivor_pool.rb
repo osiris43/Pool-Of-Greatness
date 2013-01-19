@@ -13,8 +13,11 @@ class SurvivorPool < Pool
     season = getseason
     if week == 0
       nextgame = Nflgame.where("season = ? AND gamedate > ?", season, DateTime.now).order("gamedate").first
-      
-      @games = Nflgame.where("season = ? AND week = ?", season, nextgame.week)
+      if nextgame.nil?
+        @games = Nflgame.where("season = ? AND week = ?", season, 17)
+      else
+        @games = Nflgame.where("season = ? AND week = ?", season, nextgame.week)
+      end
     else
       @games = Nflgame.where("season = ? AND week = ?", season, week)
     end
@@ -23,13 +26,20 @@ class SurvivorPool < Pool
   end
 
   def current_week
-    Nflgame.where("season = ? AND gamedate > ?", getseason, DateTime.now).order("gamedate").first.week
+    game = Nflgame.where("season = ? AND gamedate > ?", getseason, DateTime.now).order("gamedate").first
+    if game.nil?
+      return 17
+    else
+      return game.week
+    end
   end
 
   def current_session
     season = getseason
     nextgame = Nflgame.where("season = ? AND gamedate > ?", season, DateTime.current).order("gamedate").first
-    SurvivorSession.where("season = ? AND starting_week <= ? AND ending_week > ?", season, nextgame.week, nextgame.week + 1).first
+    week = nextgame.nil? ? 16 : nextgame.week
+    
+    SurvivorSession.where("season = ? AND starting_week <= ? AND ending_week >= ?", season, week, week + 1).first
   end
   private 
     def getseason
