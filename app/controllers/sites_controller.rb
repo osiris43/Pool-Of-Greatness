@@ -1,6 +1,7 @@
 class SitesController < ApplicationController
   before_filter :login_required 
- 
+  before_filter :site_owner, :except => [:new, :search, :join, :find, :create]
+
   def new
     @title = "Create a new pool"
     @site = Site.new
@@ -99,6 +100,11 @@ class SitesController < ApplicationController
   end
 
   private 
+    def site_owner
+      @site = Site.find(params[:id])
+      current_user.id == @site.admin_id
+    end
+
     def add_configuration(pool)
       add_rule(@pool, :number_of_games, "number_of_games")
       add_rule(@pool, :college, "college")
