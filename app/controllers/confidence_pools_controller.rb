@@ -32,8 +32,9 @@ class ConfidencePoolsController < ApplicationController
   end
 
   def save_picks
+    season = Configuration.get_value_by_key("CurrentBowlSeason")
     @pool = ConfidencePool.find(params[:id])
-    @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
+    @bowls = Bowl.where("season = ?", season).all
     picks = [] 
 
     existingRanks = [] 
@@ -70,7 +71,7 @@ class ConfidencePoolsController < ApplicationController
       pick.save
     end
 
-    verify_accounting(@pool)
+    verify_accounting(@pool, season)
 
     flash[:notice] = "Picks saved..."
     redirect_to(confidence_pool_path(@pool))
@@ -165,14 +166,15 @@ class ConfidencePoolsController < ApplicationController
 
     end
 
-    def verify_accounting(pool)
-      transaction = Transaction.find_by_account_id_and_description(current_user.account.id, "Confidence Pool Fee")
-
+    def verify_accounting(pool, season)
+      transaction = Transaction.where(:account_id => current_user.account.id, :description => "Confidence Pool Fee", :season => season).first
       if(transaction.nil?)
         current_user.account.transactions.create!(:pooltype => 'ConfidencePool',
                                           :poolname => pool.name,
                                           :amount => -30,
-                                          :description => "Confidence Pool Fee") 
+                                          :description => "Confidence Pool Fee",
+                                          :season => season,
+                                          :pool_id => pool.id) 
       end 
     end
 
