@@ -79,6 +79,10 @@ class SitesController < ApplicationController
       @pool = KentuckyDerbyPool.new(:name => params[:poolname], :admin_id => current_user.id)
       @site.pools << @pool
       @site.save
+    when "OscarPool"
+      @pool = OscarPool.new(:name => params[:poolname], :admin_id => current_user.id)
+      @site.pools << @pool
+      @site.save
     end
 
     redirect_to user_path(current_user)
