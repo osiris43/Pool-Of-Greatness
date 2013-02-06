@@ -1,0 +1,10 @@
+<div class="container_12">
+  <%= render 'shared/flashpartial' %>
+  <h1>Create a new nominee</h1>
+  <%= form_for(@nominee) do |f| %>
+    <%= f.label :nominee %>
+    <%= f.text_field :nominee %>
+
+    <%= f.submit "Create Nominee" %>
+  <% end %>
+</div>

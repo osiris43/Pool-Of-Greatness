@@ -1,0 +1,10 @@
+<div class="container_12">
+  <%= render 'shared/flashpartial' %>
+  <h1>Create a new award</h1>
+  <%= form_for(@award) do |f| %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+
+    <%= f.submit "Create Award" %>
+  <% end %>
+</div>

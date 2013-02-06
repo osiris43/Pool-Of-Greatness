@@ -1,5 +1,6 @@
 require 'date'
 FactoryGirl.define do
+
   factory :nba_team do
     city      :Boston
     mascot    :Celtics
@@ -66,6 +67,15 @@ FactoryGirl.define do
   factory :confidence_pool do
     name    "Confidence"
     type    "ConfidencePool"
+  end
+
+  factory :oscar_pool do
+    name    "Oscar Pool"
+    type    "OscarPool"
+  end
+
+  factory :oscar_award do
+    description   "Best Picture"
   end
 
   factory :kentucky_derby_pool do

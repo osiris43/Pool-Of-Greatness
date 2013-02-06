@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130128010153) do
+ActiveRecord::Schema.define(:version => 20130205023956) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -273,10 +273,28 @@ ActiveRecord::Schema.define(:version => 20130128010153) do
     t.datetime "updated_at"
   end
 
+  create_table "oscar_awards", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oscar_categories", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "oscar_entries", :force => true do |t|
     t.integer  "user_id"
     t.integer  "pool_id"
     t.string   "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oscar_nominees", :force => true do |t|
+    t.string   "nominee"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

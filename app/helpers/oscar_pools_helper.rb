@@ -1,0 +1,2 @@
+module OscarPoolsHelper
+end

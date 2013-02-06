@@ -1,4 +1,15 @@
 Poolofgreatness::Application.routes.draw do
+  resources :oscar_awards
+  resources :oscar_nominees
+
+  get "oscar_pools/index"
+
+  get "oscar_pools/entries"
+
+  get "oscar_pools/leaders"
+
+  get "oscar_pools/picks"
+
   get "masters_qualifiers/index"
 
   get "nba_stat_import_errors/show"
