@@ -1,5 +1,10 @@
 Poolofgreatness::Application.routes.draw do
-  resources :oscar_awards
+  resources :oscar_awards do
+    member do
+      post 'add_nominations'
+    end
+  end
+
   resources :oscar_nominees
 
   get "oscar_pools/index"

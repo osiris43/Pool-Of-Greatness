@@ -1,2 +1,35 @@
-<h1>OscarAwards#show</h1>
-<p>Find me in app/views/oscar_awards/show.html.erb</p>
+<div class="container_12">
+  <h3><%= @award.description %></h3>
+  Current Nominees
+  <ul>
+    <%= @award.oscar_nominations.each do |nomination| %>
+      <li><%= nomination.oscar_nominee.nominee %></li>
+    <% end %>
+  </ul>
+  <%= link_to "Add Nominees", "#", html_options = {:id => 'add_nominee'} %>
+  <div class="grid_12" style="display:none">
+    <h4>Showing</h>
+  </div>
+</div>
+
+<%= javascript_include_tag "knockout.mapping" %>
+<%= javascript_include_tag "oscar_awards" %>
+<script type="text/javascript">
+$().ready(function(){
+    var request = $.ajax({
+      url: '/oscar_nominees',
+      type: 'GET',
+      dataType: 'json',
+      success: function(response, textStatus, jqXHR){
+        OscarAwards.Start(response);
+
+      },
+      error: function(jqXHR, textStatus, errorThrown){
+        console.log(
+                "The following error occured: "+
+                textStatus, errorThrown
+            );
+      }
+    });
+})
+</script>

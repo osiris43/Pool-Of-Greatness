@@ -4,6 +4,7 @@ class OscarAwardsController < ApplicationController
   end
 
   def show
+    @award = OscarAward.find(params[:id])
   end
 
   def new
@@ -25,6 +26,10 @@ class OscarAwardsController < ApplicationController
   end
 
   def update
+  end
+
+  def add_nominations
+
   end
 
 end

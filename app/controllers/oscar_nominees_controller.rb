@@ -1,6 +1,11 @@
 class OscarNomineesController < ApplicationController
   def index
-    @nominees = OscarNominees.all
+    @nominees = OscarNominee.all
+
+    respond_to do |format|
+      format.html
+      format.json {render :json => @nominees}
+    end
   end
 
   def new
