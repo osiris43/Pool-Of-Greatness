@@ -1,0 +1,23 @@
+<div class="container_12">
+  <%= render 'shared/flashpartial' %>
+  <%= form_for (@pga_player) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.submit 'Add Player' %>
+  <% end %>
+  <br />
+  <table id="pga_players">
+    <tr>
+      <th>Player</th>
+    </tr>
+    <%= @players.each do |p| %>
+      <tr>
+        <td><%= p.name %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= javascript_include_tag "models/pga_players" %>
+<script type="text/javascript">
+</script>

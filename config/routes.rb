@@ -3,6 +3,8 @@ Poolofgreatness::Application.routes.draw do
 
   get "nba_stat_import_errors/show"
 
+  resources :pga_players
+
   resources :kentucky_derby_pools do
     member do 
       get 'show_window'
