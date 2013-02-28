@@ -41,7 +41,8 @@ class NbaTeam < ActiveRecord::Base
     elsif(loc=='away')
       points_allowed = away_defensive_mod(game_date)
     end
-    
+    puts points_allowed
+    puts points_allowed.length
     points_allowed.inject{|sum,x| sum+x} / points_allowed.length
     
   end

@@ -1,13 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.20'
+gem 'rails', '3.1.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
 gem 'hpricot'
-gem 'will_paginate', '3.0.pre2'
+gem 'will_paginate', '3.0'
 
 group :development do
   gem 'rspec-rails'

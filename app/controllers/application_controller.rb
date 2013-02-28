@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include ControllerAuthentication
-  include ActionView::Helpers::RawOutputHelper
+  #include ActionView::Helpers::RawOutputHelper
 
   protect_from_forgery
 
@@ -23,11 +23,11 @@ class ApplicationController < ActionController::Base
   private
     def mobile_device?
       return false
-      if session[:mobile_param]
-        session[:mobile_param] == "1"
-      else
-        request.user_agent =~ /Mobile|webOS/
-      end
+      #if session[:mobile_param]
+      #  session[:mobile_param] == "1"
+      #else
+      #  request.user_agent =~ /Mobile|webOS/
+      #end
     end
 
     helper_method :mobile_device?

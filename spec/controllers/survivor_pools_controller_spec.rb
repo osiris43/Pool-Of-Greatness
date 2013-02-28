@@ -4,6 +4,7 @@ describe SurvivorPoolsController do
   render_views
 
   def setup_pool()
+    Factory(:db_config)
     @user = Factory(:user)
     @user.create_account
     @user.sites.create!(:name => 'site name', :description => 'description')
@@ -12,7 +13,6 @@ describe SurvivorPoolsController do
     @user = User.find(@user.id)
     @controller.stubs(:current_user).returns(@user)
     @game = Factory(:nflgame)
-    Factory(:configuration)
     @survivor_session = Factory(:survivor_session)
   end
 
@@ -138,7 +138,7 @@ describe SurvivorPoolsController do
                                      :season => @game.season, 
                                      :survivor_session => @survivor_session)
       pool = @user.sites[0].pools[0]
-      SurvivorPool.expects(:find).with(pool.id).returns(pool)
+      SurvivorPool.expects(:find).with(pool.id.to_s).returns(pool)
       get :standings, :id => @user.sites[0].pools[0].id
       response.should have_selector(:td, :content => "Brett Bim")
       response.should have_selector(:td, :content => "NYJ")

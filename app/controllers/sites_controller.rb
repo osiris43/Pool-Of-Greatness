@@ -46,7 +46,7 @@ class SitesController < ApplicationController
 
   def newpool
     @site = Site.find(params[:id])
-    @season = Configuration.find_by_key("CurrentSeason").value 
+    @season = DbConfig.find_by_key("CurrentSeason").value 
     @week = 1
   end
 
@@ -79,6 +79,10 @@ class SitesController < ApplicationController
       @pool = KentuckyDerbyPool.new(:name => params[:poolname], :admin_id => current_user.id)
       @site.pools << @pool
       @site.save
+    when "OscarPool"
+      @pool = OscarPool.new(:name => params[:poolname], :admin_id => current_user.id)
+      @site.pools << @pool
+      @site.save
     end
 
     redirect_to user_path(current_user)
@@ -109,7 +113,6 @@ class SitesController < ApplicationController
       add_rule(@pool, :number_of_games, "number_of_games")
       add_rule(@pool, :college, "college")
       add_rule(@pool, :pro, "pro")
-      # TODO get rid of this hard code
       add_rule(@pool, :current_season, "current_season")
       add_rule(@pool, :current_week, "current_week")
       add_rule(@pool, :weekly_fee, "weekly_fee")

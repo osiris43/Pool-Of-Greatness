@@ -43,6 +43,6 @@ class SurvivorPool < Pool
   end
   private 
     def getseason
-      Configuration.find_by_key("CurrentSeason").value
+      DbConfig.find_by_key("CurrentSeason").value
     end
 end

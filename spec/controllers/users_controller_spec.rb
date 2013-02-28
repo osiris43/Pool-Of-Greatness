@@ -5,7 +5,7 @@ describe UsersController do
   fixtures :all
   render_views
   before(:each) do
-    Factory(:configuration) 
+    Factory(:db_config) 
   end
   
   it "new action should render new template" do

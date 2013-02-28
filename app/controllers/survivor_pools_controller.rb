@@ -7,7 +7,7 @@ class SurvivorPoolsController < ApplicationController
   
   def show
     @pool = SurvivorPool.find(params[:id])
-    season = Configuration.get_value_by_key("CurrentSeason")
+    season = DbConfig.get_value_by_key("CurrentSeason")
     @title = "#{@pool.name} Home"
     @current_week = @pool.current_week
     @current_pick = current_user.survivor_entries.where(:week => @current_week, :season => season).first

@@ -115,6 +115,11 @@ FactoryGirl.define do
     value "2011-2012"
   end
 
+  factory :db_config do
+    key   "CurrentSeason"
+    value "2011-2012"
+  end
+
   factory :bowl_season, :parent => :configuration do
     key   "CurrentBowlSeason"
     value "2010"
