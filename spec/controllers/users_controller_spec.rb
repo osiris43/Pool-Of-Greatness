@@ -5,7 +5,7 @@ describe UsersController do
   fixtures :all
   render_views
   before(:each) do
-    Factory(:configuration) 
+    Factory(:db_config) 
   end
   
   it "new action should render new template" do
@@ -52,7 +52,7 @@ describe UsersController do
     @controller.stubs(:current_user).returns(User.first)
     User.any_instance.stubs(:valid?).returns(true)
     put :update, :id => "ignored"
-    response.should redirect_to(root_url)
+    response.should redirect_to(user_path(User.first))
   end
 
   describe "GET 'show'" do

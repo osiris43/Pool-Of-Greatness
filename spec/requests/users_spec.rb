@@ -15,7 +15,7 @@ describe "Users" do
 
     describe "success" do
       before(:each) do
-        Factory(:configuration)
+        Factory(:db_config)
       end
       it "creates a user" do
         lambda do

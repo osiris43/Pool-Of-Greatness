@@ -2,12 +2,14 @@ require 'spec_helper'
 
 describe PickemPool do
   before(:each) do
+    year = DateTime.current.year
+
     @attr = { :name => "Pool of Greatness" }
     @pool = PickemPool.create!(@attr)
     @pool.pickem_rules.create!(:config_key => 'current_week', 
                             :config_value => '1')
     @pool.pickem_rules.create!(:config_key => 'current_season', 
-                            :config_value => '2011-2012')
+                            :config_value => "#{year-1}-#{year}")
 
   end 
 
@@ -29,8 +31,9 @@ describe PickemPool do
     end
 
     it "increments the season when config updated" do
+      year = DateTime.current.year
       @pool.update_config
-      @pool.current_season.should == "2012-2013"
+      @pool.current_season.should == "#{year}-#{year+1}"
     end
    
     it "resets the current_week to 1" do
@@ -91,14 +94,15 @@ describe PickemPool do
 
   it "returns the current week's deadline" do
     deadline = DateTime.current
-
-    @pool.pickem_weeks.create!(:season => '2011-2012', :week => 1, :deadline => deadline)
+    year = DateTime.current.year
+    @pool.pickem_weeks.create!(:season => "#{year-1}-#{year}", :week => 1, :deadline => deadline)
     @pool.current_deadline.strftime('%d-%m-%Y').should == deadline.strftime('%d-%m-%Y')
   end
 
   it "sets the current week's deadline" do
     deadline = DateTime.current + 1
-    @pool.pickem_weeks.create!(:season => '2011-2012', :week => 1, :deadline => deadline)
+    year = DateTime.current.year
+    @pool.pickem_weeks.create!(:season => "#{year-1}-#{year}", :week => 1, :deadline => deadline)
 
     @pool.current_deadline = deadline
     @pool.current_deadline.strftime('%d-%m-%Y').should == deadline.strftime('%d-%m-%Y')

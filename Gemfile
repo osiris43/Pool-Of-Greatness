@@ -7,7 +7,7 @@ gem 'rails', '3.1.7'
 
 gem 'pg'
 gem 'hpricot'
-gem 'will_paginate', '3.0.pre2'
+gem 'will_paginate', '3.0'
 
 group :development do
   gem 'rspec-rails'
@@ -17,7 +17,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'webrat', '0.7.1'
-  gem 'mocha', '0.9.8'
+  gem 'mocha', '0.9.8', :require => false
   gem 'factory_girl_rails', '~> 1.2'
   gem 'autotest', '4.4.6'
   gem 'autotest-rails-pure', '4.1.2'

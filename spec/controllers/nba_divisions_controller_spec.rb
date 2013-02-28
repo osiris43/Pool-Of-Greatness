@@ -23,7 +23,7 @@ describe NbaDivisionsController do
   describe "POST 'create'" do
     before(:each) do
       @conf = Factory(:nba_conference)
-      @attr = {:name => "my division", :nba_conference => @conf}
+      @attr = {:name => "my division", :nba_conference_id => @conf.id}
     end
 
     it "should be successful" do

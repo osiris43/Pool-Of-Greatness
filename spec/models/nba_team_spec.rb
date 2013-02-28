@@ -30,8 +30,10 @@ describe NbaTeam do
 
   describe "statistics" do
     before(:each) do
-      @team = NbaTeam.new(@attr)
       @game = Factory(:nba_game, :gametime => Time.current, :gamedate => Date.current)
+      @team = @game.home_team
+      @first_game_score = NbaGameScore.create!
+      @second_game_score = NbaGameScore.create!
     end
 
     it "has a points per game attribute" do
@@ -39,21 +41,21 @@ describe NbaTeam do
     end
 
     it "calculates points per game" do
-      @game.home_team.id.should_not == @game.away_team.id
-      @game.home_team.points_per_game(@game.gamedate + 1).should == 40.0 
+      @team.id.should_not == @game.away_team.id
+      @team.points_per_game(@game.gamedate + 1).should == 40.0 
     end
 
     it "calculates current defensive points modifier" do
       @game1 = Factory(:nba_game, :gamedate => Date.current - 2, :gametime => Time.current, 
                                         :season => '2011-2012', :away_team => @game.away_team,
-                                        :home_team => @game.home_team)
+                                        :home_team => @game.home_team, :score => @first_game_score)
       @game2 = Factory(:nba_game, :gamedate => Date.current - 1, :gametime => Time.current, 
                                         :season => '2011-2012', :away_team => @game.away_team,
-                                        :home_team => @game.home_team)
-      @game1.score.create!(:away_first_q => 10, :home_first_q => 20) 
-      @game2.score.create!(:away_first_q => 20, :home_first_q => 20) 
+                                        :home_team => @game.home_team, :score => @second_game_score)
+      @game1.score.update_attributes(:away_first_q => 10, :home_first_q => 20) 
+      @game2.score.update_attributes(:away_first_q => 20, :home_first_q => 20) 
 
-      @game.home_team.defensive_points_mod.should == 1.5
+      @team.defensive_points_mod.should == 1.5
     end
 
     describe "possessions" do

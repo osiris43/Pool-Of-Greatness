@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115022931) do
+ActiveRecord::Schema.define(:version => 20130224125408) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -61,6 +62,13 @@ ActiveRecord::Schema.define(:version => 20121115022931) do
   end
 
   create_table "configurations", :force => true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "db_configs", :force => true do |t|
     t.string   "key"
     t.string   "value"
     t.datetime "created_at"
@@ -268,6 +276,40 @@ ActiveRecord::Schema.define(:version => 20121115022931) do
     t.string   "mascot"
     t.string   "abbreviation"
     t.integer  "nba_division_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oscar_awards", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oscar_categories", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oscar_entries", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "pool_id"
+    t.string   "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oscar_nominations", :force => true do |t|
+    t.integer  "oscar_award_id"
+    t.integer  "oscar_nominee_id"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oscar_nominees", :force => true do |t|
+    t.string   "nominee"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

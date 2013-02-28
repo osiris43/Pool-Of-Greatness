@@ -11,7 +11,7 @@ describe SurvivorPool do
     @awayteam = Factory(:nflawayteam)
     @hometeam = Factory(:nflhometeam)
     @game = Factory(:nflgame, :away_team => @awayteam, :home_team => @hometeam)
-    Factory(:configuration) 
+    Factory(:db_config) 
   end
 
   it "requires an admin_id" do

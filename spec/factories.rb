@@ -97,7 +97,7 @@ FactoryGirl.define do
   end
 
   factory :masters_tournament do
-    year  "2012"  
+    year  DateTime.current.year.to_s
   end
 
   factory :team do
@@ -111,6 +111,11 @@ FactoryGirl.define do
   end
 
   factory :configuration do
+    key   "CurrentSeason"
+    value "2011-2012"
+  end
+
+  factory :db_config do
     key   "CurrentSeason"
     value "2011-2012"
   end

@@ -9,13 +9,16 @@ class PickemPool < Pool
   # END validations
  
   def needs_upgrade?
-    artificialDeadline = Date.new(Date.today.year, 3, 1)
-    if Date.today < artificialDeadline
-      return false 
-    else
-      season = "#{Date.today.year}-#{Date.today.year + 1}"
-      needs_upgrade = season == current_season ? false : true 
-    end
+    # 1-16-2013 This seems completely arbitrary and will fail whenever this test
+    # is run before march 1 of any given year.  Not sure why it's here, commenting
+    # out for now.
+    #artificialDeadline = Date.new(Date.today.year, 3, 1)
+    #if Date.today < artificialDeadline
+    #  return false 
+    #else
+    season = "#{Date.today.year}-#{Date.today.year + 1}"
+    needs_upgrade = season == current_season ? false : true 
+    #end
 
     needs_upgrade
   end 

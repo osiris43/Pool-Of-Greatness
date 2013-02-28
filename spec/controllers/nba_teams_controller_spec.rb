@@ -22,7 +22,7 @@ describe NbaTeamsController do
   describe "POST 'create'" do
     before(:each) do
       @div = Factory(:nba_division)
-      @attr = {:city => "Dallas", :mascot => "Mavericks", :abbreviation => "DAL", :nba_division => @div}
+      @attr = {:city => "Dallas", :mascot => "Mavericks", :abbreviation => "DAL", :nba_division_id => @div.id}
     end 
     it "should be successful" do
       lambda do
