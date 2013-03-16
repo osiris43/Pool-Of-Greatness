@@ -12,6 +12,7 @@ gem 'will_paginate', '3.0'
 group :development do
   gem 'rspec-rails'
   gem 'nifty-generators'
+  gem 'rb-fsevent', ' ~> 0.9.1'
 end
 
 group :test do
@@ -25,6 +26,14 @@ group :test do
   gem 'autotest-growl', '0.2.16'
 end
 
+group :assets do
+  gem 'sass-rails', " ~> 3.1.0"
+  gem 'coffee-rails', " ~> 3.1.0"
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
+gem 'underscore-rails'
 # Use unicorn as the web server
 # gem 'unicorn'
 

@@ -1,16 +1,15 @@
+
 /* GENERAL HTML Tags */
 
 /* Subsection 1: CSS Reset */
 body, 
 h1, h2, h3, 
 p, ul, li, form, input,
-table, tr, td,
-header, nav, article, section, dialog, figure, aside, footer {
+table, tr, td, header, nav, article, section, dialog, figure, aside, footer {
 border:0;
 margin:0;
 padding:0;
 font-size:100%;
-...
 }
 
 /* END CSS Reset */
@@ -56,12 +55,12 @@ h2 {
 
 /* Structural Tags */
 header{
-	font-weight:500;
-	background:#0B0974;
-	font-size:18px;
-	text-transform:uppercase;
-	position:relative;
-	width:100%;
+  font-weight:500;
+  background:#0B0974;
+  font-size:18px;
+  text-transform:uppercase;
+  position:relative;
+  width:100%;
   height: 50px;
 }
 
@@ -70,8 +69,8 @@ header h1 {
 }
 
 header a{
-	color:#fff !important;
-	text-decoration:none;
+  color:#fff !important;
+  text-decoration:none;
 }
 
 header .container_12{
@@ -88,7 +87,7 @@ header .container_12{
 }
 
 #banner {
-  background: url("/images/banner.png") top left repeat-x;
+  background: image-url("banner.png") top left repeat-x;
   border-top: 1px solid #c2bcbd; 
   height: 325px;
   padding: 20px 0 0 0;
@@ -148,9 +147,9 @@ input[type="text"], input[type="password"] {
 input[type="submit"] {
   background-color: #04034B;
   padding: 5px;
-	border-radius:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
   color: #ffffff;
 
 }
@@ -313,7 +312,7 @@ tr.tableheader th {
 }
 
 .result_label {
-  padding 0 5px;
+  padding: 0 5px;
 }
 
 .results_table {
@@ -382,7 +381,6 @@ tr.tableheader th {
 
 #sites_container {
   margin: 5px;
-
 }
 
 #site_navigation {
@@ -396,7 +394,6 @@ tr.tableheader th {
   overflow: auto;
   margin: 10px 0;
   padding: 0 0 10px 0;
-
 }
 
 #site_navigation a {
@@ -417,7 +414,6 @@ tr.tableheader th {
   background-color: #5d5bba;
   color: #d2b65f;
   padding: 0 5px;
-
 }
 
 article {
@@ -430,7 +426,6 @@ article {
   border-radius:5px 5px 5px 5px;
   -moz-border-radius:5px 5px 5px 5px;
   -webkit-border-radius:5px 5px 5px 5px;
-
 }
 
 .pool_container h4 {
@@ -546,7 +541,6 @@ article {
   border-radius:5px 5px 5px 5px;
   -moz-border-radius:5px 5px 5px 5px;
   -webkit-border-radius:5px 5px 5px 5px;
-
 }
 
 .pickem_home_box {
@@ -670,7 +664,7 @@ article {
 
 #site-nav {
   width: 100%;
-  background: url('/images/site_nav.png') top left repeat-x;
+  background: image-url('site_nav.png') top left repeat-x;
   min-height: 75px;
 }
 
@@ -702,7 +696,7 @@ article {
 
 #pool_banner{
   width: 100%;
-  background: url('/images/pool_header.png') top left repeat-x;
+  background: image-url('pool_header.png');
   min-height: 75px;
 }
 
@@ -808,7 +802,6 @@ article {
   -webkit-border-radius: 5px;
   background: #020131;
   color: #b59d52;
-
 }
 
 .bowlgames {
@@ -817,7 +810,6 @@ article {
   background-color: #0b0974;
   color: #D2B65F;
   padding: 5px;
-
 }
 .bowlgames tr.odd {
   background: #e2e2e2;
@@ -859,10 +851,6 @@ tr.duplicateRank{
 
 td.bowl_pool_cell {
   text-align: right;
-}
-
-#current_con_games {
-
 }
 
 #current_con_games td.current_game_rank{
@@ -915,7 +903,6 @@ div.calendar_container{
   float:left;
   overflow:hidden;
   position: relative;
-
 }
 
 div.calendar_container ul{
@@ -972,7 +959,7 @@ div.calendar_container a.prev {
   margin:0 5px;
   float:left;
   line-height:70px;
-  background: transparent url('/images/previous_arrow.png') 0 50% no-repeat;
+  background: transparent image-url('previous_arrow.png') 0 50% no-repeat;
 }
 
 div.game-scoreboard {

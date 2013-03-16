@@ -31,5 +31,10 @@ Poolofgreatness::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
   #Paperclip.options[:command_path] = "/usr/local/bin/"
 
+  # Do not compress any assets
+  config.assets.compress = false
+
+  # Expands the lines that load the assets
+  config.assets.debug = true
 end
 
