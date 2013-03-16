@@ -1,3 +1,6 @@
+//= require underscore
+//= require backbone
+//
 App = {
   start: function() {
     new App.ConfidencePoolRouter();
