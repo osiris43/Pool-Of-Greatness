@@ -41,7 +41,7 @@ describe TransactionsController do
         :pool => {:id => @site.pools[0].id}, 
         :amount => -12, 
         :description => "description"}
-
+      @user.create_account
       @user.account.stubs(:id).returns(1)
     end
 

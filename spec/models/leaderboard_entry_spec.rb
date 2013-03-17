@@ -6,6 +6,7 @@ describe LeaderboardEntry do
     before(:each) do
       @user = Factory(:user)
       @bowl = Factory(:bowl, :favorite_score => 0, :underdog_score => 1)
+      Factory(:db_config, :key => "CurrentBowlSeason", :value => "2010")
     end
 
     it "is not nil" do

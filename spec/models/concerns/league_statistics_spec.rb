@@ -11,7 +11,7 @@ describe LeagueStatistics do
                                     :FGA => 5, :ORB => 6, :turnovers => 7, :FTA => 8, :TRB => 9, :threePA => 10,
                                     :blocks => 11, :fouls => 12, :steals => 13, :minutes => 48)
     @dummy = FakeLeague.new
-    Factory(:configuration, :key => "CurrentNbaSeason", :value => "2011-2012") 
+    Factory(:db_config, :key => "CurrentNbaSeason", :value => "2011-2012") 
   end
 
   it "responds to league factor" do

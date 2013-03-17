@@ -1,5 +1,6 @@
 require 'date'
 FactoryGirl.define do
+
   factory :nba_team do
     city      :Boston
     mascot    :Celtics
@@ -110,22 +111,17 @@ FactoryGirl.define do
     end
   end
 
-  factory :configuration do
-    key   "CurrentSeason"
-    value "2011-2012"
-  end
-
   factory :db_config do
     key   "CurrentSeason"
     value "2011-2012"
   end
 
-  factory :bowl_season, :parent => :configuration do
+  factory :bowl_season, :parent => :db_config do
     key   "CurrentBowlSeason"
     value "2010"
   end
 
-  factory :nba_season, :parent => :configuration do
+  factory :nba_season, :parent => :db_config do
     key "CurrentNbaSeason"
     value "2011-2012"
   end
@@ -193,8 +189,8 @@ Factory.define :survivor_pool do |survivorpool|
 end
 
 Factory.define :pool_config do |poolconfig|
-  poolconfig.config_key     "mykey"
-  poolconfig.config_value   "myvalue"
+  poolconfig.config_key     :config_key
+  poolconfig.config_value   :config_value
   poolconfig.association    :pool
 end
 

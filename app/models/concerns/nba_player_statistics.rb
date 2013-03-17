@@ -45,7 +45,6 @@ module NbaPlayerStatistics
        fouls * ((ftm/fouls) - 0.44 * (fta/fouls) * value))
 
     (uPer * (lg_pace(season, gamedate) / tm_pace(player.nba_team_id, season, gamedate))) * (15/lg_efficiency(season, gamedate))
-    uPer 
   end
 
   private
@@ -59,7 +58,7 @@ module NbaPlayerStatistics
     
     def season_default(season)
       if(season.nil?)
-        season = Configuration.find_by_key('CurrentNbaSeason').value
+        season = DbConfig.find_by_key('CurrentNbaSeason').value
       end
 
       season

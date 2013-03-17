@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   end
 
   def current_season_pickem_entries
-    cur_season = Configuration.get_value_by_key('CurrentSeason')
+    cur_season = DbConfig.get_value_by_key('CurrentSeason')
     pickem_week_entries.joins(:pickem_week).where("pickem_weeks.season = '#{cur_season}'").all 
   end
 

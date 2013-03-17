@@ -1,7 +1,7 @@
 module NbaHelpers
   def season_default(season)
     if(season.nil?)
-      season = Configuration.find_by_key('CurrentNbaSeason').value
+      season = DbConfig.find_by_key('CurrentNbaSeason').value
     end
 
     season

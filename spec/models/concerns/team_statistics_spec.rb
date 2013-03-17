@@ -11,7 +11,7 @@ describe TeamStatistics do
                                     :FGA => 5, :ORB => 6, :turnovers => 7, :FTA => 8, :TRB => 9, :threePA => 10)
 
     @dummy = FakeTeam.new
-    Factory(:configuration, :key => "CurrentNbaSeason", :value => "2011-2012") 
+    Factory(:db_config, :key => "CurrentNbaSeason", :value => "2011-2012") 
   end
 
   it 'responds to points per game' do

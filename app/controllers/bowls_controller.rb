@@ -4,7 +4,7 @@ class BowlsController < ApplicationController
 
   def index
     @title = "Bowls"
-    @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
+    @bowls = Bowl.where("season = ?", DbConfig.get_value_by_key("CurrentBowlSeason")).all
     @teams = Team.all.sort_by {|t| t.teamname}
 
     respond_to do |format|

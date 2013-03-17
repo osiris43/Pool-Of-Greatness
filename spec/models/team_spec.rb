@@ -11,7 +11,7 @@ describe Team do
 
   describe "games" do
     before(:each) do
-      Factory(:configuration)
+      Factory(:db_config)
       @away = Factory(:team, :teamname => "Dallas Cowboys" ) 
       @home = Factory(:team, :teamname => "New York Jets" ) 
       @attr = {:away_team => @away, :home_team => @home,

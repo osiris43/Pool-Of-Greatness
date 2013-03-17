@@ -65,7 +65,7 @@ describe NbaTeam do
                                         :FGA => 5, :ORB => 6, :turnovers => 7, :FTA => 8, :TRB => 9, :threePA => 10)
         @game1.nba_game_team_stats.create(:nba_team => @game1.home_team, :FGM => 1, :threePM => 2, :assists => 3, :FTM => 4,
                                         :FGA => 5, :ORB => 6, :turnovers => 7, :FTA => 8, :TRB => 9, :threePA => 10)
-        Factory(:configuration, :key => "CurrentNbaSeason", :value => "2011-2012") 
+        Factory(:db_config, :key => "CurrentNbaSeason", :value => "2011-2012") 
 
       end
 

@@ -37,7 +37,7 @@ class NbaGame < ActiveRecord::Base
   end
 
   def self.parse_from_html(html, game_date)
-    season = Configuration.get_value_by_key("CurrentNbaSeason")
+    season = DbConfig.get_value_by_key("CurrentNbaSeason")
     away_abbv = (html/'.nbaModTopTeamAw').first.search(".nbaModTopTeamName").inner_html
     away = NbaTeam.find_by_abbreviation(away_abbv.upcase)
     home_abbv = (html/'.nbaModTopTeamHm').first.search(".nbaModTopTeamName").inner_html

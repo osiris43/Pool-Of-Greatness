@@ -14,7 +14,7 @@ class Bowl < ActiveRecord::Base
 
   def self.bowls_left
     count = 0
-    @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
+    @bowls = Bowl.where("season = ?", DbConfig.get_value_by_key("CurrentBowlSeason")).all
     
     @bowls.each do |bowl|
       count += 1 unless !bowl.winning_team.nil?

@@ -150,7 +150,7 @@ describe SurvivorPoolsController do
       @user = Factory(:user)
       @controller.stubs(:current_user).returns(@user)
       @session = Factory(:survivor_session)
-      Factory(:configuration)
+      Factory(:db_config)
       @game = Factory(:nflgame)
       SurvivorPool.any_instance.stubs(:current_week).returns(6)
     end

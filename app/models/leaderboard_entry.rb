@@ -24,7 +24,7 @@ class LeaderboardEntry
   end
 
   def largest_left
-    season = Configuration.get_value_by_key("CurrentBowlSeason")
+    season = DbConfig.get_value_by_key("CurrentBowlSeason")
     rank = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and bowls.favorite_score + bowls.underdog_score = 0").maximum("rank")
     pick = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and rank = ?", rank).first
     
@@ -36,7 +36,7 @@ class LeaderboardEntry
   end
 
   def second_largest_left
-    season = Configuration.get_value_by_key("CurrentBowlSeason")
+    season = DbConfig.get_value_by_key("CurrentBowlSeason")
     rank = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and bowls.favorite_score + bowls.underdog_score = 0").maximum("rank")
     second = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and bowls.favorite_score + bowls.underdog_score = 0 AND rank < ?", rank).maximum("rank")
     pick = @player.confidence_picks.joins(:bowl).where("bowls.season = '#{season}' and rank = ?", second).first

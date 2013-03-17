@@ -17,8 +17,8 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'webrat', '0.7.1'
-  gem 'mocha', '0.9.8', :require => false
+  gem 'webrat'
+  gem 'mocha', :require => false
   gem 'factory_girl_rails', '~> 1.2'
   gem 'autotest', '4.4.6'
   gem 'autotest-rails-pure', '4.1.2'
@@ -30,10 +30,10 @@ group :assets do
   gem 'sass-rails', " ~> 3.1.0"
   gem 'coffee-rails', " ~> 3.1.0"
   gem 'uglifier'
+  gem 'jquery-rails'
+  gem 'underscore-rails'
 end
 
-gem 'jquery-rails'
-gem 'underscore-rails'
 # Use unicorn as the web server
 # gem 'unicorn'
 

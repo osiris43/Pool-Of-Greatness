@@ -11,7 +11,7 @@ class ConfidencePoolsController < ApplicationController
 
   def viewbowls
     @pool = ConfidencePool.find(params[:id])
-    season = Configuration.get_value_by_key("CurrentBowlSeason")
+    season = DbConfig.get_value_by_key("CurrentBowlSeason")
     @deadline = DateTime.parse(PoolConfig.find_by_pool_id_and_config_key(@pool.id, "ConfidencePoolDeadline").config_value)
     if(@deadline < DateTime.current)
       flash[:notice] = "The deadline has passed for making or changing picks."
@@ -32,7 +32,7 @@ class ConfidencePoolsController < ApplicationController
   end
 
   def save_picks
-    season = Configuration.get_value_by_key("CurrentBowlSeason")
+    season = DbConfig.get_value_by_key("CurrentBowlSeason")
     @pool = ConfidencePool.find(params[:id])
     @bowls = Bowl.where("season = ?", season).all
     picks = [] 
@@ -107,7 +107,7 @@ class ConfidencePoolsController < ApplicationController
   def allpicks
     @pool = ConfidencePool.find(params[:id])
     @title = "All Picks"
-    @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
+    @bowls = Bowl.where("season = ?", DbConfig.get_value_by_key("CurrentBowlSeason")).all
   end
 
   def possible_outcomes
@@ -116,7 +116,7 @@ class ConfidencePoolsController < ApplicationController
     possibles = []
     winnersHash = {}
     possibles_col = []
-    @bowls = Bowl.where("season = ?", Configuration.get_value_by_key("CurrentBowlSeason")).all
+    @bowls = Bowl.where("season = ?", DbConfig.get_value_by_key("CurrentBowlSeason")).all
     bowlsLeft = Bowl.bowls_left
     @possibleCount = 2**bowlsLeft - 1
     # comment out return once enough bowls have been played.
@@ -179,7 +179,7 @@ class ConfidencePoolsController < ApplicationController
     end
 
     def manage_current_entry(pool)
-      season = Configuration.get_value_by_key("CurrentBowlSeason")
+      season = DbConfig.get_value_by_key("CurrentBowlSeason")
 
       @entry = current_user.confidence_entries.where(:season => season).first 
       score = params[:total_score].to_f

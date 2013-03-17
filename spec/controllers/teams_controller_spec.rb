@@ -5,7 +5,7 @@ describe TeamsController do
   describe "GET 'show'" do
     before(:each) do
       @team = Factory(:nflhometeam)
-      Factory(:configuration)
+      Factory(:db_config)
     end
 
     it "should be successful" do

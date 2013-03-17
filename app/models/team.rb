@@ -10,7 +10,7 @@ class Team < ActiveRecord::Base
 
   def games(season=nil)
     if season.nil?
-      season = Configuration.find_by_key("CurrentSeason").value
+      season = DbConfig.find_by_key("CurrentSeason").value
     end
 
     away_games.find_all { |game| game.season == season} + home_games.find_all { |game| game.season == season}
@@ -51,7 +51,7 @@ class Team < ActiveRecord::Base
   end
 
   def this_weeks_game
-    season = Configuration.find_by_key("CurrentSeason").value
+    season = DbConfig.find_by_key("CurrentSeason").value
     games.find{ |game| game.season == season && game.gamedate > DateTime.current && game.gamedate < Time.next(:tuesday) } 
   end
 
