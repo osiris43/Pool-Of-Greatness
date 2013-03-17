@@ -1,5 +1,5 @@
 class MastersTournament < ActiveRecord::Base
-#  attr_accessible :importfile
+  attr_accessible :importfile, :year
 
 #  has_attached_file :importfile
 

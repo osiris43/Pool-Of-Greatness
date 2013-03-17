@@ -45,7 +45,7 @@ class Team < ActiveRecord::Base
     game = this_weeks_game
 
     if game.nil?
-      return Team.new(:display_name => 'BYE')
+      return Team.new(:teamname => 'BYE')
     end
     game.home_team.id == id ? game.away_team : game.home_team
   end

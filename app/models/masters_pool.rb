@@ -1,4 +1,4 @@
 class MastersPool < ActiveRecord::Base
   belongs_to :golf_wager_pool
-  has_one :masters_tournament
+  belongs_to :masters_tournament
 end
