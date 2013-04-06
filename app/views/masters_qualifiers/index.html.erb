@@ -1,2 +1,9 @@
-<h1>MastersQualifiers#index</h1>
-<p>Find me in app/views/masters_qualifiers/index.html.erb</p>
+<div class="container_12">
+  <div id="list" class="grid_6">
+</div>
+<script type="text/javascript">
+$(function() {
+    window.qualifiersrouter = new POG.Routers.MastersQualifiersRouter({qualifiers: <%= @qualifiers.to_json.html_safe -%>});
+    //Backbone.history.start();
+  });
+</script>

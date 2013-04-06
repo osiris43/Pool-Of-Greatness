@@ -1,4 +1,4 @@
 //App.Collections.MastersQualifiers = Backbone.Collection.extend({
-//  model: MastersQualifier,
+//  model: App.Models.MastersQualifier,
 //  url: '/mastersqualifiers'
 //});

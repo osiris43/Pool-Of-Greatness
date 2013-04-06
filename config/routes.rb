@@ -1,5 +1,5 @@
 Poolofgreatness::Application.routes.draw do
-  get "masters_qualifiers/index"
+  resources :masters_qualifiers
 
   get "nba_stat_import_errors/show"
 

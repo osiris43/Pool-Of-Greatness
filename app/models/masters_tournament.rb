@@ -1,7 +1,8 @@
 class MastersTournament < ActiveRecord::Base
-  attr_accessible :importfile, :year
+  attr_accessible :importfile, :year, :masters_qualifers
 
 #  has_attached_file :importfile
+  has_many :masters_qualifiers 
 
   def process
 #    f = importfile.to_file

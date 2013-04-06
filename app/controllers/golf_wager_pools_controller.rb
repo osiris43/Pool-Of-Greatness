@@ -16,5 +16,7 @@ class GolfWagerPoolsController < ApplicationController
   def show_team
     @pool = GolfWagerPool.find(params[:id])
     @team = current_user.find_masters_pool_entry_by_year()
+    masters = MastersPool.find_by_golf_wager_pool_id(@pool.id)
+    @tourney = MastersTournament.find(masters.masters_tournament_id)
   end
 end

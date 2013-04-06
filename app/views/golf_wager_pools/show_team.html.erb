@@ -7,6 +7,18 @@
         <% end %>
       </ul>
     </div>
+    <div class="grid_6">
+      <table>
+        <tr>
+          <th>Player</th>
+        </tr>
+        <% @tourney.masters_qualifiers.each do |mq| %>
+          <tr>
+            <td><%= mq.pga_player.name %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
   </div>
 </div>
 <script type="text/javascript">
