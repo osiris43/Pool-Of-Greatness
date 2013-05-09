@@ -3,18 +3,10 @@
     <span id="site-title"><%= link_to "The Sports Pool Hub", root_path %></span>
     <nav id="nav">
       <ul>
-        <% if logged_in? %>
-          <li><%= link_to "Dashboard", user_path(current_user) %></li>
-          <li><%= link_to "Log out", logout_path %></li>
-          <% if (current_user.admin?) %>
-            <%= link_to "Application Admin", appadmin_path %>
-          <% end %>
-        <% else %>
           <li><%= link_to 'Features', '#features' %></li>
           <li><%= link_to 'Pools', '#pools' %></li>
           <li><%= link_to 'Pricing', '#pricing' %></li>
           <li><%= link_to "Sign In", login_path %></li>
-        <% end %>
       </ul>
     </nav>
   </div>

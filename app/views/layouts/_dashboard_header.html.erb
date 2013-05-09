@@ -1,0 +1,12 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <span id="site-title"><%= link_to "The Sports Pool Hub", root_path, {:class => "brand"} %></span>
+      <ul class="nav">
+          <li><%= link_to "Dashboard", user_path(current_user) %></li>
+          <li><%= link_to "Log out", logout_path %></li>
+          <% if (current_user.admin?) %>
+            <li><%= link_to "Application Admin", appadmin_path %></li>
+          <% end %>
+        </ul>
+  </div>
+</div>

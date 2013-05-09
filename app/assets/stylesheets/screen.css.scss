@@ -37,6 +37,7 @@ html, body {height: 100%}
 body {
   font:normal 16px/24px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   background: #f2f2f5; 
+  padding-top: 46px;
 }
 
 h1 {
@@ -71,15 +72,6 @@ a {
   clear: both;
   height: 0;
   overflow: hidden;
-}
-
-#container {
-  width: 75%;
-  margin: 0 auto;
-  background-color: #FFF;
-  padding: 20px 40px;
-  border: solid 1px black;
-  margin-top: 20px;
 }
 
 #flash_notice, #flash_error, #flash_alert {
@@ -153,12 +145,15 @@ header .container_12{
 	padding:10px 0;
 }
 
-
 /* END Structural Tags */
 
 /* Custom classes and ids */
-#site-title {
-  font-size: 28px;
+
+.navbar-inner {
+  background: #C7C3C5;
+}
+.navbar-inner .brand {
+  margin-left:20px;
 }
 
 #banner {
@@ -1070,4 +1065,9 @@ div#team-defensive-stats td {
 
 .loser{
     color: red;
+}
+
+/* twitter bootstrap impl */
+.menu-system{
+  margin-left: -20px
 }

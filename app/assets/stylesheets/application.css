@@ -1,5 +1,7 @@
 /* ...
 *= require_self
+*= require bootstrap/bootstrap-responsive
+*= require bootstrap/bootstrap
 *= require 960gs/reset
 *= require 960gs/960
 *= require screen

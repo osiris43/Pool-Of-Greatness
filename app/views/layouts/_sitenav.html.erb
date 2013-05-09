@@ -1,26 +1,31 @@
-<div id="site-nav">
-  <div class="container_12">
-    <div class="grid_12">
-      <ul class="site-nav-body">
-        <li class="site-nav-menu-item">
-          <%= link_to "Home", user_path(current_user)  %>
-        </li>
-        <li class="site-nav-menu-item">
-          <%= link_to "Edit Profile", edit_user_path(current_user) %>
-          </li>
-        <% if current_user.admin? %>
-          <li class="site-nav-menu-item"><%= link_to "Site Admin", appadmin_path %> </li>
-        <% end %>
-        <% current_user.sites.each do |site| %>
-          <% site.pools.each do |pool| %>
-            <% if pool.active %>
-              <li class="site-nav-menu-item">
-                <%= poolpath_for(pool) %>
+<ul class="nav nav-list menu-system">
+  <li class="active">
+    <%= link_to "Home", user_path(current_user)  %>
+  </li>
+  <li>
+    <%= link_to "Edit Profile", edit_user_path(current_user) %>
+    </li>
+    <div class="accordian" id="pools-accordian">
+      <div class="accordian-group">
+        <div class="accordian-heading">
+          <a class="accordian-toggle" data-toggle="collapse" href="#collapseOne" data-parent="pools-accordian">Pools</a> 
+        </div>
+        <div id="collapseOne" class="accordian-body collapse">
+          <ul>
+          <div class="accordian-inner">
+            <% current_user.sites.each do |site| %>
+              <% site.pools.each do |pool| %>
+                <% if pool.active %>
+                  <li>
+              <%= poolpath_for(pool) %>
               </li>
+                <% end %>
+              <% end %>
             <% end %>
-          <%end %>
-        <% end %>
-      </ul>
+          </div>
+          </ul>
+        </div>
+      </div>
+
     </div>
-  </div>
-</div>
+</ul>
