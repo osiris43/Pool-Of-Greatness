@@ -1,8 +1,9 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui.custom
 //= require underscore
 //= require backbone
 //= require bootstrap/bootstrap
 //= require backbone/pool_of_greatness
-//= require_tree .
-
+//= require jquery.uniform
+//= require unicorn/unicorn

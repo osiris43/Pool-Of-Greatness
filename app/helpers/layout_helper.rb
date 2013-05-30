@@ -19,4 +19,13 @@ module LayoutHelper
   def javascript(*args)
     content_for(:head) { javascript_include_tag(*args) }
   end
+
+  def activate_sidebar(li, opts=[])
+    if controller_name.include?(li)
+      s = "active"
+      opts.each {|opt| s << " #{opt}"}
+      return s
+    end
+
+  end
 end

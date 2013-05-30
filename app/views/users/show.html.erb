@@ -1,36 +1,16 @@
-<div id="dashboard_wrapper" class="container_12">
-  <div class="grid_12">
-    <nav class="pickem_navigation">
-      <ul>
-        <li><%= link_to "Join Site", find_sites_path %></li>
-        <% if current_user.site_admin? %>
-          <li>
-            <%= link_to "Add Pool", newpool_site_path(current_user.sites[0]) %>
-          </li>
-          <li>
-            <%= link_to "Site Administration", administer_site_path(current_user.sites[0]) %>
-          </li>
-        <%end %>
-      </ul>
-    </nav>
-  <%= image_tag("home_48.png") %>
-  <span>Dashboard</span>
-    <%= render "shared/flashpartial" %>
-  </div>
-
-  <div class="clear"></div>
-  <div class="grid_6">
-    <% if !current_user.pickem_week_entries.empty? %>
-      <%= render "pickem" %>
-    <%end %>
-  </div>
-  <div class="grid_6">
-    <!-- <div id="pool_summary">
-    </div> -->
-  </div>
-  <div class="clear"></div>
-  <div class="grid_12">
-    <%= render "accountinfo" %>
-
+<div id="content-header">
+  <h1>Dashboard</h1>
+</div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="widget-box">
+      <%= render "accountinfo" %>
+    </div>
+    <div class="span6">
+      <div class="widget-box">
+        <%= render "recent_entries">
+      </div>
+    </div>
   </div>
 </div>
+

@@ -1,18 +1,12 @@
-<ul class="nav nav-list menu-system">
-  <li class="active">
+<ul>
+  <li>
     <%= link_to "Home", user_path(current_user)  %>
   </li>
   <li>
     <%= link_to "Edit Profile", edit_user_path(current_user) %>
     </li>
-    <div class="accordian" id="pools-accordian">
-      <div class="accordian-group">
-        <div class="accordian-heading">
-          <a class="accordian-toggle" data-toggle="collapse" href="#collapseOne" data-parent="pools-accordian">Pools</a> 
-        </div>
-        <div id="collapseOne" class="accordian-body collapse">
+          <a>Pools</a> 
           <ul>
-          <div class="accordian-inner">
             <% current_user.sites.each do |site| %>
               <% site.pools.each do |pool| %>
                 <% if pool.active %>
@@ -22,10 +16,5 @@
                 <% end %>
               <% end %>
             <% end %>
-          </div>
           </ul>
-        </div>
-      </div>
-
-    </div>
 </ul>

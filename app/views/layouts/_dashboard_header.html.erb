@@ -1,12 +1,52 @@
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <span id="site-title"><%= link_to "The Sports Pool Hub", root_path, {:class => "brand"} %></span>
-      <ul class="nav">
-          <li><%= link_to "Dashboard", user_path(current_user) %></li>
-          <li><%= link_to "Log out", logout_path %></li>
-          <% if (current_user.admin?) %>
-            <li><%= link_to "Application Admin", appadmin_path %></li>
-          <% end %>
-        </ul>
+<div id="header">
+  <h1><%= link_to "The Sports Pool Hub", root_path %></h1>
   </div>
+<div id="search">
+  <input type="text" placeholder="Search here..."/><button type="submit" class="tip-right" title="Search"><i class="icon-search icon-white"></i></button>
 </div>
+<div id="sidebar">
+  <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+  <ul>
+  <li class="<%= activate_sidebar("users") %>">
+      <%= link_to user_path(current_user) do %>
+      <i class="icon icon-home"></i><span>Dashboard</span>
+      <% end %>
+    </li>
+
+  <li class="submenu <%= activate_sidebar("pools", ["open"]) %>">
+    <a href="#"><i class="icon icon-globe"></i><span>Pools</span><span class="label">2</span></a>
+      <ul>
+      <% current_user.sites.each do |site| %>
+          <% site.pools.each do |pool| %>
+            <% if pool.active %>
+              <li>
+                <%= poolpath_for(pool) %>
+              </li>
+            <% end %>
+          <%end %>
+        <% end %>
+      </ul>
+      </li>
+
+      <li class="<%= activate_sidebar("sites")%>">
+        <%= link_to find_sites_path do %>
+        <i class="icon icon-home"></i><span>Join Site</span> 
+        <% end %>
+        </li>
+      <% if current_user.site_admin? %>
+        <li class="submenu">
+        <a href="#"><i class="icon icon-globe"></i><span>Site Admin</span><span class="label">2</span></a>
+        <ul>
+          <li>
+            <%= link_to "Add Pool", newpool_site_path(current_user.sites[0]) %>
+          </li>
+          <li>
+            <%= link_to "Site Administration", administer_site_path(current_user.sites[0]) %>
+          </li>
+        <%end %>
+      </ul>
+      </li>
+  </ul>
+
+</div>
+
