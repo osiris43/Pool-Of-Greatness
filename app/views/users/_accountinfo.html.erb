@@ -3,25 +3,14 @@
   <h5>Your Account Activity</h5>
   <div class="buttons"><a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update</a></div>
 </div>
-  <div id="account_activity_data" class="widget-content">
-    <%= link_to "View Full Report", accounting_user_path(current_user) %><br />
-  <label>Current Balance: </label><span><%= number_to_currency(current_user.balance) %></span>
-  <br /><br />
-  <span>Last 10 transactions</span> 
-  <table class="results_table">
-    <tr class="header">
-      <th>Date</th>
-      <th>Pool Name</th>
-      <th>Amount</th>
-      <th>Description</th>
-    </tr>
-    <% current_user.account.last_transactions(10).each do |trans| %>
-      <tr class="<%= cycle("even", "odd") %>">
-        <td><%= trans.created_at.strftime("%m-%d-%Y") %></td>
-        <td><%= trans.poolname %></td>
-        <td><%= number_to_currency(trans.amount) %></td>
-        <td><%= trans.description %></td>
-      </tr>
-    <% end %>
-  </table>
+<div id="account_activity_data" class="widget-content">
+  <div class="row-fluid">
+    <div class="span4">
+    <ul class="site-stats">
+      <li><strong><%= number_to_currency(current_user.balance) %></strong><small>Current Balance</small></li>
+      <li><strong><%= current_user.current_season_pickem_entries.count %></strong><small>Pickem Entries</small></li>
+    </ul>
+    </div>
+  </div>
 </div>
+
