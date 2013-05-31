@@ -15,9 +15,9 @@
       <%#= render "layouts/sitenav" unless current_user.nil? %> 
       <div id="content">
       <%= yield %>
-      </div>
-      <%#= render 'layouts/footer' %>
+      <%= render 'layouts/footer' %>
 
+      </div>
   <%= javascript_include_tag "application" %>
   </body>
 </html>
