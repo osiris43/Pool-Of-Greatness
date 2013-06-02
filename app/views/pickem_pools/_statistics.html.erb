@@ -1,0 +1,23 @@
+<div class="span3">
+  <div class="widget-box">
+    <div class="widget-title">
+      <span class="icon">
+        <i class="icon-user"></i>
+      </span>
+      <h5>Current Standings</h5>
+    </div>
+    <div class="widget-content">
+      <% if @userstats.empty? %>
+        <span>No Standings Yet</span>
+      <% else %>
+        <span>
+        <% @userstats.each do |stat| %>
+          <%= "#{stat.name} ( #{stat.win_percentage}% )" %><br />
+        <% end %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+

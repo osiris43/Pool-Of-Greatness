@@ -1,0 +1,17 @@
+<div class="span3">
+  <div class="widget-box">
+    <div class="widget-title">
+      <span class="icon">
+        <i class="icon-user"></i>
+      </span>
+      <h5>Current Jackpot</h5>
+    </div>
+    <div class="widget-content">
+      <% if !@pool.jackpot.nil? %>
+        <%= label_tag("Weekly Jackpot: #{number_to_currency(@pool.jackpot.weeklyjackpot)}") %>
+            <br />
+            <%= label_tag("Season Jackpot: #{number_to_currency(@pool.jackpot.seasonjackpot)}") %>
+          <% end %>
+    </div>
+  </div>
+</div>

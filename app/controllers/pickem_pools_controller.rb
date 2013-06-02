@@ -63,7 +63,7 @@ class PickemPoolsController < ApplicationController
     if DateTime.current > @current_week.deadline
       @pool = PickemPool.find(params[:id])
 
-      flash[:notice] = "The deadline has passed"
+      flash[:error] = "The deadline has passed"
       redirect_to(home_pickem_pool_path(@pool))
     else
       render 'view_games'

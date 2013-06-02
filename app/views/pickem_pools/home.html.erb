@@ -1,70 +1,17 @@
-<%= render 'shared/poolbanner' %>
-<div class="pickem_container container_12">
-  <%= render 'navigation' %>
-  <%= render 'shared/flashpartial' %>
-    <% if @display_upgrade %>
-      <div id="upgrade_pool">
-        <span>This is the <%= "#{@pool.current_season}" %> pool.  Update settings to the current season.
-          This will set all totals for the new season to zero while retaining your transaction history.
-        </span>
-        <%= link_to "Update Config", updatepool_pickem_pool_path(@pool) %>
-      </div>
-    <% end %>
-
-    <h1>Welcome to <%= @pool.name %></h1> 
-    <div class="grid_9">
-      <span>
-        Welcome to the 13th season of the Pool of Greatness Pickem pool.  Things we learned
-        last year? Eli Manning may actually be better than we thought but he's probably no Tom
-        Brady.  T.O is done.  Cam Newton is the real deal.  The Colts will tank the season 
-        to get Andrew Luck.  Michelle may be able to pick football games but it's not a genetic
-        talent.  I'm sure there are others.  Here's to a great season.</span> 
-    </div>
-    <div id="pickem_info_boxes">
-      <div class="grid_3">
-        <div class="pickem_home_box">
-          <h2>Current Standings</h2>
-          <% if @userstats.empty? %>
-            <span>No Standings Yet</span>
-          <% else %>
-            <span>
-            <% @userstats.each do |stat| %>
-              <%= "#{stat.name} ( #{stat.win_percentage}% )" %><br />
-            <% end %>
-          </span>
-          <% end %>
-        </div>
-        <div class="pickem_home_box">
-          <h2>Current Jackpots</h2>
-          <% if !@pool.jackpot.nil? %>
-            <%= label_tag("Weekly Jackpot: #{number_to_currency(@pool.jackpot.weeklyjackpot)}") %>
-            <br />
-            <%= label_tag("Season Jackpot: #{number_to_currency(@pool.jackpot.seasonjackpot)}") %>
-          <% end %>
-        </div>
+  <div id="content-header">
+    <h1>Pool of Greatness</h1>
+  </div>
+  <div class="container-fluid">
+    <%= render "navigation" %>
+    <div class="row-fluid">
+      <div class="span12">
+        <%= render 'shared/flashpartial' %>
       </div>
     </div>
+    <div class="row-fluid">
+      <%= render 'pool_home' %>
+      <%= render 'statistics' %>
+      <%= render 'jackpot' %>
+    </div>
   </div>
-  <div class="container_12">
-  <div class="pickem_home_box grid_12">
-    <% if current_user.account.nil? || current_user.account.transactions.count == 0 %>
-      <h2>No account activity</h2>
-    <% else %>
-      <h2>Recent Account Activity</h2>
-      <table>
-        <tr>
-          <th>Description</th>
-          <th>Amount</th>
-        </tr>
-        <% @transactions.each do |t| %>
-          <tr class="<%= cycle("odd", "even") %>">
-            <td><%= t.description %></td>
-            <td><%= number_to_currency(t.amount) %></td>
-          </tr>
-        <% end %>
-      </table>
-    <% end %>
-  </div>
-</div>
-<div class="clear"></div>
 

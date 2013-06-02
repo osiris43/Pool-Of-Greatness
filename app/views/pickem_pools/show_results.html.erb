@@ -1,21 +1,33 @@
-<%= render 'shared/poolbanner' %>
-
-<div class="pickem_container container_12">
-  <%= render "navigation" %>
-  <%= render 'shared/flashpartial' %>
-
-  <div class="grid_12">
+<div id="content-header">
   <h1><%= @results_header %></h1>
+  </div>
+  <div class="container-fluid">
+    <%= render "navigation" %>
+    <div class="row-fluid">
+      <div class="span12">
+        <%= render 'shared/flashpartial' %>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span4">
+        <%= form_tag(show_results_pickem_pool_path, :method => 'get') do %>
+          <%= label_tag(:weekid, "Select a week") %>
+          <%= select_tag(:weekid, options_from_collection_for_select(@allweeks, :week, :week)) %>
+          <br />
+          <%= submit_tag("Get Results") %>
+        <% end %>
+      </div>
+      <div class="span8">
+        <%= render 'places' %>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span12">
+        <% if !@current_week.pickem_entry_results.empty? %>
+          <%= render 'allentries' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <%= form_tag(show_results_pickem_pool_path, :method => 'get') do %>
-    <%= label_tag(:weekid, "Select a week") %>
-    <%= select_tag(:weekid, options_from_collection_for_select(@allweeks, :week, :week)) %>
-    <br />
-    <%= submit_tag("Get Results") %>
-  <% end %>
-  <%= render 'places' %>
-  <% if !@current_week.pickem_entry_results.empty? %>
-    <%= render 'allentries' %>
-  <% end %>
-</div>
-</div>

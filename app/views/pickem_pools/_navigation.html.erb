@@ -1,13 +1,43 @@
-  <nav class="pickem_navigation">
-    <ul>
-      <li><%= link_to "Pool Home", home_pickem_pool_path(@pool) %></li>
-      <li><%= link_to "Weekly Games", view_games_pickem_pool_path(@pool) %></li>
-      <li><%= link_to "View All Picks", view_allgames_pickem_pool_path(@pool) %></li>
-      <li><%= link_to "Weekly Results", show_results_pickem_pool_path(@pool) %></li>
-      <li><%= link_to "Season Stats", viewstats_pickem_pool_path(@pool) %></li>
+<div class="row-fluid">
+  <div class="span12 center" style="text-align: center;">
+    <ul class="quick-actions-horizontal">
+      <li>
+        <%= link_to home_pickem_pool_path(@pool) do %>
+          <i class="icon-calendar"></i><span>Pool Home</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to view_games_pickem_pool_path(@pool) do %>
+          <i class="icon-calendar"></i><span>Weekly Games</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to view_allgames_pickem_pool_path(@pool) do %>
+          <i class="icon-calendar"></i><span>View All Picks</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to show_results_pickem_pool_path(@pool) do %>
+          <i class="icon-calendar"></i><span>Weekly Results</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to viewstats_pickem_pool_path(@pool) do %>
+          <i class="icon-calendar"></i><span>Season Stats</span>
+        <% end %>
+        </li>
       <% if current_user.pool_admin?(@pool) %>
-        <li><%= link_to "Pool Admin", administer_pickem_pool_path %></li>
+      <li>
+        <%= link_to administer_pickem_pool_path (@pool) do %>
+          <i class="icon-calendar"></i><span>Pool Admin</span>
+        <% end %>
+        </li>
+
       <% end %>
     </ul>
-  </nav>
+  </div>
+</div>
+
+
+
 

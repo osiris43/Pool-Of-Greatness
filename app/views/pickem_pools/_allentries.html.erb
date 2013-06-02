@@ -1,19 +1,30 @@
-<table id="weeklygames">
-    <tr>
-      <th>Name</tH>
-      <th>Won</th>
-      <th>Lost</th>
-      <th>Tied</th>
-      <th>Monday Night Total Distance</th>
-    </tr>
-  <% @current_week.pickem_entry_results.each do |result| %>
-    <tr class="<%= cycle("odd", "even") %>" >
-      <td><%= result.pickem_week_entry.user.name %></td>
-      <td><%= result.won %></td>
-      <td><%= result.lost %></td>
-      <td><%= result.tied %></td>
-      <td><%= result.tiebreak_distance %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="widget-box">
+  <div class="widget-title">
+    <h5>All Players</h5>
+  </div>
+  <div class="widget-content nopadding">
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Name</tH>
+          <th>Won</th>
+          <th>Lost</th>
+          <th>Tied</th>
+          <th>Monday Night Total Distance</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @current_week.pickem_entry_results.each do |result| %>
+        <tr>
+          <td><%= result.pickem_week_entry.user.name %></td>
+          <td><%= result.won %></td>
+          <td><%= result.lost %></td>
+          <td><%= result.tied %></td>
+          <td><%= result.tiebreak_distance %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
