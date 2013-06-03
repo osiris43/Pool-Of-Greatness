@@ -1,7 +1,13 @@
-<li class="admin_weekly_games">
-<a href='<%= modify_accounting_pickem_pool_path(@pool) %>'>
-    <h2>Modify Accounting Records</h2>
-    <p>Manage and update accounting records</p>
-  </a>
-</li>
+<div class="widget-box">
+  <div class="widget-title">
+    <h5>Update Account</h5>
+  </div>
+  <div class="widget-content">
+  Select a user to modify their accounting records
+  <%= form_tag(view_transactions_pickem_pool_path(@pool), :method => "get") do %>
+    <%= collection_select(:user, :id, @users, :id, :name) %>
+    <%= submit_tag("View Transactions") %>
+  <% end %>
+</div>
+</div>
 

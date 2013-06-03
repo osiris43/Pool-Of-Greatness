@@ -46,6 +46,13 @@
         <%end %>
       </ul>
       </li>
+      <% if (current_user.admin?) %>
+      <li class="<%= activate_sidebar("sites")%>">
+      <%= link_to appadmin_path do %>
+          <i class="icon icon-home"></i><span>Application Admin</span>
+          <% end %>
+          </li>
+          <% end %>
   </ul>
 
 </div>

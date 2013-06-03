@@ -1,8 +1,36 @@
-      <li>
-      <a href="<%= configure_pickem_pool_path(@pool) %>" >
-          <h2>Modify Pool Configuration</h2>
-          <p>Modify the rules of your pool including number of games, fees and deadlines.</p>
-        </a>
-      </li>
-
+<div class="widget-box">
+  <div class="widget-title">
+    <h5>Configuration</h5>
+  </div>
+  <div class="widget-content">
+    <%= form_tag({:controller => "pickem_pools", :action => "update"}, :method => "post", :class=>"form-horizontal") do %>
+      <div class="control-group">
+        <%= label_tag(:number_of_games, "Number of Weekly Games", :class=>"control-label") %>
+        <div class="controls">
+          <%= text_field_tag(:number_of_games) %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Include</label>
+          <div class="controls">
+            <label><input type="checkbox" name="college" />College</label>
+            <label><input type="checkbox" name="pro" />Pro</label>
+          </div>
+      </div>
+      <div class="control-group">
+        <%= label_tag(:weekly_fee, "Weekly Fee", :class=>"control-label") %>
+        <div class="controls">
+          <%= text_field_tag(:weekly_fee) %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= label_tag(:deadline, "Deadline", :class=> "control-label") %>
+        <div class="controls">
+          <%= text_field_tag(:weekly_fee,"", "data-date" => DateTime.now, "data-date-format" => "mm-dd-yyyy", :class=> "datepicker") %>
+        </div>
+      </div>
+      <p><%= submit_tag ("Save Config") %></p>
+    <% end %>
+  </div>
+</div>
 

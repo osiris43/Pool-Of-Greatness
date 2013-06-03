@@ -1,21 +1,49 @@
-<div class="container_12">
-  <%= render 'shared/flashpartial' %>
+  <div id="content-header">
+    <h1>Sports Pool Hub Administration</h1>
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <%= render 'shared/flashpartial' %>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="widget-box">
+        <div class="widget-title">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#tab1">Football Game Config</a></li>
+            <li><a data-toggle="tab" href="#tab2">Pools Configuration</a></li>
+            <li><a data-toggle="tab" href="#tab3">Masters Configuration</a></li>
+          </ul>
+        </div> <!-- title -->
+        <div class="widget-content tab-content">
+          <div id="tab1" class="tab-pane active">
+            <%= link_to "Games Admin", games_path %> 
+          </div>
+          <div id="tab2" class="tab-pane">
+            <%= link_to "Pool Templates", pool_templates_path %>
+          </div>
+          <div id="tab3" class="tab-pane">
+            <div id="new_masters_tournament">
+              <%= form_tag(:action => "create_masters_tournament", :method => 'post') do %>
+                <%= label_tag(:tournament_year, "Tournament Year") %>
+                <%= text_field_tag(:tournament_year) %><br />
+                <%= submit_tag("Create") %> 
+              <% end %>
+              <%= form_tag(:action => "upload_qualifiers", :html => {:multipart => true}) do %>
+                <%= label_tag(:year, "Tournament Year") %>
+                <%= text_field_tag :year %>
+                <%= file_field_tag :importfile %><br /><br />
+                <%= submit_tag "Process file" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
 
-  <%= link_to "Games Admin", games_path %> 
-  <%= link_to "Pool Templates", pool_templates_path %>
-  <div id="new_masters_tournament">
-    <%= form_tag(:action => "create_masters_tournament", :method => 'post') do %>
-      <%= label_tag(:tournament_year, "Tournament Year") %>
-      <%= text_field_tag(:tournament_year) %><br />
-      <%= submit_tag("Create") %> 
-    <% end %>
-    <%= form_tag(:action => "upload_qualifiers", :html => {:multipart => true}) do %>
-      <%= label_tag(:year, "Tournament Year") %>
-      <%= text_field_tag :year %>
-      <%= file_field_tag :importfile %><br /><br />
-      <%= submit_tag "Process file" %>
-    <% end %>
+      </div>
+      
+    </div>
   </div>
 
-</div>
+
 

@@ -73,7 +73,8 @@ class PickemPoolsController < ApplicationController
   def administer
     @pool = PickemPool.find(params[:id])
     @games = get_weekly_games(@pool.id)
-    @current_week = @pool.current_pickem_week 
+    @users = User.joins(:pickem_week_entries).all
+    @current_week = @pool.current_pickem_week
     @tiebreakGameId = -1
     if !@current_week.pickem_games.find_by_istiebreaker(true).nil?
       @tiebreakGameId = @current_week.pickem_games.find_by_istiebreaker(true).game_id
@@ -164,7 +165,6 @@ class PickemPoolsController < ApplicationController
   def modify_accounting
     @title = "Modify Accounting"
     @pool = PickemPool.find(params[:id])
-    @users = User.joins(:pickem_week_entries).all
   end
 
   def view_transactions

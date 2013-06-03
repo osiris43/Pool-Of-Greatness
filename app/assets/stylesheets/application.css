@@ -1,7 +1,10 @@
 /* ...
 *= require bootstrap/bootstrap
 *= require bootstrap/bootstrap-responsive
+*= require unicorn/datepicker
+*= require unicorn/colorpicker
 *= require unicorn/uniform
+*= require unicorn/select2
 *= require unicorn/unicorn.main
 *= require unicorn/unicorn.grey
 */

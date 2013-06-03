@@ -1,18 +1,33 @@
-<%= render 'shared/poolbanner' %>
-
-<div class="pickem_container container_12">
-  <%= render 'navigation' %>
-
-  <div class="adminactions">
-    <h1>Your Admin Dashboard</h1>
-    <div class="adminactions-body">
-      <ul>
-        <%= render 'modify_config' %>
-        <%= render 'pick_games' %>
-        <%= render 'modify_accounting' %>
-      </ul>
-
+<div id="content-header">
+  <h1>Admin Dashboard</h1>
+</div>
+<div class="container-fluid">
+  <%= render "navigation" %>
+  <div class="row-fluid">
+    <div class="span12">
+      <%= render 'shared/flashpartial' %>
     </div>
   </div>
-</div>
-  
+  <div class="row-fluid">
+    <div class="widget-box">
+      <div class="widget-title">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#tab1">Modify Configuration</a></li>
+          <li><a data-toggle="tab" href="#tab2">Select Weekly Games</a></li>
+          <li><a data-toggle="tab" href="#tab3">Modify Accounting</a></li>
+        </ul>
+      </div> <!-- title -->
+      <div class="widget-content tab-content">
+        <div id="tab1" class="tab-pane active">
+          <%= render 'modify_config' %>
+        </div>
+        <div id="tab2" class="tab-pane">
+          <%= render 'view_all_games' %>
+        </div>
+        <div id="tab3" class="tab-pane">
+          <%= render 'modify_accounting' %>
+        </div>
+      </div>
+    </div> <!-- widget-box -->
+  </div> <!-- row-fluid -->
+</div> <!-- container-fluid -->

@@ -1,14 +1,21 @@
-  <%= form_tag(create_games_pickem_pool_path(@pool), :method => "post") do %>
-  <table>
+<div class="widget-box">
+  <div class="widget-title">
+    <h5>Pick This Weeks Games</h5>
+  </div>
+  <div class="widget-content nopadding">
+<%= form_tag(create_games_pickem_pool_path(@pool), :method => "post") do %>
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
   <tr>
-    <td>Favorite</td>
-    <td>Line</td>
-    <td>Underdog</td>
-    <td>Game Date</td>
-    <td>Include?</td>
-    <td>Tiebreak Game</td>
+    <th>Favorite</th>
+    <th>Line</th>
+    <th>Underdog</th>
+    <th>Game Date</th>
+    <th>Include?</th>
+    <th>Tiebreak Game</th>
   </tr>
-
+</thead>
+<tbody>
   <% @games.each do |game| %>
     <%= fields_for "game[]", game do |f| %>
       <tr>
@@ -21,9 +28,12 @@
       </tr>
     <% end %>
   <% end %>
+</tbody>
 </table>
 
 <br /><br />
 <%= submit_tag("Save Games") %>
 <% end %>
+</div>
+</div>
 

@@ -23,7 +23,7 @@ div.uploader,
 div.uploader span.action,
 div.button,
 div.button span {
-  background-image: url(../img/sprite.png);
+  background-image: image_url("unicorn/sprite.png);"
   background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased;
 }

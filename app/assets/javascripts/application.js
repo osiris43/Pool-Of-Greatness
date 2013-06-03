@@ -4,6 +4,10 @@
 //= require underscore
 //= require backbone
 //= require bootstrap/bootstrap
+//= require unicorn/bootstrap-datepicker
+//= require unicorn/bootstrap-colorpicker
 //= require backbone/pool_of_greatness
 //= require jquery.uniform
+//= require unicorn/select2.min
 //= require unicorn/unicorn
+//= require unicorn/unicorn.form_common
