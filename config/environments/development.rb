@@ -20,8 +20,8 @@ Poolofgreatness::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'thesportspoolhub.com',
-    :user_name            => 'brett.bim',
-    :password             => '1MirPan!',
+    :user_name            => 'some_username',
+    :password             => 'some_password',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
   # Print deprecation notices to the Rails logger
